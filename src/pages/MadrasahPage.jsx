@@ -1,6 +1,7 @@
 import React from 'react';
 import MadrasahComponent from '../components/Madrasah';
 import ExternalCourses from '../components/ExternalCourses';
+import MadrasahEnrollment from '../components/MadrasahEnrollment';
 import PageHero from '../components/PageHero';
 
 const MadrasahPage = () => {
@@ -13,6 +14,8 @@ const MadrasahPage = () => {
             />
 
             <MadrasahComponent />
+
+            <MadrasahEnrollment />
 
             <ExternalCourses />
 

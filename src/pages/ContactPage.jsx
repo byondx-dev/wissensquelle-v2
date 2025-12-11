@@ -81,6 +81,14 @@ const ContactPage = () => {
         @media (max-width: 768px) {
             .contact-grid {
                 grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            .contact-info,
+            .contact-form {
+                padding: var(--spacing-md);
+            }
+            .contact-form button {
+                width: 100%;
             }
         }
       `}</style>

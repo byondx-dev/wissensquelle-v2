@@ -41,24 +41,33 @@ const Home = () => {
               <Link to="/madrasah" className="btn btn-primary">Madrasah starten</Link>
               <Link to="/fatawa" className="btn btn-secondary">Fatwā stellen</Link>
             </div>
-            <div className="hero-stats">
-              <div className="stat">
-                <span className="stat-number">200+</span>
-                <span className="stat-label">Fatāwā beantwortet</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number">4</span>
-                <span className="stat-label">Studienstufen</span>
-              </div>
-              <div className="stat">
-                <span className="stat-number">12+</span>
-                <span className="stat-label">Gelehrte & Dozenten</span>
-              </div>
-            </div>
             <div className="hero-trust">
               <span className="pill trust-pill">Kuratiert von Gelehrten</span>
               <span className="pill trust-pill">Klare Prozesse</span>
               <span className="pill trust-pill">Transparente Quellen</span>
+            </div>
+
+            <div className="hero-shortcuts">
+              <Link to="/fatawa" className="shortcut-card">
+                <span className="shortcut-kicker">Fatwā</span>
+                <strong>Frage stellen</strong>
+                <small>Schneller Zugang zum Formular</small>
+              </Link>
+              <Link to="/dar-al-ifta" className="shortcut-card">
+                <span className="shortcut-kicker">Dār al-Iftā’</span>
+                <strong>Gremium</strong>
+                <small>Mandat & Prozesse</small>
+              </Link>
+              <Link to="/madrasah" className="shortcut-card">
+                <span className="shortcut-kicker">Madrasah</span>
+                <strong>Studienpfad</strong>
+                <small>Curriculum & Slots</small>
+              </Link>
+              <Link to="/scholars" className="shortcut-card">
+                <span className="shortcut-kicker">Gelehrte</span>
+                <strong>Team</strong>
+                <small>Profile & Rollen</small>
+              </Link>
             </div>
             <div className="scroll-cue">
               <span className="cue-line" />
@@ -244,8 +253,8 @@ const Home = () => {
           content: '';
           position: absolute;
           inset: -10%;
-          background: url(${heroBg}) center center / cover no-repeat;
-          opacity: 0.5;
+          background: url(${heroBg}) center center / 90% no-repeat;
+          opacity: 0.6;
           mix-blend-mode: multiply;
           filter: saturate(1.05);
         }
@@ -257,7 +266,7 @@ const Home = () => {
           background:
             radial-gradient(circle at 18% 25%, rgba(212, 175, 55, 0.18), transparent 35%),
             radial-gradient(circle at 80% 18%, rgba(44, 36, 27, 0.12), transparent 35%),
-            linear-gradient(90deg, rgba(249, 247, 242, 0.92) 0%, rgba(249, 247, 242, 0.46) 45%, rgba(249, 247, 242, 0.92) 100%);
+            linear-gradient(90deg, rgba(249, 247, 242, 0.88) 0%, rgba(249, 247, 242, 0.38) 45%, rgba(249, 247, 242, 0.9) 100%);
           z-index: 0;
         }
 
@@ -337,7 +346,7 @@ const Home = () => {
 
         .hero-trust {
           display: flex;
-          gap: 0.5rem;
+          gap: 0.75rem;
           flex-wrap: wrap;
           margin-top: var(--spacing-sm);
         }
@@ -375,11 +384,44 @@ const Home = () => {
           letter-spacing: 1px;
         }
 
-        .hero-stats {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-          gap: var(--spacing-sm);
+        .hero-shortcuts {
+          display: none;
           margin: var(--spacing-sm) 0 var(--spacing-md);
+          gap: 0.75rem;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .shortcut-card {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          padding: 0.85rem;
+          border-radius: var(--radius-md);
+          background: rgba(255, 255, 255, 0.82);
+          border: 1px solid var(--color-border);
+          box-shadow: var(--shadow-sm);
+          font-weight: 600;
+        }
+
+        .shortcut-card:hover {
+          border-color: var(--color-gold-end);
+          box-shadow: var(--shadow-md);
+        }
+
+        .shortcut-kicker {
+          font-size: 0.75rem;
+          letter-spacing: 0.6px;
+          text-transform: uppercase;
+          color: var(--color-text-secondary);
+        }
+
+        .shortcut-card strong {
+          color: var(--color-text-primary);
+          font-size: 1.05rem;
+        }
+
+        .shortcut-card small {
+          color: var(--color-text-secondary);
         }
 
         .stat {
@@ -1106,6 +1148,10 @@ const Home = () => {
             position: static;
             width: 100%;
             margin-top: var(--spacing-xs);
+          }
+
+          .hero-shortcuts {
+            display: grid;
           }
 
           .about-shell {

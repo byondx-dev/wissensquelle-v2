@@ -39,6 +39,14 @@ const AboutPage = () => {
             line-height: 1.8;
             margin-bottom: var(--spacing-md);
         }
+
+        @media (max-width: 768px) {
+          .about-content {
+            max-width: 100%;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+          }
+        }
       `}</style>
         </div>
     );

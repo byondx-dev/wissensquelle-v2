@@ -78,14 +78,14 @@ const Fatawa = () => {
 
                 <div className="fatawa-grid">
                     {filteredFatawa.map(item => (
-                        <article key={item.id} className="fatawa-card">
+                    <article key={item.id} className="fatawa-card">
                             <div className="card-content">
                                 <span className="card-category">{item.category}</span>
                                 <h3 className="card-title">{item.title}</h3>
                                 <p className="card-summary">{item.summary}</p>
                                 <div className="card-footer">
                                     <span className="card-date">{item.date}</span>
-                                    <a href="#" className="read-more">Weiterlesen →</a>
+                                    <a href={`/fatawa/${item.id}`} className="read-more">Weiterlesen →</a>
                                 </div>
                             </div>
                         </article>

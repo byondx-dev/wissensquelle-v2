@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import logoImg from '../assets/logo.png';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [fatawaIndex, setFatawaIndex] = useState(0);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
+  const closeButtonRef = useRef(null);
 
   const navLinks = [
     { name: 'Startseite', href: '/' },
@@ -30,384 +17,761 @@ const Header = () => {
     { name: 'Über uns', href: '/about' },
   ];
 
-  const isTransparent = !isScrolled && !isHovered && !isMenuOpen && location.pathname === '/';
+  const fatawaSlides = [
+    {
+      id: 1,
+      title: 'Ist Bitcoin im Islam erlaubt?',
+      category: 'Wirtschaft & Finanzen',
+      summary: 'Kryptowährungen im Lichte moderner Finanzinstrumente und islamischer Prinzipien.',
+    },
+    {
+      id: 2,
+      title: 'Gebet auf der Arbeit verrichten',
+      category: 'Glaube & Gottesdienste',
+      summary: 'Wie sich Salah und Berufsalltag vereinbaren lassen – praktische Erleichterungen.',
+    },
+    {
+      id: 3,
+      title: 'Heiraten ohne Wali?',
+      category: 'Ehe & Familie',
+      summary: 'Voraussetzungen einer gültigen Ehe und die Rolle des Vormunds im Detail.',
+    },
+  ];
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  useEffect(() => {
+    if (isMenuOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+    const interval = setInterval(() => {
+      setFatawaIndex((prev) => (prev + 1) % fatawaSlides.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isMenuOpen]);
+
+  const siteTitle =
+    document?.title && document.title !== 'Vite + React'
+      ? document.title
+      : 'Wissensquelle';
+  const userInitial = siteTitle?.charAt(0)?.toUpperCase() || 'W';
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
-    <motion.header
-      className={`header ${isTransparent ? 'header-transparent' : 'header-white'}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <div className="container-fluid">
-        <div className="header-content">
+    <header className="top-shell">
+      <div className="header-surface">
+        <button
+          className={`burger anchor ${isMenuOpen ? 'is-open' : ''}`}
+          type="button"
+          aria-label="Menü öffnen"
+          aria-expanded={isMenuOpen}
+          onClick={toggleMenu}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
 
-          {/* Div 1: Navigation (Left) */}
-          <nav className="desktop-nav">
-            <ul className="nav-list">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <NavLink
-                    to={link.href}
-                    className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-                  >
-                    {link.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Div 2: Logo (Center) */}
-          <div className="logo-wrapper">
-            <Link to="/" className="logo-link">
-              <img src={logoImg} alt="Wissensquelle Logo" className="logo-image" />
-            </Link>
-          </div>
-
-          {/* Div 3: Actions (Right) */}
-          <div className="header-actions">
-            <Link to="/contact" className="action-link">
-              Frage stellen
-            </Link>
-            <Link to="/madrasah" className="btn btn-primary btn-sm">
-              Anmeldung Madrasah
-            </Link>
-            <Link to="/login" className="action-link login-link">
-              Login
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              className="mobile-menu-btn"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <span className={`hamburger ${isMenuOpen ? 'open' : ''}`}></span>
-            </button>
-          </div>
-
+        <div className="brand-area">
+          <Link to="/" className="brand-link" aria-label={`${siteTitle} Start`}>
+            <div className="logo-badge">
+              <img src={logoImg} alt={`${siteTitle} Logo`} />
+            </div>
+            <div className="brand-copy">
+              <span className="brand-title">{siteTitle}</span>
+              <span className="brand-sub">Manba&apos; al-&apos;Ilm</span>
+            </div>
+          </Link>
         </div>
-      </div>
 
-      {/* Mobile Navigation Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <nav className="mobile-nav">
-              {navLinks.map((link) => (
+        <nav className="desktop-nav" aria-label="Hauptnavigation">
+          <ul className="nav-list">
+            {navLinks.map((link) => (
+              <li key={link.name} className="nav-item">
                 <NavLink
-                  key={link.name}
                   to={link.href}
-                  className="mobile-nav-link"
+                  className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
                 >
                   {link.name}
                 </NavLink>
-              ))}
-              <hr className="mobile-divider" />
-              <Link to="/contact" className="mobile-nav-link">Frage stellen</Link>
-              <Link to="/madrasah" className="mobile-nav-link highlight">Anmeldung Madrasah</Link>
-              <Link to="/login" className="mobile-nav-link">Schüler Login</Link>
-            </nav>
-          </motion.div>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="action-area">
+          <button className="icon-btn" type="button" aria-label="Suche öffnen">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="6" strokeWidth="1.8" />
+              <line x1="16" y1="16" x2="21" y2="21" strokeWidth="1.8" />
+            </svg>
+          </button>
+          <Link className="icon-btn" to="/login" aria-label="Zum Login">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="4.2" strokeWidth="1.8" fill="none" />
+              <path
+                d="M5.5 19.5c1.5-3 4-4.5 6.5-4.5s5 1.5 6.5 4.5"
+                strokeWidth="1.8"
+                fill="none"
+              />
+            </svg>
+          </Link>
+          <div className="avatar-shell" role="img" aria-label="Nutzerprofil">
+            <span className="avatar-initial">{userInitial}</span>
+          </div>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div
+              className="mobile-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.aside
+              className="mobile-drawer"
+              initial={{ x: '-100%', opacity: 0 }}
+              animate={{ x: '0%', opacity: 1 }}
+              exit={{ x: '-100%', opacity: 0 }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              aria-label="Mobiles Menü"
+            >
+              <div className="drawer-top">
+                <div className="drawer-brand">
+                  <div className="logo-badge small">
+                    <img src={logoImg} alt={`${siteTitle} Logo`} />
+                  </div>
+                  <span className="brand-title">{siteTitle}</span>
+                </div>
+                <button
+                  className="close-btn"
+                  type="button"
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-label="Mobiles Menü schließen"
+                  ref={closeButtonRef}
+                >
+                  <span />
+                  <span />
+                </button>
+              </div>
+
+              <nav className="mobile-nav" aria-label="Mobile Navigation">
+                {navLinks.map((link) => (
+                  <NavLink
+                    key={link.name}
+                    to={link.href}
+                    className={({ isActive }) =>
+                      isActive ? 'mobile-link active' : 'mobile-link'
+                    }
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </NavLink>
+                ))}
+              </nav>
+
+              <div className="drawer-slider" aria-label="Aktuelle Fatāwā">
+                <div className="slider-head">
+                  <span className="slider-label">Neueste Fatāwā</span>
+                </div>
+                <div className="slider-window">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={fatawaIndex}
+                      className="slider-card"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.28, ease: 'easeOut' }}
+                    >
+                      <span className="slider-category">{fatawaSlides[fatawaIndex].category}</span>
+                      <h4 className="slider-title">{fatawaSlides[fatawaIndex].title}</h4>
+                      <p className="slider-summary">{fatawaSlides[fatawaIndex].summary}</p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+                <div className="slider-dots" role="tablist" aria-label="Fatāwā wechseln">
+                  {fatawaSlides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`dot ${idx === fatawaIndex ? 'active' : ''}`}
+                      onClick={() => setFatawaIndex(idx)}
+                      aria-label={`Fatāwā ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <p className="drawer-footnote">Wissen mit Klarheit und Ruhe.</p>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
 
       <style>{`
-        .header {
+        .top-shell {
           position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
+          inset: 0 0 auto 0;
+          padding: 10px 18px 0;
           z-index: 1000;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          padding: 1.25rem 0;
-          border-bottom: 1px solid transparent;
+          display: flex;
+          justify-content: center;
+          pointer-events: auto;
+          background: transparent;
         }
 
-        .container-fluid {
-          width: 100%;
-          padding: 0; 
-          max-width: 100%;
-        }
-
-        /* Transparent State */
-        .header-transparent {
-          background-color: transparent;
-          color: var(--color-text-primary);
-        }
-
-        /* White State (Hover/Scroll) */
-        .header-white {
-          background-color: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          color: var(--color-text-primary);
-          padding: 0.75rem 0;
-          box-shadow: 0 4px 30px rgba(0,0,0,0.03);
-          border-bottom: 1px solid var(--color-border-light);
-        }
-
-        .header-content {
+        .header-surface {
+          width: min(96vw, 1260px);
+          height: 70px;
+          background: rgba(255, 255, 255, 0.86);
+          border-radius: 18px 18px 16px 16px;
+          box-shadow: 0 12px 32px rgba(20, 46, 75, 0.12), inset 0 -1px 0 rgba(15, 92, 110, 0.04);
+          border: 1px solid rgba(9, 59, 82, 0.07);
           display: grid;
-          grid-template-columns: 1fr auto 1fr;
+          grid-template-columns: auto 1fr auto;
           align-items: center;
-          width: 100%;
+          padding: 0 18px;
+          gap: 16px;
+          pointer-events: auto;
+          position: relative;
+          overflow: hidden;
         }
 
-        /* Div 1: Navigation */
+        .header-surface::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(255, 255, 255, 0)),
+                      linear-gradient(90deg, rgba(196, 155, 44, 0.07), rgba(255, 255, 255, 0));
+          opacity: 0.95;
+          pointer-events: none;
+        }
+
+        .brand-area {
+          display: flex;
+          align-items: center;
+        }
+
+        .brand-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          color: #0b3141;
+        }
+
+        .logo-badge {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          display: grid;
+          place-items: center;
+          overflow: hidden;
+        }
+
+        .logo-badge img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
+        .logo-badge.small {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+        }
+
+        .brand-copy {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.1;
+          gap: 2px;
+        }
+
+        .brand-title {
+          font-weight: 800;
+          font-size: 1.05rem;
+          letter-spacing: 0.02em;
+          color: #0a2d3c;
+        }
+
+        .brand-sub {
+          font-size: 0.75rem;
+          color: #4f6b7a;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
         .desktop-nav {
-          justify-self: start;
-          padding-left: 5%; 
+          display: flex;
+          justify-content: center;
         }
 
         .nav-list {
-          display: flex;
-          gap: clamp(1.5rem, 3vw, 2.5rem);
           list-style: none;
-          margin: 0;
-          padding: 0;
+          display: flex;
+          gap: 18px;
+          align-items: center;
         }
 
         .nav-link {
-          text-decoration: none;
-          color: inherit;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-weight: 500;
           position: relative;
-          transition: color 0.3s;
-          white-space: nowrap;
-          padding: 0.5rem 0;
+          color: #50616d;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          font-size: 0.97rem;
+          padding: 0.35rem 0.45rem;
+          transition: color 0.22s ease;
+        }
+
+        .nav-link:hover {
+          color: #0d6a7d;
         }
 
         .nav-link::after {
           content: '';
           position: absolute;
-          bottom: 0px;
-          left: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -10px;
           width: 0;
-          height: 2px;
-          background: var(--color-gold-gradient);
-          transition: width 0.3s ease;
+          height: 3px;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #0f8199 0%, #c6a043 100%);
+          transition: width 0.22s ease;
         }
 
-        .nav-link:hover::after,
+        .nav-link.active {
+          color: #0a4f60;
+          font-weight: 700;
+        }
+
         .nav-link.active::after {
-          width: 100%;
-        }
-        
-        .nav-link:hover {
-          color: var(--color-text-primary);
+          width: 72%;
         }
 
-        /* Div 2: Logo */
-        .logo-wrapper {
-          justify-self: center;
-          text-align: center;
-        }
-
-        .logo-link {
-          display: block;
-          line-height: 0;
-        }
-
-        .logo-image {
-          height: 70px;
-          width: auto;
-          object-fit: contain;
-          transition: height 0.3s ease;
-        }
-        
-        .header-white .logo-image {
-          height: 60px;
-        }
-
-        /* Div 3: Actions */
-        .header-actions {
-          justify-self: end;
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-          padding-right: 5%; 
-        }
-
-        .action-link {
-          text-decoration: none;
-          color: inherit;
-          font-size: 0.9rem;
-          font-weight: 600;
-          transition: color 0.3s;
-          white-space: nowrap;
-        }
-        
-        .action-link:hover {
-          color: var(--color-gold-end);
-        }
-        
-        .btn-sm {
-          padding: 0.6rem 1.5rem;
-          font-size: 0.85rem;
-        }
-        
-        .login-link {
-            opacity: 0.7;
-            font-size: 0.85rem;
-        }
-        
-        .login-link:hover {
-          opacity: 1;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-          display: none;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 10px;
-          color: inherit;
-          margin-left: 10px;
-        }
-
-        .hamburger {
-          display: block;
-          width: 24px;
-          height: 2px;
-          background-color: currentColor;
-          position: relative;
-          transition: background-color 0.3s;
-        }
-
-        .hamburger::before,
-        .hamburger::after {
+        .nav-link.active::before {
           content: '';
           position: absolute;
-          width: 100%;
-          height: 2px;
-          background-color: currentColor;
-          left: 0;
-          transition: transform 0.3s;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          bottom: -16px;
+          width: 10px;
+          height: 10px;
+          background: #0f8199;
+          opacity: 0.9;
+          border-radius: 2px;
         }
 
-        .hamburger::before { top: -8px; }
-        .hamburger::after { bottom: -8px; }
+        .action-area {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
 
-        .hamburger.open { background-color: transparent; }
-        .hamburger.open::before { transform: rotate(45deg); top: 0; }
-        .hamburger.open::after { transform: rotate(-45deg); bottom: 0; }
+        .icon-btn {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          border: 1px solid rgba(8, 70, 92, 0.12);
+          background: linear-gradient(145deg, #f8fbfc, #eef3f7);
+          color: #0c3c4e;
+          display: grid;
+          place-items: center;
+          transition: all 0.22s ease;
+          box-shadow: 0 4px 12px rgba(12, 60, 78, 0.14);
+        }
 
-        .mobile-menu {
+        .icon-btn:hover {
+          transform: translateY(-1px) scale(1.02);
+          color: #0f8199;
+          box-shadow: 0 10px 20px rgba(12, 80, 110, 0.16);
+        }
+
+        .icon-btn svg {
+          width: 18px;
+          height: 18px;
+          stroke: currentColor;
+          fill: none;
+        }
+
+        .avatar-shell {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #0f8199, #0a4f60);
+          display: grid;
+          place-items: center;
+          color: #fff;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          box-shadow: 0 8px 20px rgba(10, 79, 96, 0.28);
+        }
+
+        .burger {
+          display: none;
+          width: 42px;
+          height: 42px;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          padding: 0;
+          gap: 5px;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .burger.anchor {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 2;
+          pointer-events: auto;
+        }
+
+        .burger span {
+          display: block;
+          width: 18px;
+          height: 2.5px;
+          background: linear-gradient(90deg, #0f8199, #0a4f60);
+          border-radius: 12px;
+          transition: transform 0.22s ease, opacity 0.22s ease;
+        }
+
+        .burger.is-open span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+
+        .burger.is-open span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .burger.is-open span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-overlay {
           position: fixed;
-          top: 78px;
-          left: 0;
-          width: 100%;
-          max-height: calc(100vh - 90px);
-          overflow-y: auto;
-          background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(249,247,242,0.95) 55%, rgba(255,255,255,0.92) 100%);
-          backdrop-filter: blur(14px);
-          padding: var(--spacing-lg) var(--spacing-md);
-          box-shadow: 0 18px 50px rgba(0,0,0,0.14);
-          border-top: 1px solid var(--color-border);
-          border-radius: 0 0 24px 24px;
-          z-index: 999;
+          inset: 0;
+          background: rgba(8, 24, 36, 0.45);
+          backdrop-filter: blur(4px);
+          z-index: 1300;
+          pointer-events: auto;
+        }
+
+        .mobile-drawer {
+          position: fixed;
+          inset: 0 auto 0 0;
+          width: 78vw;
+          max-width: 360px;
+          background: linear-gradient(180deg, #ffffff 0%, #f3f9fb 50%, #e9f4f6 100%);
+          box-shadow: 10px 0 30px rgba(8, 24, 36, 0.14);
+          border-right: 1px solid rgba(12, 60, 78, 0.08);
+          padding: 20px 18px 24px;
+          z-index: 1400;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          pointer-events: auto;
+        }
+
+        .mobile-drawer::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(circle at 12% 20%, rgba(15, 129, 153, 0.12), transparent 28%),
+                            radial-gradient(circle at 90% 14%, rgba(196, 160, 67, 0.18), transparent 24%);
+          pointer-events: none;
+        }
+
+        .drawer-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+          z-index: 1;
+        }
+
+        .drawer-brand {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #0a2d3c;
+          font-weight: 800;
+        }
+
+        .close-btn {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          background: linear-gradient(145deg, #eef3f7, #ffffff);
+          border: 1px solid rgba(12, 60, 78, 0.12);
+          display: grid;
+          place-items: center;
+          position: relative;
+        }
+
+        .close-btn span {
+          position: absolute;
+          width: 18px;
+          height: 2px;
+          background: #0a4f60;
+          border-radius: 999px;
+        }
+
+        .close-btn span:nth-child(1) {
+          transform: rotate(45deg);
+        }
+
+        .close-btn span:nth-child(2) {
+          transform: rotate(-45deg);
         }
 
         .mobile-nav {
           display: flex;
           flex-direction: column;
-          gap: var(--spacing-sm);
+          gap: 8px;
+          position: relative;
+          z-index: 1;
         }
 
-        .mobile-nav-link {
+        .mobile-link {
+          padding: 14px 14px;
+          border-radius: 12px;
+          background: #ffffff;
+          border: 1px solid rgba(12, 60, 78, 0.08);
+          color: #0b3141;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          box-shadow: 0 8px 16px rgba(8, 24, 36, 0.08);
+          transition: all 0.22s ease;
+          position: relative;
+        }
+
+        .mobile-link:hover {
+          transform: translateX(4px);
+          border-color: #0f8199;
+          color: #0f8199;
+        }
+
+        .mobile-link.active {
+          border-color: #0f8199;
+          background: linear-gradient(90deg, rgba(15, 129, 153, 0.08), rgba(196, 160, 67, 0.08));
+          color: #0a4f60;
+          box-shadow: 0 10px 22px rgba(12, 80, 110, 0.12);
+        }
+
+        .mobile-link.active::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 70%;
+          border-radius: 0 4px 4px 0;
+          background: linear-gradient(180deg, #0f8199, #c6a043);
+        }
+
+        .drawer-slider {
+          margin-top: 8px;
+          padding: 12px 10px 6px;
+          background: linear-gradient(145deg, #f8fbfc, #eef4f7);
+          border-radius: 14px;
+          border: 1px solid rgba(12, 60, 78, 0.08);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 8px 18px rgba(8,24,36,0.08);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .slider-head {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 0.5rem;
-          font-size: 1.05rem;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .slider-label {
+          font-size: 0.9rem;
           font-weight: 700;
-          color: var(--color-text-primary);
-          text-decoration: none;
-          padding: 0.9rem 1.1rem;
-          border-radius: var(--radius-md);
-          border: 1px solid var(--color-border);
-          background: #fff;
-          box-shadow: var(--shadow-sm);
-          transition: all 0.3s ease;
-        }
-        
-        .mobile-nav-link::after {
-          content: '→';
-          font-size: 0.95rem;
-          color: var(--color-text-secondary);
-        }
-        
-        .mobile-nav-link:hover {
-          transform: translateY(-2px);
-          border-color: var(--color-gold-end);
-          box-shadow: var(--shadow-md);
-          color: var(--color-text-primary);
-        }
-        
-        .mobile-nav-link.highlight {
-          background: var(--color-gold-gradient);
-          color: #fff;
-          border-color: transparent;
-          box-shadow: var(--shadow-md);
-        }
-        
-        .mobile-nav-link.highlight::after {
-          color: #fff;
-        }
-        
-        .mobile-divider {
-          border: 0;
-          border-top: 1px solid var(--color-border);
-          margin: var(--spacing-md) 0;
-          opacity: 0.6;
+          letter-spacing: 0.02em;
+          color: #0a2d3c;
         }
 
-        @media (max-width: 1200px) {
-           .nav-list { gap: 1.5rem; }
+        .slider-window {
+          min-height: 96px;
+          position: relative;
         }
 
-        @media (max-width: 1024px) {
-          .desktop-nav { display: none; }
-          .mobile-menu-btn { display: block; }
-          
-          .header-content {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
+        .slider-card {
+          background: #ffffff;
+          border: 1px solid rgba(12, 60, 78, 0.08);
+          border-radius: 12px;
+          padding: 10px 12px;
+          box-shadow: 0 8px 18px rgba(8, 24, 36, 0.08);
+        }
+
+        .slider-category {
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 999px;
+          background: rgba(15, 129, 153, 0.12);
+          color: #0a4f60;
+          font-weight: 700;
+          font-size: 0.78rem;
+          margin-bottom: 6px;
+        }
+
+        .slider-title {
+          font-size: 1rem;
+          margin: 0 0 4px;
+          color: #0a2d3c;
+        }
+
+        .slider-summary {
+          font-size: 0.9rem;
+          color: #4f6b7a;
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        .slider-dots {
+          display: flex;
+          gap: 8px;
+          margin-top: 8px;
+          justify-content: center;
+        }
+
+        .slider-dots .dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(10, 79, 96, 0.25);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .slider-dots .dot.active {
+          width: 18px;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #0f8199, #c6a043);
+        }
+
+        .drawer-footnote {
+          margin-top: auto;
+          font-size: 0.85rem;
+          color: #4f6b7a;
+          padding: 10px 6px 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        @media (max-width: 980px) {
+          .desktop-nav {
+            display: none;
           }
-          
-          .logo-wrapper {
+
+          .burger {
+            display: grid;
+          }
+
+          .header-surface {
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            justify-content: center;
+            width: min(94vw, 640px);
+          }
+
+          .action-area {
+            margin-left: auto;
+          }
+
+          .brand-area {
+            justify-content: center;
+            width: 100%;
+          }
+
+          .brand-copy {
+            display: none;
+          }
+
+          .logo-badge {
+            width: 42px;
+            height: 42px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .top-shell {
+            padding: 10px 12px 0;
+          }
+
+          .header-surface {
+            height: 66px;
+            padding: 0 12px;
+            width: calc(100% - 32px);
+            grid-template-columns: 1fr auto;
+            position: relative;
+          }
+
+          .burger.anchor {
+            left: 12px;
+          }
+
+          .action-area {
+            gap: 8px;
+            justify-content: flex-end;
+          }
+
+          .brand-area {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            justify-content: center;
           }
-          
-          .header-actions {
-            padding-right: 0;
+
+          .brand-link {
+            justify-content: center;
           }
-          
-          .action-link, .btn { display: none; } /* Hide desktop actions on mobile */
-          .mobile-menu-btn { display: block; } /* Show menu button */
-          
-          .logo-image { height: 50px; } 
-          .header-white .logo-image { height: 45px; }
+
+          .icon-btn {
+            width: 34px;
+            height: 34px;
+          }
+
+          .avatar-shell {
+            display: none;
+          }
+
+          .logo-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+          }
         }
       `}</style>
-    </motion.header>
+    </header>
   );
 };
 

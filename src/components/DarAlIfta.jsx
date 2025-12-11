@@ -164,9 +164,22 @@ const DarAlIfta = () => {
           .visual-col {
             order: -1;
             margin-bottom: var(--spacing-lg);
+            width: 100%;
           }
           .arch-window {
             height: 400px;
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .dar-al-ifta {
+            background:
+              linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.6)),
+              url(${mosqueImg}) center/cover no-repeat;
+          }
+          .arch-window {
+            height: 360px;
           }
         }
       `}</style>
