@@ -308,40 +308,72 @@ const Header = () => {
 
         .mobile-menu {
           position: fixed;
-          top: 80px;
+          top: 78px;
           left: 0;
           width: 100%;
-          background-color: #FFFFFF;
+          max-height: calc(100vh - 90px);
+          overflow-y: auto;
+          background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(249,247,242,0.95) 55%, rgba(255,255,255,0.92) 100%);
+          backdrop-filter: blur(14px);
           padding: var(--spacing-lg) var(--spacing-md);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          box-shadow: 0 18px 50px rgba(0,0,0,0.14);
           border-top: 1px solid var(--color-border);
-          overflow: hidden;
+          border-radius: 0 0 24px 24px;
+          z-index: 999;
         }
 
         .mobile-nav {
           display: flex;
           flex-direction: column;
-          gap: var(--spacing-md);
-          text-align: center;
+          gap: var(--spacing-sm);
         }
 
         .mobile-nav-link {
-          font-size: 1.25rem;
-          font-family: 'Amiri', serif;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.5rem;
+          font-size: 1.05rem;
+          font-weight: 700;
           color: var(--color-text-primary);
           text-decoration: none;
-          padding: 5px;
+          padding: 0.9rem 1.1rem;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-border);
+          background: #fff;
+          box-shadow: var(--shadow-sm);
+          transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link::after {
+          content: '→';
+          font-size: 0.95rem;
+          color: var(--color-text-secondary);
+        }
+        
+        .mobile-nav-link:hover {
+          transform: translateY(-2px);
+          border-color: var(--color-gold-end);
+          box-shadow: var(--shadow-md);
+          color: var(--color-text-primary);
         }
         
         .mobile-nav-link.highlight {
-            color: var(--color-gold-end);
-            font-weight: bold;
+          background: var(--color-gold-gradient);
+          color: #fff;
+          border-color: transparent;
+          box-shadow: var(--shadow-md);
+        }
+        
+        .mobile-nav-link.highlight::after {
+          color: #fff;
         }
         
         .mobile-divider {
-            border: 0;
-            border-top: 1px solid var(--color-border);
-            margin: var(--spacing-sm) 0;
+          border: 0;
+          border-top: 1px solid var(--color-border);
+          margin: var(--spacing-md) 0;
+          opacity: 0.6;
         }
 
         @media (max-width: 1200px) {

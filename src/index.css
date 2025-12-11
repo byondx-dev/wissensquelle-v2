@@ -168,3 +168,99 @@ button {
     transform: translateY(0);
   }
 }
+
+/* Shared page hero */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.12), transparent 35%),
+              radial-gradient(circle at 80% 10%, rgba(26, 21, 16, 0.12), transparent 40%),
+              var(--color-text-primary);
+  color: #fff;
+  padding: clamp(120px, 16vh, 200px) 0 var(--spacing-lg);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.4) 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.page-hero-orb {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.page-hero-orb.orb-a {
+  width: 320px;
+  height: 320px;
+  background: rgba(212, 175, 55, 0.35);
+  top: -60px;
+  left: 10%;
+}
+
+.page-hero-orb.orb-b {
+  width: 260px;
+  height: 260px;
+  background: rgba(255, 255, 255, 0.08);
+  bottom: -40px;
+  right: 12%;
+}
+
+.page-hero-orb.orb-c {
+  width: 180px;
+  height: 180px;
+  background: rgba(133, 107, 36, 0.5);
+  top: 30%;
+  right: 35%;
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.page-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #f8f6f2;
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-title {
+  color: var(--color-gold-start);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  margin-bottom: var(--spacing-xs);
+}
+
+.page-subtitle {
+  color: #E5E0D8;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 120px 0 var(--spacing-md);
+    text-align: center;
+  }
+  .page-subtitle {
+    font-size: 1rem;
+  }
+}

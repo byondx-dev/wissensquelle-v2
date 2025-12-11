@@ -1,17 +1,20 @@
 import React from 'react';
 import MadrasahComponent from '../components/Madrasah';
+import ExternalCourses from '../components/ExternalCourses';
+import PageHero from '../components/PageHero';
 
 const MadrasahPage = () => {
     return (
         <div className="page-madrasah">
-            <div className="page-header">
-                <div className="container">
-                    <h1 className="page-title">Online Madrasah</h1>
-                    <p className="page-subtitle">Strukturiertes islamisches Wissen für jeden</p>
-                </div>
-            </div>
+            <PageHero
+                eyebrow="Studienpfad"
+                title="Online Madrasah"
+                subtitle="Strukturiertes islamisches Wissen für jeden"
+            />
 
             <MadrasahComponent />
+
+            <ExternalCourses />
 
             <section className="section container">
                 <h2 className="section-title text-center">Häufige Fragen</h2>
@@ -28,21 +31,6 @@ const MadrasahPage = () => {
             </section>
 
             <style>{`
-        .page-header {
-          background-color: var(--color-text-primary);
-          color: #fff;
-          padding: var(--spacing-lg) 0;
-          text-align: center;
-          margin-bottom: var(--spacing-lg);
-        }
-        .page-title {
-          color: var(--color-gold-start);
-          font-size: 3rem;
-        }
-        .page-subtitle {
-          color: #E5E0D8;
-          font-size: 1.2rem;
-        }
         .faq-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

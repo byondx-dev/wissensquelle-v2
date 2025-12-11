@@ -1,14 +1,14 @@
 import React from 'react';
+import PageHero from '../components/PageHero';
 
 const AboutPage = () => {
     return (
         <div className="page-about">
-            <div className="page-header">
-                <div className="container">
-                    <h1 className="page-title">Über uns</h1>
-                    <p className="page-subtitle">Unsere Mission und Vision</p>
-                </div>
-            </div>
+            <PageHero
+                eyebrow="Organisation"
+                title="Über uns"
+                subtitle="Unsere Mission und Vision"
+            />
 
             <div className="container section">
                 <div className="about-content">
@@ -21,21 +21,6 @@ const AboutPage = () => {
             </div>
 
             <style>{`
-        .page-header {
-          background-color: var(--color-text-primary);
-          color: #fff;
-          padding: var(--spacing-lg) 0;
-          text-align: center;
-          margin-bottom: var(--spacing-lg);
-        }
-        .page-title {
-          color: var(--color-gold-start);
-          font-size: 3rem;
-        }
-        .page-subtitle {
-          color: #E5E0D8;
-          font-size: 1.2rem;
-        }
         .about-content {
             max-width: 800px;
             margin: 0 auto;
