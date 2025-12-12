@@ -1185,11 +1185,12 @@ const Header = () => {
           }
 
           .search-dropdown {
-            top: 54px;
-            left: 50%;
+            position: fixed;
+            top: 82px;
+            left: 50vw;
             right: auto;
             transform: translateX(-50%);
-            width: min(92vw, 360px);
+            width: min(88vw, 320px);
             box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
             border-radius: 16px;
             margin-left: 0;
