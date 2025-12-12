@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import heroBg from '../assets/hero-bg.png';
 import darLogo from '../assets/daralifta-logo.jpg';
 import madrasahLogo from '../assets/madrasah-logo.jpg';

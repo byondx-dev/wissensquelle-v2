@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import mosqueImg from '../assets/mosque.png';
 
 const DarAlIfta = () => {

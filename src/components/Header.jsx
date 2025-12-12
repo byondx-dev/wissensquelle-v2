@@ -1,23 +1,175 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import logoImg from '../assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [fatawaIndex, setFatawaIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [highlightIndex, setHighlightIndex] = useState(0);
+  const searchBoxRef = useRef(null);
+  const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
   const closeButtonRef = useRef(null);
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: 'Startseite', href: '/' },
     { name: 'Fatāwā', href: '/fatawa' },
     { name: 'Madrasah', href: '/madrasah' },
     { name: 'Dār al-Iftā’', href: '/dar-al-ifta' },
     { name: 'Gelehrte', href: '/scholars' },
     { name: 'Über uns', href: '/about' },
-  ];
+  ], []);
+
+  const searchIndex = useMemo(() => {
+    const madrasahCourses = [
+      { id: 'vorklasse', title: 'Vorklasse', desc: 'Grundlagen, Adab, Aqīdah, Fiqh, Tajwīd, Sīrah', path: '/madrasah#vorklasse' },
+      { id: 'imam-kurs', title: 'Imam-Kurs', desc: 'Unterrichten, Arabisch, Fiqh, Aqīdah, Führung', path: '/madrasah#imam-kurs' },
+      { id: 'komparative-religionen', title: 'Komparative Religionen', desc: 'Vergleichende Analyse, Ideologien, Daʿwah', path: '/madrasah#komparative-religionen' },
+      { id: 'dawah-kurs', title: 'Daʿwah-Kurs', desc: 'Ausbildung zum Dāʿī, Umgang mit Altersgruppen', path: '/madrasah#dawah-kurs' },
+      { id: 'alim-kurs', title: 'ʿĀlim-Kurs', desc: 'Intensive islamische Wissenschaften, Weg zum Gelehrtentum', path: '/madrasah#alim-kurs' },
+    ];
+
+    const externalCourses = [
+      { title: "Qur'an Rezitation Essentials", desc: 'Tajwīd Basics, Aussprache-Coaching', path: '/madrasah#external-courses' },
+      { title: 'Tafsir Journey', desc: 'Ausgewählte Suren, Reflektionen & Anwendungen', path: '/madrasah#external-courses' },
+      { title: 'Aqida Foundations', desc: 'Grundlagen der Glaubenslehre', path: '/madrasah#external-courses' },
+    ];
+
+    const fatawaItems = [
+      { title: 'Ist Bitcoin im Islam erlaubt?', path: '/fatawa/bitcoin', section: 'Fatāwā', desc: 'Kryptowährungen und Finanzinstrumente' },
+      { title: 'Gebet auf der Arbeit verrichten', path: '/fatawa/arbeit-gebet', section: 'Fatāwā', desc: 'Salah im Berufsalltag' },
+      { title: 'Heiraten ohne Wali?', path: '/fatawa/wali', section: 'Fatāwā', desc: 'Rolle des Vormunds in der Ehe' },
+    ];
+
+    const enrollmentSteps = [
+      { title: 'Anmeldung Madrasah', path: '/madrasah#enrollment', desc: 'Kurs wählen und registrieren' },
+      { title: 'Benachrichtigung', path: '/madrasah#enrollment', desc: 'Termin für Vorstellungsgespräch erhalten' },
+      { title: 'Vorstellungsgespräch', path: '/madrasah#enrollment', desc: 'Abläufe, Erwartungen, Eignung' },
+      { title: 'Start', path: '/madrasah#enrollment', desc: 'Zuteilung zur Klasse und Zeiten abstimmen' },
+    ];
+
+    const base = [
+      {
+        id: 'login',
+        title: 'Login',
+        sectionTitle: 'Zugang',
+        path: '/login',
+        description: 'Melde dich an, um auf dein Profil zuzugreifen.',
+        tags: ['login', 'anmeldung', 'zugang', 'auth'],
+        keywords: ['login', 'anmelden', 'zugang', 'auth'],
+      },
+      {
+        id: 'madrasah',
+        title: 'Madrasah',
+        sectionTitle: 'Studienpfad',
+        path: '/madrasah#madrasah',
+        description: 'Strukturierter Weg zu islamischem Wissen.',
+        tags: ['madrasah', 'studium', 'kurse'],
+        keywords: ['madrasah', 'kurse', 'studium'],
+      },
+      {
+        id: 'fatawa',
+        title: 'Fatāwā',
+        sectionTitle: 'Fatāwā',
+        path: '/fatawa#fatawa',
+        description: 'Fragen an das Gremium stellen.',
+        tags: ['fatwa', 'frage'],
+        keywords: ['fatwa', 'frage', 'antwort'],
+      },
+      {
+        id: 'dar',
+        title: 'Dār al-Iftā’',
+        sectionTitle: 'Gremium',
+        path: '/dar-al-ifta#dar-al-ifta',
+        description: 'Gremium und Mandat kennenlernen.',
+        tags: ['gremium', 'iftā'],
+        keywords: ['iftā', 'gremium'],
+      },
+      {
+        id: 'scholars',
+        title: 'Gelehrte',
+        sectionTitle: 'Team',
+        path: '/scholars#scholars',
+        description: 'Team und Profile der Gelehrten.',
+        tags: ['team', 'gelehrte'],
+        keywords: ['gelehrte', 'team'],
+      },
+      {
+        id: 'about',
+        title: 'Über uns',
+        sectionTitle: 'Info',
+        path: '/about',
+        description: 'Mehr über das Projekt.',
+        tags: ['about', 'info'],
+        keywords: ['about', 'info'],
+      },
+      {
+        id: 'contact',
+        title: 'Kontakt',
+        sectionTitle: 'Kontakt',
+        path: '/contact',
+        description: 'Nimm Kontakt auf und stelle deine Anfrage.',
+        tags: ['kontakt', 'frage'],
+        keywords: ['kontakt', 'anfrage'],
+      },
+      {
+        id: 'register',
+        title: 'Registrierung',
+        sectionTitle: 'Formular',
+        path: '/register',
+        description: 'Anmeldeformular für Schüler/innen.',
+        tags: ['registrierung', 'anmeldung'],
+        keywords: ['registrierung', 'anmeldung', 'formular'],
+      },
+    ];
+
+    const courseEntries = madrasahCourses.map((c) => ({
+      id: c.id,
+      title: c.title,
+      sectionTitle: 'Madrasah Kurse',
+      path: c.path,
+      description: c.desc,
+      tags: ['kurs', 'kurse', 'madrasah'],
+      keywords: [c.title, 'kurs', 'kurse', 'madrasah'],
+    }));
+
+    const extCourseEntries = externalCourses.map((c, idx) => ({
+      id: `ext-${idx}`,
+      title: c.title,
+      sectionTitle: 'Externe Kurse',
+      path: c.path,
+      description: c.desc,
+      tags: ['externe kurse', 'kurs', 'kurse'],
+      keywords: [c.title, 'kurs', 'kurse'],
+    }));
+
+    const fatawaEntries = fatawaItems.map((f) => ({
+      id: f.title,
+      title: f.title,
+      sectionTitle: f.section,
+      path: f.path,
+      description: f.desc,
+      tags: ['fatwa', 'frage', 'antwort'],
+      keywords: [f.title, 'fatwa', 'frage'],
+    }));
+
+    const enrollmentEntries = enrollmentSteps.map((s, idx) => ({
+      id: `enroll-${idx}`,
+      title: s.title,
+      sectionTitle: 'Madrasah Anmeldung',
+      path: s.path,
+      description: s.desc,
+      tags: ['anmeldung', 'madrasah', 'schritt'],
+      keywords: [s.title, 'anmeldung', 'schritt'],
+    }));
+
+    return [...base, ...courseEntries, ...extCourseEntries, ...fatawaEntries, ...enrollmentEntries];
+  }, []);
 
   const fatawaSlides = [
     {
@@ -40,9 +192,13 @@ const Header = () => {
     },
   ];
 
+  /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
   useEffect(() => {
+    if (!isMenuOpen && !isSearchOpen) return;
     setIsMenuOpen(false);
+    setIsSearchOpen(false);
   }, [location]);
+  /* eslint-enable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 
   useEffect(() => {
     if (isMenuOpen && closeButtonRef.current) {
@@ -52,6 +208,7 @@ const Header = () => {
 
   useEffect(() => {
     if (!isMenuOpen) return undefined;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(0);
     const tickMs = 80;
     let elapsed = 0;
@@ -66,15 +223,136 @@ const Header = () => {
       }
     }, tickMs);
     return () => clearInterval(interval);
-  }, [isMenuOpen]);
+  }, [isMenuOpen, fatawaSlides.length]);
 
   const siteTitle =
     document?.title && document.title !== 'Vite + React'
       ? document.title
       : 'Wissensquelle';
-  const userInitial = siteTitle?.charAt(0)?.toUpperCase() || 'W';
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const toggleSearch = () => {
+    setIsSearchOpen((prev) => !prev);
+    setQuery('');
+    setHighlightIndex(0);
+  };
+
+  useEffect(() => {
+    if (isSearchOpen && searchBoxRef.current) {
+      const input = searchBoxRef.current.querySelector('input');
+      input?.focus();
+    }
+  }, [isSearchOpen]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setIsSearchOpen(false);
+        setQuery('');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  useEffect(() => {
+    const onClick = (e) => {
+      if (isSearchOpen && searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [isSearchOpen]);
+
+  const searchItems = (items, rawQuery) => {
+    const normalize = (str = '') => str.toLowerCase().trim();
+    const expandToken = (token) => {
+      const t = normalize(token);
+      const stem = t.replace(/(en|er|e|s)$/u, '');
+      const extra = [];
+      if (stem && stem !== t) extra.push(stem);
+      return [t, ...extra];
+    };
+
+    const q = normalize(rawQuery);
+    if (!q) return items.slice(0, 8);
+    const tokens = q
+      .split(/\s+/u)
+      .filter(Boolean)
+      .flatMap(expandToken);
+
+    const scoreItem = (item) => {
+      let score = 0;
+      const { title = '', sectionTitle = '', description = '', tags = [], keywords = [] } = item;
+      const hay = {
+        title: normalize(title),
+        sectionTitle: normalize(sectionTitle),
+        description: normalize(description),
+        tags: tags.map(normalize),
+        keywords: keywords.map(normalize),
+      };
+
+      tokens.forEach((tk) => {
+        if (!tk) return;
+        const pref = (str) => str.startsWith(tk) || tk.startsWith(str);
+        const cont = (str) => str.includes(tk) || tk.includes(str);
+
+        if (pref(hay.title)) score += 8;
+        else if (cont(hay.title)) score += 5;
+
+        if (hay.tags.some(pref)) score += 6;
+        else if (hay.tags.some(cont)) score += 4;
+
+        if (hay.keywords.some(pref)) score += 6;
+        else if (hay.keywords.some(cont)) score += 4;
+
+        if (pref(hay.sectionTitle)) score += 3;
+        else if (cont(hay.sectionTitle)) score += 2;
+
+        if (cont(hay.description)) score += 1;
+      });
+
+      return score;
+    };
+
+    return items
+      .map((item) => ({ item, score: scoreItem(item) }))
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map((x) => x.item);
+  };
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setSearchResults(searchItems(searchIndex, query));
+      setHighlightIndex(0);
+    }, 180);
+    return () => clearTimeout(handle);
+  }, [query, searchIndex]);
+
+  const handleSelect = (item) => {
+    if (!item) return;
+    navigate(item.path);
+    setIsSearchOpen(false);
+    setQuery('');
+  };
+
+  const handleKeyNav = (e) => {
+    if (!isSearchOpen) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlightIndex((prev) => Math.min(prev + 1, Math.max(searchResults.length - 1, 0)));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightIndex((prev) => Math.max(prev - 1, 0));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const item = searchResults[highlightIndex];
+      if (item) handleSelect(item);
+    }
+  };
 
   return (
     <header className="top-shell">
@@ -119,12 +397,60 @@ const Header = () => {
         </nav>
 
         <div className="action-area">
-          <button className="icon-btn" type="button" aria-label="Suche öffnen">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="11" r="6" strokeWidth="1.8" />
-              <line x1="16" y1="16" x2="21" y2="21" strokeWidth="1.8" />
-            </svg>
-          </button>
+          <div className="search-wrap" ref={searchBoxRef}>
+            <button
+              className="icon-btn"
+              type="button"
+              aria-label="Suche öffnen"
+              aria-expanded={isSearchOpen}
+              onClick={toggleSearch}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6" strokeWidth="1.8" />
+                <line x1="16" y1="16" x2="21" y2="21" strokeWidth="1.8" />
+              </svg>
+            </button>
+            <AnimatePresence>
+              {isSearchOpen && (
+                <motion.div
+                  className="search-dropdown"
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Suchen..."
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setHighlightIndex(0);
+                    }}
+                    onKeyDown={(e) => handleKeyNav(e)}
+                  />
+                  <div className="search-results">
+                    {searchResults.length === 0 && (
+                      <div className="search-empty">Keine Treffer</div>
+                    )}
+                    {searchResults.map((item, idx) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={`search-row ${idx === highlightIndex ? 'active' : ''}`}
+                        onMouseEnter={() => setHighlightIndex(idx)}
+                        onClick={() => handleSelect(item)}
+                      >
+                        <div className="row-title">{item.title}</div>
+                        <div className="row-section">{item.sectionTitle}</div>
+                        <div className="row-desc">{item.description}</div>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <Link className="icon-btn" to="/login" aria-label="Zum Login">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="8" r="4.2" strokeWidth="1.8" fill="none" />
@@ -243,18 +569,18 @@ const Header = () => {
         .header-surface {
           width: min(96vw, 1260px);
           height: 70px;
-          background: rgba(255, 255, 255, 0.86);
+          background: #ffffff;
           border-radius: 18px 18px 16px 16px;
           box-shadow: 0 12px 32px rgba(20, 46, 75, 0.12), inset 0 -1px 0 rgba(15, 92, 110, 0.04);
           border: 1px solid rgba(9, 59, 82, 0.07);
           display: grid;
           grid-template-columns: auto 1fr auto;
           align-items: center;
-          padding: 0 18px;
-          gap: 16px;
+          padding: 0 16px;
+          gap: 12px;
           pointer-events: auto;
           position: relative;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .header-surface::before {
@@ -263,7 +589,7 @@ const Header = () => {
           inset: 0;
           background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(255, 255, 255, 0)),
                       linear-gradient(90deg, rgba(196, 155, 44, 0.07), rgba(255, 255, 255, 0));
-          opacity: 0.95;
+          opacity: 0.9;
           pointer-events: none;
         }
 
@@ -336,8 +662,9 @@ const Header = () => {
         .nav-list {
           list-style: none;
           display: flex;
-          gap: 18px;
+          gap: 14px;
           align-items: center;
+          white-space: nowrap;
         }
 
         .nav-link {
@@ -395,6 +722,85 @@ const Header = () => {
           gap: 10px;
           position: relative;
           z-index: 2;
+        }
+
+        .search-wrap {
+          position: relative;
+        }
+
+        .search-dropdown {
+          position: absolute;
+          top: 46px;
+          right: 0;
+          width: 320px;
+          background: #fff;
+          border-radius: 14px;
+          box-shadow: 0 12px 32px rgba(12, 60, 78, 0.18);
+          border: 1px solid rgba(12, 60, 78, 0.08);
+          padding: 10px;
+          z-index: 2000;
+        }
+
+        .search-dropdown input {
+          width: 100%;
+          padding: 10px 12px;
+          border-radius: 10px;
+          border: 1px solid #d9e2e8;
+          background: #f5f7fb;
+          font-size: 0.95rem;
+        }
+
+        .search-dropdown input:focus {
+          outline: none;
+          border-color: #0f8199;
+          box-shadow: 0 0 0 3px rgba(15, 129, 153, 0.14);
+        }
+
+        .search-results {
+          margin-top: 8px;
+          max-height: 320px;
+          overflow-y: auto;
+          display: grid;
+          gap: 6px;
+        }
+
+        .search-row {
+          text-align: left;
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid transparent;
+          background: #fff;
+          cursor: pointer;
+        }
+
+        .search-row:hover,
+        .search-row.active {
+          border-color: #d9e2e8;
+          background: #f6fafc;
+        }
+
+        .row-title {
+          font-weight: 700;
+          color: #0a2533;
+        }
+
+        .row-section {
+          font-size: 0.9rem;
+          color: #4f6b7a;
+        }
+
+        .row-desc {
+          font-size: 0.88rem;
+          color: #6b7380;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .search-empty {
+          padding: 10px;
+          color: #6b7380;
+          font-size: 0.95rem;
         }
 
         .icon-btn {
@@ -465,7 +871,7 @@ const Header = () => {
           background: linear-gradient(90deg, #0f8199, #0a4f60);
           border-radius: 12px;
           transition: transform 0.22s ease, opacity 0.22s ease;
-          margin: 3px 0;
+          margin: 2px 0;
         }
 
         .burger.is-open span:nth-child(1) {
@@ -695,7 +1101,7 @@ const Header = () => {
           z-index: 1;
         }
 
-        @media (max-width: 980px) {
+        @media (max-width: 1100px) {
           .desktop-nav {
             display: none;
           }
@@ -776,6 +1182,18 @@ const Header = () => {
             width: 36px;
             height: 36px;
             border-radius: 10px;
+          }
+
+          .search-dropdown {
+            top: 54px;
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: min(92vw, 360px);
+            box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
+            border-radius: 16px;
+            margin-left: 0;
+            margin-right: 0;
           }
         }
       `}</style>

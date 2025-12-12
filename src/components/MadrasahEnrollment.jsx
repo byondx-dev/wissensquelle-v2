@@ -25,7 +25,7 @@ const steps = [
 
 const MadrasahEnrollment = () => {
   return (
-    <section className="section enrollment classic">
+    <section className="section enrollment classic" id="enrollment">
       <div className="container enrollment-shell">
         <div className="enroll-header">
           <div>

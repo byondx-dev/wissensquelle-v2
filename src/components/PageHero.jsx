@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 
 const PageHero = ({ eyebrow, title, subtitle, tone }) => {
   const heroClass = tone ? `page-hero page-hero--${tone}` : 'page-hero';

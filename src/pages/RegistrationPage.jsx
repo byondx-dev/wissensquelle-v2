@@ -10,9 +10,9 @@ const RegistrationPage = () => {
   const knowledgeTip = useMemo(
     () => (
       <ul className="tip-list">
-        <li><strong>Einsteiger:</strong> Wissen primär aus dem Internet; Gebet frisch gelernt; Begriffe wie Fiqh, Tajwīd, Tazkiyah, Tafsīr, Makruh/Wājib/Fardh sind unbekannt oder nicht erklärbar.</li>
-        <li><strong>Fortgeschritten:</strong> Mindestens 6 Monate Unterricht bei anerkannten/authentischen Lehrern, Prüfungen absolviert, weiß was einen autorisierten Lehrer ausmacht.</li>
-        <li><strong>Sehr fortgeschritten:</strong> Mehrere Madrasah-Unterrichtszweige (keine Vorklasse/externe Kurse) erfolgreich abgeschlossen und aktuell bei Gelehrten in Ausbildung.</li>
+        <li><strong>Einsteiger:</strong> Wissen primär aus dem Internet und/oder Gebet frisch gelernt oder/oder einer der Begriffe Fiqh, Tajwīd, Tazkiyah, Tafsīr, Makruh/Wājib/Fardh sind unbekannt oder nicht erklärbar.</li>
+        <li><strong>Fortgeschritten:</strong> Mindestens 1 Jahr Unterrichte bei anerkannten/authentischen Lehrern und Prüfungen absolviert, weiß was einen autorisierten Lehrer ausmacht.</li>
+        <li><strong>Sehr fortgeschritten:</strong> Mehrere Madrasah-Unterrichtszweige (keine Vorklasse/externe Kurse) erfolgreich abgeschlossen und aktuell oder war bei anerkannten Gelehrten in Ausbildung.</li>
       </ul>
     ),
     []

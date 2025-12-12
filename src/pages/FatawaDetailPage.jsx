@@ -87,105 +87,107 @@ const FatawaDetailPage = () => {
         </section>
 
         <aside className="meta-pane">
-          <div className="meta-card">
-            <header className="meta-head">
-              <div className="meta-chip">{fatawa.category}</div>
-              <div className="meta-actions">
-                <button type="button" className="nav-btn" onClick={() => navigate(`/fatawa/${prevItem.id}`)}>← Vorherige</button>
-                <button type="button" className="nav-btn" onClick={() => navigate(`/fatawa/${nextItem.id}`)}>Nächste →</button>
-              </div>
-            </header>
-            <div className="meta-info">
-              <div>
-                <span className="label">Veröffentlicht</span>
-                <strong>{fatawa.date}</strong>
-              </div>
-              <div>
-                <span className="label">Gelehrter</span>
-                <strong>{fatawa.scholar}</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="comment-card" id="kommentar">
-            <h3>Kommentar verfassen</h3>
-            <p className="comment-hint">Teilen Sie Ihre Rückfrage. Wir senden Ihnen einen Code per E-Mail, um den Kommentar zu bestätigen.</p>
-            <form onSubmit={verificationSent ? handleSubmitCode : handleSendVerification} className="comment-form">
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ihr Name"
-                required
-                disabled={verificationSent}
-              />
-              <label htmlFor="email">E-Mail</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@example.com"
-                required
-                disabled={verificationSent}
-              />
-              <label htmlFor="comment">Kommentar</label>
-              <textarea
-                id="comment"
-                rows={4}
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Ihre Frage oder Anmerkung..."
-                required
-                disabled={verificationSent}
-              />
-
-              {verificationSent && (
-                <>
-                  <label htmlFor="code">Bestätigungs-Code</label>
-                  <input
-                    id="code"
-                    type="text"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="Code aus Ihrer E-Mail"
-                    required
-                  />
-                </>
-              )}
-
-              {!submitted ? (
-                <button type="submit" className="btn solid full">
-                  {verificationSent ? 'Code prüfen & absenden' : 'Kommentar absenden'}
-                </button>
-              ) : (
-                <div className="success-state">
-                  <span className="dot" />
-                  Kommentar erfolgreich an die Gelehrten gesendet.
+          <div className="meta-stack">
+            <div className="meta-card">
+              <header className="meta-head">
+                <div className="meta-chip">{fatawa.category}</div>
+                <div className="meta-actions">
+                  <button type="button" className="nav-btn" onClick={() => navigate(`/fatawa/${prevItem.id}`)}>← Vorherige</button>
+                  <button type="button" className="nav-btn" onClick={() => navigate(`/fatawa/${nextItem.id}`)}>Nächste →</button>
                 </div>
-              )}
-            </form>
-          </div>
-
-          <div className="more-card">
-            <div className="more-head">
-              <h3>Weitere Fatawas</h3>
-              <Link to="/fatawa" className="link subtle">Alle ansehen →</Link>
+              </header>
+              <div className="meta-info">
+                <div>
+                  <span className="label">Veröffentlicht</span>
+                  <strong>{fatawa.date}</strong>
+                </div>
+                <div>
+                  <span className="label">Gelehrter</span>
+                  <strong>{fatawa.scholar}</strong>
+                </div>
+              </div>
             </div>
-            <div className="more-list">
-              {fatawaItems
-                .filter((item) => item.id !== fatawa.id)
-                .map((item) => (
-                  <Link key={item.id} to={`/fatawa/${item.id}`} className="more-item">
-                    <div>
-                      <div className="more-title">{item.title}</div>
-                      <div className="more-meta">{item.category} · {item.date}</div>
-                    </div>
-                    <span className="arrow">→</span>
-                  </Link>
-                ))}
+
+            <div className="comment-card" id="kommentar">
+              <h3>Kommentar verfassen</h3>
+              <p className="comment-hint">Teilen Sie Ihre Rückfrage. Wir senden Ihnen einen Code per E-Mail, um den Kommentar zu bestätigen.</p>
+              <form onSubmit={verificationSent ? handleSubmitCode : handleSendVerification} className="comment-form">
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Ihr Name"
+                  required
+                  disabled={verificationSent}
+                />
+                <label htmlFor="email">E-Mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email@example.com"
+                  required
+                  disabled={verificationSent}
+                />
+                <label htmlFor="comment">Kommentar</label>
+                <textarea
+                  id="comment"
+                  rows={4}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Ihre Frage oder Anmerkung..."
+                  required
+                  disabled={verificationSent}
+                />
+
+                {verificationSent && (
+                  <>
+                    <label htmlFor="code">Bestätigungs-Code</label>
+                    <input
+                      id="code"
+                      type="text"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      placeholder="Code aus Ihrer E-Mail"
+                      required
+                    />
+                  </>
+                )}
+
+                {!submitted ? (
+                  <button type="submit" className="btn solid full">
+                    {verificationSent ? 'Code prüfen & absenden' : 'Kommentar absenden'}
+                  </button>
+                ) : (
+                  <div className="success-state">
+                    <span className="dot" />
+                    Kommentar erfolgreich an die Gelehrten gesendet.
+                  </div>
+                )}
+              </form>
+            </div>
+
+            <div className="more-card">
+              <div className="more-head">
+                <h3>Weitere Fatawas</h3>
+                <Link to="/fatawa" className="link subtle">Alle ansehen →</Link>
+              </div>
+              <div className="more-list">
+                {fatawaItems
+                  .filter((item) => item.id !== fatawa.id)
+                  .map((item) => (
+                    <Link key={item.id} to={`/fatawa/${item.id}`} className="more-item">
+                      <div>
+                        <div className="more-title">{item.title}</div>
+                        <div className="more-meta">{item.category} · {item.date}</div>
+                      </div>
+                      <span className="arrow">→</span>
+                    </Link>
+                  ))}
+              </div>
             </div>
           </div>
         </aside>
@@ -263,12 +265,17 @@ const FatawaDetailPage = () => {
           position: relative;
           display: flex;
           flex-direction: column;
+        }
+
+        .meta-stack {
+          position: sticky;
+          top: 90px;
+          display: flex;
+          flex-direction: column;
           gap: 16px;
         }
 
         .meta-card {
-          position: sticky;
-          top: 90px;
           background: #fff;
           border-radius: 16px;
           padding: 16px;
@@ -328,8 +335,6 @@ const FatawaDetailPage = () => {
           padding: 18px;
           box-shadow: 0 10px 24px rgba(12, 60, 78, 0.08);
           border: 1px solid #e0e7ec;
-          position: sticky;
-          top: 250px;
         }
 
         .comment-card h3 {
@@ -394,8 +399,6 @@ const FatawaDetailPage = () => {
           padding: 16px;
           box-shadow: 0 10px 24px rgba(12, 60, 78, 0.08);
           border: 1px solid #e0e7ec;
-          position: sticky;
-          top: 430px;
         }
 
         .more-head {
@@ -443,11 +446,7 @@ const FatawaDetailPage = () => {
           .detail-grid {
             grid-template-columns: 1fr;
           }
-          .meta-card {
-            position: static;
-          }
-          .comment-card,
-          .more-card {
+          .meta-stack {
             position: static;
           }
         }

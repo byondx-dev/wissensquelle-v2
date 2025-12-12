@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MadrasahComponent from '../components/Madrasah';
 import ExternalCourses from '../components/ExternalCourses';
 import MadrasahEnrollment from '../components/MadrasahEnrollment';
 import PageHero from '../components/PageHero';
@@ -14,8 +13,6 @@ const MadrasahPage = () => {
                 subtitle="Strukturiertes islamisches Wissen für jeden"
                 tone="madrasah"
             />
-
-            <MadrasahComponent />
 
             <MadrasahEnrollment />
 
@@ -51,10 +48,10 @@ const MadrasahPage = () => {
                             </ol>
                         </div>
 
-                        <div className="courses">
+                        <div className="courses" id="courses">
                             <h4>Leistungskurse</h4>
                             <div className="course-grid">
-                                <div className="course-card">
+                                <div className="course-card" id="vorklasse">
                                     <h5>Vorklasse</h5>
                                     <p className="meta">48 €/Monat · ca. 2h/Woche · ~1 Jahr</p>
                                     <ul>
@@ -63,7 +60,7 @@ const MadrasahPage = () => {
                                         <li>Einführung Tajwīd & Sīrah</li>
                                     </ul>
                                 </div>
-                                <div className="course-card">
+                                <div className="course-card" id="imam-kurs">
                                     <h5>Imam-Kurs</h5>
                                     <p className="meta">6 €/Std · ca. 2h/Woche · ~3 Jahre</p>
                                     <ul>
@@ -72,7 +69,7 @@ const MadrasahPage = () => {
                                         <li>Führungstraining, Vorbeten</li>
                                     </ul>
                                 </div>
-                                <div className="course-card">
+                                <div className="course-card" id="komparative-religionen">
                                     <h5>Komparative Religionen</h5>
                                     <p className="meta">6 €/Std · ca. 3h/Woche · ~1 Jahr</p>
                                     <ul>
@@ -81,7 +78,7 @@ const MadrasahPage = () => {
                                         <li>Argumentative Daʿwah</li>
                                     </ul>
                                 </div>
-                                <div className="course-card">
+                                <div className="course-card" id="dawah-kurs">
                                     <h5>Daʿwah-Kurs</h5>
                                     <p className="meta">6 €/Std · ca. 2h/Woche · ~1 Jahr</p>
                                     <ul>
@@ -90,7 +87,7 @@ const MadrasahPage = () => {
                                         <li>Weisheiten aus Qurʾān & Sunnah</li>
                                     </ul>
                                 </div>
-                                <div className="course-card">
+                                <div className="course-card" id="alim-kurs">
                                     <h5>ʿĀlim-Kurs</h5>
                                     <p className="meta">80 €/Monat · ca. 4h/Woche · 8–10 Jahre</p>
                                     <ul>

@@ -11,8 +11,6 @@ const LoginPage = () => {
     if (document?.title && document.title !== 'Vite + React') return document.title;
     return 'Wissensquelle';
   }, []);
-
-  const appSubtitle = "Manba' al-'Ilm";
   const heroSlides = [heroImg, mosqueImg];
 
   useEffect(() => {
