@@ -41,38 +41,6 @@ const Home = () => {
               <Link to="/madrasah" className="btn btn-primary">Madrasah starten</Link>
               <Link to="/fatawa" className="btn btn-secondary">Fatwā stellen</Link>
             </div>
-            <div className="hero-trust">
-              <span className="pill trust-pill">Kuratiert von Gelehrten</span>
-              <span className="pill trust-pill">Klare Prozesse</span>
-              <span className="pill trust-pill">Transparente Quellen</span>
-            </div>
-
-            <div className="hero-shortcuts">
-              <Link to="/fatawa" className="shortcut-card">
-                <span className="shortcut-kicker">Fatwā</span>
-                <strong>Frage stellen</strong>
-                <small>Schneller Zugang zum Formular</small>
-              </Link>
-              <Link to="/dar-al-ifta" className="shortcut-card">
-                <span className="shortcut-kicker">Dār al-Iftā’</span>
-                <strong>Gremium</strong>
-                <small>Mandat & Prozesse</small>
-              </Link>
-              <Link to="/madrasah" className="shortcut-card">
-                <span className="shortcut-kicker">Madrasah</span>
-                <strong>Studienpfad</strong>
-                <small>Curriculum & Slots</small>
-              </Link>
-              <Link to="/scholars" className="shortcut-card">
-                <span className="shortcut-kicker">Gelehrte</span>
-                <strong>Team</strong>
-                <small>Profile & Rollen</small>
-              </Link>
-            </div>
-            <div className="scroll-cue">
-              <span className="cue-line" />
-              <span className="cue-text">Scroll</span>
-            </div>
           </motion.div>
 
           <motion.div
@@ -85,32 +53,6 @@ const Home = () => {
             <div className="visual-layer ring ring-two"></div>
             <div className="visual-layer ring ring-three"></div>
             <div className="visual-layer pulse-dot"></div>
-
-            <div className="hero-chip chip-a">
-              <span className="chip-label">Signal</span>
-              <strong>Fatwā live</strong>
-              <small>Neue Anfrage eingetroffen</small>
-            </div>
-            <div className="hero-chip chip-b">
-              <span className="chip-label">Status</span>
-              <strong>Online</strong>
-              <small>Gremium antwortet</small>
-            </div>
-
-            <div className="hero-card glass">
-              <div className="card-badge">Aktuell</div>
-              <h3>Fatwā des Tages</h3>
-              <p className="card-desc">
-                Wie lässt sich das Gebet am Arbeitsplatz pflichtgemäß verrichten, wenn kein Gebetsraum vorhanden ist?
-              </p>
-              <div className="card-meta">
-                <span>48h Antwort</span>
-                <span>Vertraulich</span>
-                <span>Begründet</span>
-              </div>
-              <Link to="/fatawa" className="card-link">Antwort lesen →</Link>
-              <div className="card-footer">Praxisnah, klar begründet, vertrauenswürdig.</div>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -344,86 +286,6 @@ const Home = () => {
           margin-bottom: var(--spacing-md);
         }
 
-        .hero-trust {
-          display: flex;
-          gap: 0.75rem;
-          flex-wrap: wrap;
-          margin-top: var(--spacing-sm);
-        }
-
-        .pill.trust-pill {
-          background: rgba(26, 21, 16, 0.06);
-          color: var(--color-text-primary);
-          padding: 0.45rem 0.9rem;
-          border-radius: var(--radius-full);
-          border: 1px solid var(--color-border);
-          font-weight: 600;
-          font-size: 0.95rem;
-          backdrop-filter: blur(8px);
-          box-shadow: var(--shadow-sm);
-        }
-
-        .scroll-cue {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          margin-top: var(--spacing-sm);
-          color: var(--color-text-soft);
-          font-weight: 600;
-        }
-
-        .cue-line {
-          width: 28px;
-          height: 2px;
-          background: var(--color-gold-end);
-          display: block;
-        }
-
-        .cue-text {
-          font-size: 0.9rem;
-          letter-spacing: 1px;
-        }
-
-        .hero-shortcuts {
-          display: none;
-          margin: var(--spacing-sm) 0 var(--spacing-md);
-          gap: 0.75rem;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .shortcut-card {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          padding: 0.85rem;
-          border-radius: var(--radius-md);
-          background: rgba(255, 255, 255, 0.82);
-          border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-sm);
-          font-weight: 600;
-        }
-
-        .shortcut-card:hover {
-          border-color: var(--color-gold-end);
-          box-shadow: var(--shadow-md);
-        }
-
-        .shortcut-kicker {
-          font-size: 0.75rem;
-          letter-spacing: 0.6px;
-          text-transform: uppercase;
-          color: var(--color-text-secondary);
-        }
-
-        .shortcut-card strong {
-          color: var(--color-text-primary);
-          font-size: 1.05rem;
-        }
-
-        .shortcut-card small {
-          color: var(--color-text-secondary);
-        }
-
         .stat {
           background: rgba(255,255,255,0.9);
           padding: var(--spacing-sm);
@@ -456,15 +318,18 @@ const Home = () => {
         .visual-layer.ring {
           position: absolute;
           border-radius: 50%;
-          border: 1px solid rgba(26, 21, 16, 0.1);
+          border: 1.4px solid rgba(26, 21, 16, 0.12);
           filter: drop-shadow(0 10px 40px rgba(0,0,0,0.1));
           animation: pulseRing 10s linear infinite;
-          opacity: 0.9;
+          opacity: 0.95;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
         }
 
-        .ring-one { width: 360px; height: 360px; animation-delay: 0.2s; }
-        .ring-two { width: 460px; height: 460px; border-color: rgba(212,175,55,0.35); animation-delay: 0.6s; }
-        .ring-three { width: 560px; height: 560px; border-color: rgba(26,21,16,0.08); animation-delay: 1s; }
+        .ring-one { width: 420px; height: 420px; animation-delay: 0.2s; }
+        .ring-two { width: 540px; height: 540px; border-color: rgba(212,175,55,0.35); animation-delay: 0.6s; }
+        .ring-three { width: 660px; height: 660px; border-color: rgba(26,21,16,0.08); animation-delay: 1s; }
 
         .visual-layer.pulse-dot {
           position: absolute;
@@ -479,9 +344,9 @@ const Home = () => {
         }
 
         @keyframes pulseRing {
-          0% { transform: scale(0.98) rotate(0deg); opacity: 0.75; }
-          50% { transform: scale(1.02) rotate(2deg); opacity: 1; }
-          100% { transform: scale(0.98) rotate(0deg); opacity: 0.75; }
+          0% { transform: translate(-50%, -50%) scale(0.98) rotate(0deg); opacity: 0.75; }
+          50% { transform: translate(-50%, -50%) scale(1.02) rotate(2deg); opacity: 1; }
+          100% { transform: translate(-50%, -50%) scale(0.98) rotate(0deg); opacity: 0.75; }
         }
 
         @keyframes pulseDot {

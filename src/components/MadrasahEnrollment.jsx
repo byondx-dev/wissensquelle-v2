@@ -1,112 +1,54 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
 
-const checkpoints = [
+const steps = [
   {
-    title: "Registrierung & Profil",
-    desc: "Account anlegen, Motivation & Lernziele eintragen.",
-    detail: "Wir nutzen diese Infos, um Sie der passenden Stufe zuzuordnen.",
-    badge: "Start"
+    title: 'Anmeldung',
+    desc: 'Für den gewünschten Kurs registrieren (Vorklasse Pflicht, externe Kurse ausgenommen).',
+    detail: 'Formular absenden, Kontaktdaten und Kurswunsch hinterlegen.',
   },
   {
-    title: "Stufen-Matching",
-    desc: "Einstufungstest & Gespräch mit Mentor.",
-    detail: "Kurzer Fit-Check zu Sprache, Vorkenntnissen und Zeitfenster.",
-    badge: "Mentor"
+    title: 'Benachrichtigung',
+    desc: 'Die Madrasah meldet sich und vergibt einen Termin für ein Vorstellungsgespräch.',
+    detail: 'Terminbestätigung, kurze Vorabklärung zu Interessen und Verfügbarkeit.',
   },
   {
-    title: "Kursauswahl & Kalender",
-    desc: "Termine wählen, Live-Slots bestätigen.",
-    detail: "Live-Unterricht, Prüfungsfenster und Lernplattform in Sync.",
-    badge: "Plan"
+    title: 'Vorstellungsgespräch',
+    desc: 'Kennenlernen, Abläufe und Erwartungen; Eignung für Madrasah, Lehrende und Regeln prüfen.',
+    detail: 'Gespräch zu Zielen, Eigenschaften, Verhaltensregeln und gesuchten Profilen.',
   },
   {
-    title: "Onboarding & Technik",
-    desc: "Zugang zur Plattform, Material & Gruppen.",
-    detail: "Tool-Check, Community-Channel, Ressourcen für die erste Woche.",
-    badge: "Setup"
+    title: 'Start',
+    desc: 'Zuteilung zu einer Klasse, Abstimmung der Unterrichtszeiten, Prüfungsverlauf bereitstellen.',
+    detail: 'Zeiten fixieren, Zugang zum Unterricht und Prüfungsübersicht erhalten.',
   },
-  {
-    title: "Start & Begleitung",
-    desc: "Erste Session, wöchentliche Milestones.",
-    detail: "Mentor-Check-ins, Fortschritt und Q&A.",
-    badge: "Live"
-  }
 ];
 
 const MadrasahEnrollment = () => {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start center", "end center"]
-  });
-
-  const fill = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   return (
-    <section className="section enrollment" ref={sectionRef}>
+    <section className="section enrollment classic">
       <div className="container enrollment-shell">
         <div className="enroll-header">
           <div>
             <span className="enroll-pill">Anmeldung Madrasah</span>
-            <h2>Scrollen Sie durch die Schritte.</h2>
-            <p className="enroll-desc">Jeder Checkpoint blendet die Details ein – beim Zurückscrollen läuft die Animation rückwärts.</p>
-          </div>
-          <div className="enroll-meta">
-            <span className="meta-label">Fortschritt</span>
-            <strong>{Math.round((scrollYProgress.get() || 0) * 100)}%</strong>
-            <small>für diese Schritte</small>
+            <h2>Schritt für Schritt zum Kurs.</h2>
+            <p className="enroll-desc">Klarer Ablauf vom Antrag bis zum Start – vertikal verbunden mit dem Fortschrittsbalken.</p>
           </div>
         </div>
 
-        <div className="enroll-layout">
-          <div className="enroll-rail">
-            <div className="rail-island">
-              <div className="rail-track">
-                <motion.div className="rail-fill" style={{ height: fill }} />
-              </div>
-              <div className="rail-glow" />
-            </div>
+        <div className="progress-wrapper">
+          <div className="progress-line" aria-hidden="true">
+            <div className="progress-line-fill" />
           </div>
-
-          <div className="checkpoint-list">
-            {checkpoints.map((step, index) => {
-              const start = index / checkpoints.length;
-              const end = (index + 1) / checkpoints.length;
-              const reveal = useTransform(scrollYProgress, [start, end], [0, 1]);
-              const lift = useTransform(scrollYProgress, [start, end], [40, 0]);
-
-              return (
-                <motion.article
-                  key={step.title}
-                  className="checkpoint-card"
-                  style={{ opacity: reveal, y: lift }}
-                >
-                  <div className="checkpoint-head">
-                    <span className="checkpoint-badge">{step.badge}</span>
-                    <div className="checkpoint-step">0{index + 1}</div>
-                  </div>
+          <div className="progress-list">
+            {steps.map((step, idx) => (
+              <div className="progress-item" key={step.title}>
+                <div className="dot-wrap">
+                  <span className="dot">0{idx + 1}</span>
+                </div>
+                <div className="card">
                   <h3>{step.title}</h3>
-                  <p className="checkpoint-desc">{step.desc}</p>
-                  <p className="checkpoint-detail">{step.detail}</p>
-                </motion.article>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="overview">
-          <div className="overview-head">
-            <h3>Übersicht aller Checkpoints</h3>
-            <p>Nach dem Scroll sind alle Schritte hier zusammengefasst.</p>
-          </div>
-          <div className="overview-grid">
-            {checkpoints.map((step) => (
-              <div key={step.title} className="overview-card">
-                <div className="overview-dot" />
-                <div>
-                  <strong>{step.title}</strong>
-                  <p>{step.desc}</p>
+                  <p className="desc">{step.desc}</p>
+                  <p className="detail">{step.detail}</p>
                 </div>
               </div>
             ))}
@@ -115,23 +57,14 @@ const MadrasahEnrollment = () => {
       </div>
 
       <style>{`
-        .enrollment {
+        .enrollment.classic {
           background: linear-gradient(180deg, #fdfaf3 0%, #ffffff 50%, #f9f7f2 100%);
           border-top: 1px solid var(--color-border-light);
           border-bottom: 1px solid var(--color-border-light);
         }
 
-        .enrollment-shell {
-          position: relative;
-        }
-
         .enroll-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: var(--spacing-md);
-          margin-bottom: var(--spacing-lg);
-          flex-wrap: wrap;
+          margin-bottom: var(--spacing-md);
         }
 
         .enroll-pill {
@@ -154,192 +87,94 @@ const MadrasahEnrollment = () => {
           max-width: 640px;
         }
 
-        .enroll-meta {
-          background: #fff;
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-lg);
-          padding: 0.85rem 1.1rem;
-          box-shadow: var(--shadow-sm);
-          text-align: right;
-          min-width: 160px;
-        }
-
-        .meta-label {
-          display: block;
-          font-size: 0.8rem;
-          color: var(--color-text-secondary);
-          letter-spacing: 0.6px;
-          text-transform: uppercase;
-        }
-
-        .enroll-layout {
-          display: grid;
-          grid-template-columns: 0.2fr 1fr;
-          gap: var(--spacing-md);
-          align-items: start;
+        .progress-wrapper {
           position: relative;
+          padding-left: 34px;
         }
 
-        .enroll-rail {
-          position: sticky;
-          top: 100px;
-          height: 100%;
-        }
-
-        .rail-island {
-          position: relative;
-          width: 10px;
-          height: 100%;
-          margin-left: auto;
-        }
-
-        .rail-track {
+        .progress-line {
           position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 6px;
-          height: 100%;
-          background: rgba(26, 21, 16, 0.08);
-          border-radius: var(--radius-full);
-          overflow: hidden;
-          box-shadow: inset 0 0 0 1px rgba(26, 21, 16, 0.05);
-        }
-
-        .rail-fill {
-          position: absolute;
+          left: 14px;
+          top: 0;
           bottom: 0;
-          left: 0;
-          width: 100%;
-          background: var(--color-gold-gradient);
-          border-radius: var(--radius-full);
+          width: 4px;
+          background: rgba(12, 60, 78, 0.08);
+          border-radius: 999px;
+          overflow: hidden;
         }
 
-        .rail-glow {
+        .progress-line-fill {
           position: absolute;
-          inset: -12px;
-          background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 60%);
-          filter: blur(10px);
-          opacity: 0.7;
-          pointer-events: none;
+          inset: 0;
+          background: linear-gradient(180deg, #0f8199 0%, #c6a043 100%);
         }
 
-        .checkpoint-list {
-          display: flex;
-          flex-direction: column;
+        .progress-list {
+          display: grid;
           gap: var(--spacing-md);
         }
 
-        .checkpoint-card {
-          background: #fff;
-          border-radius: var(--radius-lg);
-          padding: var(--spacing-md);
-          border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-sm);
-          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .checkpoint-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
-          border-color: var(--color-gold-start);
-        }
-
-        .checkpoint-head {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: var(--spacing-xs);
-        }
-
-        .checkpoint-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 0.35rem 0.8rem;
-          border-radius: var(--radius-full);
-          background: rgba(212, 175, 55, 0.14);
-          color: var(--color-gold-end);
-          font-weight: 700;
-          letter-spacing: 0.4px;
-        }
-
-        .checkpoint-step {
-          font-weight: 700;
-          color: var(--color-text-secondary);
-          font-size: 0.95rem;
-          letter-spacing: 0.6px;
-        }
-
-        .checkpoint-desc {
-          color: var(--color-text-primary);
-          font-weight: 600;
-          margin-bottom: 6px;
-        }
-
-        .checkpoint-detail {
-          color: var(--color-text-secondary);
-          line-height: 1.6;
-        }
-
-        .overview {
-          margin-top: var(--spacing-lg);
-          padding: var(--spacing-md);
-          background: #fff;
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-lg);
-          box-shadow: var(--shadow-sm);
-        }
-
-        .overview-head h3 {
-          margin-bottom: 6px;
-        }
-
-        .overview-head p {
-          color: var(--color-text-secondary);
-        }
-
-        .overview-grid {
-          margin-top: var(--spacing-md);
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: var(--spacing-sm);
-        }
-
-        .overview-card {
+        .progress-item {
           display: grid;
           grid-template-columns: auto 1fr;
-          gap: 0.75rem;
+          align-items: start;
+          gap: 14px;
+          position: relative;
+        }
+
+        .dot-wrap {
+          position: relative;
+          z-index: 1;
+          margin-top: 4px;
+        }
+
+        .dot {
+          display: inline-flex;
           align-items: center;
-          padding: 0.9rem 1rem;
-          border-radius: var(--radius-md);
-          border: 1px solid var(--color-border);
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
           background: #fff;
+          border: 2px solid #0f8199;
+          color: #0f8199;
+          font-weight: 800;
+          font-size: 0.85rem;
+        }
+
+        .card {
+          background: #fff;
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-lg);
+          padding: var(--spacing-sm);
           box-shadow: var(--shadow-sm);
         }
 
-        .overview-dot {
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          background: var(--color-gold-gradient);
-          box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.12);
+        .card h3 {
+          margin: 0 0 6px;
+          color: #0a2533;
         }
 
-        @media (max-width: 900px) {
-          .enroll-layout {
-            grid-template-columns: 1fr;
-          }
-          .enroll-rail {
-            display: none;
-          }
+        .card .desc {
+          margin: 0 0 4px;
+          color: var(--color-text-primary);
+          font-weight: 600;
+        }
+
+        .card .detail {
+          margin: 0;
+          color: var(--color-text-secondary);
+          line-height: 1.5;
         }
 
         @media (max-width: 768px) {
-          .enroll-header {
-            align-items: flex-start;
+          .progress-wrapper {
+            padding-left: 26px;
           }
-          .checkpoint-card {
-            padding: var(--spacing-sm);
+          .dot {
+            width: 30px;
+            height: 30px;
+            font-size: 0.8rem;
           }
         }
       `}</style>

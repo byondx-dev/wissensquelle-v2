@@ -10,6 +10,8 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import FatawaDetailPage from './pages/FatawaDetailPage';
+import FAQ from './components/FAQ';
+import RegistrationPage from './pages/RegistrationPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -40,8 +42,11 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
         </Routes>
       </main>
+
+      {!isLogin && <FAQ />}
 
       {!isLogin && (
         <footer className="footer">

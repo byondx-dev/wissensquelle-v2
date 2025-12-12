@@ -183,6 +183,25 @@ button {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.page-hero--madrasah {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(15, 129, 153, 0.12), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(196, 160, 67, 0.12), transparent 40%),
+    linear-gradient(135deg, #f4f6f9 0%, #ffffff 60%, #f4f6f9 100%);
+  color: #0a2533;
+}
+
+.page-hero--madrasah .page-hero-veil {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.15) 100%);
+  opacity: 0.4;
+}
+
+.page-hero--madrasah .page-title,
+.page-hero--madrasah .page-subtitle,
+.page-hero--madrasah .page-hero-eyebrow {
+  color: #0a2533;
+}
+
 .page-hero-veil {
   position: absolute;
   inset: 0;

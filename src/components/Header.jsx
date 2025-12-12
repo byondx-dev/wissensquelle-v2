@@ -6,12 +6,14 @@ import logoImg from '../assets/logo.png';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [fatawaIndex, setFatawaIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const location = useLocation();
   const closeButtonRef = useRef(null);
 
   const navLinks = [
     { name: 'Startseite', href: '/' },
     { name: 'Fatāwā', href: '/fatawa' },
+    { name: 'Madrasah', href: '/madrasah' },
     { name: 'Dār al-Iftā’', href: '/dar-al-ifta' },
     { name: 'Gelehrte', href: '/scholars' },
     { name: 'Über uns', href: '/about' },
@@ -19,19 +21,19 @@ const Header = () => {
 
   const fatawaSlides = [
     {
-      id: 1,
+      id: 'bitcoin',
       title: 'Ist Bitcoin im Islam erlaubt?',
       category: 'Wirtschaft & Finanzen',
       summary: 'Kryptowährungen im Lichte moderner Finanzinstrumente und islamischer Prinzipien.',
     },
     {
-      id: 2,
+      id: 'arbeit-gebet',
       title: 'Gebet auf der Arbeit verrichten',
       category: 'Glaube & Gottesdienste',
       summary: 'Wie sich Salah und Berufsalltag vereinbaren lassen – praktische Erleichterungen.',
     },
     {
-      id: 3,
+      id: 'wali',
       title: 'Heiraten ohne Wali?',
       category: 'Ehe & Familie',
       summary: 'Voraussetzungen einer gültigen Ehe und die Rolle des Vormunds im Detail.',
@@ -50,9 +52,19 @@ const Header = () => {
 
   useEffect(() => {
     if (!isMenuOpen) return undefined;
+    setProgress(0);
+    const tickMs = 80;
+    let elapsed = 0;
     const interval = setInterval(() => {
-      setFatawaIndex((prev) => (prev + 1) % fatawaSlides.length);
-    }, 3500);
+      elapsed += tickMs;
+      const pct = Math.min((elapsed / 3500) * 100, 100);
+      setProgress(pct);
+      if (pct >= 100) {
+        elapsed = 0;
+        setProgress(0);
+        setFatawaIndex((prev) => (prev + 1) % fatawaSlides.length);
+      }
+    }, tickMs);
     return () => clearInterval(interval);
   }, [isMenuOpen]);
 
@@ -123,9 +135,6 @@ const Header = () => {
               />
             </svg>
           </Link>
-          <div className="avatar-shell" role="img" aria-label="Nutzerprofil">
-            <span className="avatar-initial">{userInitial}</span>
-          </div>
         </div>
       </div>
 
@@ -188,30 +197,28 @@ const Header = () => {
                 </div>
                 <div className="slider-window">
                   <AnimatePresence mode="wait">
-                    <motion.div
-                      key={fatawaIndex}
-                      className="slider-card"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.28, ease: 'easeOut' }}
+                    <Link
+                      to={`/fatawa/${fatawaSlides[fatawaIndex].id}`}
+                      className="slider-card-link"
+                      onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="slider-category">{fatawaSlides[fatawaIndex].category}</span>
-                      <h4 className="slider-title">{fatawaSlides[fatawaIndex].title}</h4>
-                      <p className="slider-summary">{fatawaSlides[fatawaIndex].summary}</p>
-                    </motion.div>
+                      <motion.div
+                        key={fatawaIndex}
+                        className="slider-card"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.28, ease: 'easeOut' }}
+                      >
+                        <span className="slider-category">{fatawaSlides[fatawaIndex].category}</span>
+                        <h4 className="slider-title">{fatawaSlides[fatawaIndex].title}</h4>
+                        <p className="slider-summary">{fatawaSlides[fatawaIndex].summary}</p>
+                      </motion.div>
+                    </Link>
                   </AnimatePresence>
-                </div>
-                <div className="slider-dots" role="tablist" aria-label="Fatāwā wechseln">
-                  {fatawaSlides.map((_, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      className={`dot ${idx === fatawaIndex ? 'active' : ''}`}
-                      onClick={() => setFatawaIndex(idx)}
-                      aria-label={`Fatāwā ${idx + 1}`}
-                    />
-                  ))}
+                  <div className="slider-progress" role="presentation">
+                    <div className="slider-progress-bar" style={{ width: `${progress}%` }} />
+                  </div>
                 </div>
               </div>
 
@@ -386,6 +393,8 @@ const Header = () => {
           display: flex;
           align-items: center;
           gap: 10px;
+          position: relative;
+          z-index: 2;
         }
 
         .icon-btn {
@@ -456,6 +465,7 @@ const Header = () => {
           background: linear-gradient(90deg, #0f8199, #0a4f60);
           border-radius: 12px;
           transition: transform 0.22s ease, opacity 0.22s ease;
+          margin: 3px 0;
         }
 
         .burger.is-open span:nth-child(1) {
@@ -631,6 +641,12 @@ const Header = () => {
           box-shadow: 0 8px 18px rgba(8, 24, 36, 0.08);
         }
 
+        .slider-card-link {
+          text-decoration: none;
+          color: inherit;
+          display: block;
+        }
+
         .slider-category {
           display: inline-block;
           padding: 4px 10px;
@@ -655,27 +671,19 @@ const Header = () => {
           line-height: 1.4;
         }
 
-        .slider-dots {
-          display: flex;
-          gap: 8px;
-          margin-top: 8px;
-          justify-content: center;
-        }
-
-        .slider-dots .dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          border: none;
-          background: rgba(10, 79, 96, 0.25);
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .slider-dots .dot.active {
-          width: 18px;
+        .slider-progress {
+          height: 6px;
           border-radius: 999px;
+          background: rgba(12, 60, 78, 0.12);
+          overflow: hidden;
+          margin-top: 10px;
+        }
+
+        .slider-progress-bar {
+          height: 100%;
           background: linear-gradient(90deg, #0f8199, #c6a043);
+          border-radius: 999px;
+          transition: width 0.12s linear;
         }
 
         .drawer-footnote {

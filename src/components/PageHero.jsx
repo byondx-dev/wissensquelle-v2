@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const PageHero = ({ eyebrow, title, subtitle }) => {
+const PageHero = ({ eyebrow, title, subtitle, tone }) => {
+  const heroClass = tone ? `page-hero page-hero--${tone}` : 'page-hero';
+
   return (
     <motion.section
-      className="page-hero"
+      className={heroClass}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
