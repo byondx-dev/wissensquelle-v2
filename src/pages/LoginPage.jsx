@@ -199,7 +199,7 @@ const LoginPage = () => {
         .hero-card-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(6, 81, 112, 0.78), rgba(6, 145, 130, 0.68));
+          background: linear-gradient(135deg, rgba(0,0,0,0.08), rgba(0,0,0,0.12));
         }
 
         .hero-content {

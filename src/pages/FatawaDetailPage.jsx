@@ -5,7 +5,7 @@ const fatawaItems = [
   {
     id: 'bitcoin',
     title: 'Ist Bitcoin im Islam erlaubt?',
-    category: 'Wirtschaft & Finanzen',
+    category: 'Finanzen',
     date: '2024-12-01',
     scholar: 'Mufti Ahmad',
     summary:
@@ -15,16 +15,25 @@ const fatawaItems = [
   {
     id: 'arbeit-gebet',
     title: 'Gebet auf der Arbeit verrichten',
-    category: 'Glaube & Gottesdienste',
+    category: 'Gebete',
     date: '2024-11-28',
     scholar: 'Sheikh Abdul Karim',
     summary: 'Wie man das Gebet mit dem Berufsleben vereinbart und welche Erleichterungen es gibt.',
     pdfUrl: '',
   },
   {
+    id: 'nachbarn',
+    title: 'Umgang mit nicht-muslimischen Nachbarn',
+    category: 'Allgemein',
+    date: '2024-11-25',
+    scholar: 'Dr. Salim',
+    summary: 'Die Rechte der Nachbarn im Islam und wie man ein gutes Zusammenleben fördert.',
+    pdfUrl: '',
+  },
+  {
     id: 'wali',
     title: 'Heiraten ohne Wali?',
-    category: 'Ehe & Familie',
+    category: 'Heirat/Ehe',
     date: '2024-11-20',
     scholar: 'Ustadh Yahya',
     summary: 'Die Voraussetzungen für eine gültige Eheschließung und die Rolle des Vormunds.',

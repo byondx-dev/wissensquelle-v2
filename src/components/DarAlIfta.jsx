@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import mosqueImg from '../assets/mosque.png';
 
@@ -56,14 +57,14 @@ const DarAlIfta = () => {
               </div>
             </div>
 
-            <motion.a
-              href="#ask"
-              className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Fatwā anfragen
-            </motion.a>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/dar-al-ifta#ask-fatwa"
+                className="btn btn-primary"
+              >
+                Fatwā anfragen
+              </Link>
+            </motion.div>
           </motion.div>
 
           <motion.div

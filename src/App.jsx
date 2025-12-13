@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
-import FatawaPage from './pages/FatawaPage';
 import MadrasahPage from './pages/MadrasahPage';
 import DarAlIftaPage from './pages/DarAlIftaPage';
 import ScholarsPage from './pages/ScholarsPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
-import FatawaDetailPage from './pages/FatawaDetailPage';
 import FAQ from './components/FAQ';
 import RegistrationPage from './pages/RegistrationPage';
+import FatawaDetailPage from './pages/FatawaDetailPage';
+import CoursesPage from './pages/CoursesPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,6 +26,19 @@ function ScrollToTop() {
 function App() {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
+  const [showBackToTop, setShowBackToTop] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      setShowBackToTop(window.scrollY > 240);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="app">
@@ -34,9 +47,10 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/fatawa" element={<FatawaPage />} />
+          <Route path="/fatawa" element={<DarAlIftaPage />} />
           <Route path="/fatawa/:id" element={<FatawaDetailPage />} />
           <Route path="/madrasah" element={<MadrasahPage />} />
+          <Route path="/kurse" element={<CoursesPage />} />
           <Route path="/dar-al-ifta" element={<DarAlIftaPage />} />
           <Route path="/scholars" element={<ScholarsPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -47,6 +61,17 @@ function App() {
       </main>
 
       {!isLogin && <FAQ />}
+
+      {!isLogin && showBackToTop && (
+        <button
+          type="button"
+          className="back-to-top"
+          aria-label="Nach oben scrollen"
+          onClick={scrollToTop}
+        >
+          ↑
+        </button>
+      )}
 
       {!isLogin && (
         <footer className="footer">
@@ -60,7 +85,7 @@ function App() {
                 <h4 className="footer-heading">Links</h4>
                 <ul className="footer-links">
                   <li><a href="/">Startseite</a></li>
-                  <li><a href="/fatawa">Fatāwā</a></li>
+                  <li><a href="/kurse">Kurse</a></li>
                   <li><a href="/madrasah">Madrasah</a></li>
                   <li><a href="/contact">Kontakt</a></li>
                 </ul>
@@ -79,6 +104,29 @@ function App() {
             </div>
           </div>
           <style>{`
+            .back-to-top {
+              position: fixed;
+              right: 22px;
+              bottom: 22px;
+              width: 48px;
+              height: 48px;
+              border-radius: 14px;
+              border: 1px solid rgba(12,60,78,0.12);
+              background: linear-gradient(145deg, #ffffff, #eef3f7);
+              box-shadow: 0 10px 24px rgba(8,24,36,0.15);
+              color: #0a4f60;
+              font-weight: 800;
+              font-size: 1.1rem;
+              cursor: pointer;
+              transition: transform 0.2s ease, box-shadow 0.2s ease;
+              z-index: 1100;
+            }
+
+            .back-to-top:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 14px 28px rgba(8,24,36,0.18);
+            }
+
             .footer {
               background-color: var(--color-text-primary);
               color: #FFFFFF;

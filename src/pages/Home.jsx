@@ -5,6 +5,7 @@ import heroBg from '../assets/hero-bg.png';
 import darLogo from '../assets/daralifta-logo.jpg';
 import madrasahLogo from '../assets/madrasah-logo.jpg';
 import aboutVisual from '../assets/about-visual.png';
+import DarAlIftaComponent from '../components/DarAlIfta';
 
 const Home = () => {
 
@@ -39,7 +40,7 @@ const Home = () => {
             </p>
             <div className="hero-actions">
               <Link to="/madrasah" className="btn btn-primary">Madrasah starten</Link>
-              <Link to="/fatawa" className="btn btn-secondary">Fatwā stellen</Link>
+              <Link to="/dar-al-ifta#fatawa" className="btn btn-secondary">Fatwā stellen</Link>
             </div>
           </motion.div>
 
@@ -122,6 +123,11 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Dar al-Iftā' highlight (moved) */}
+      <section className="home-dar-block">
+        <DarAlIftaComponent />
       </section>
 
       {/* Departments */}

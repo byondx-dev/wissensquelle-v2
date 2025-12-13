@@ -18,9 +18,9 @@ const Header = () => {
 
   const navLinks = useMemo(() => [
     { name: 'Startseite', href: '/' },
-    { name: 'Fatāwā', href: '/fatawa' },
-    { name: 'Madrasah', href: '/madrasah' },
     { name: 'Dār al-Iftā’', href: '/dar-al-ifta' },
+    { name: 'Madrasah', href: '/madrasah' },
+    { name: 'Kurse', href: '/kurse' },
     { name: 'Gelehrte', href: '/scholars' },
     { name: 'Über uns', href: '/about' },
   ], []);
@@ -35,15 +35,15 @@ const Header = () => {
     ];
 
     const externalCourses = [
-      { title: "Qur'an Rezitation Essentials", desc: 'Tajwīd Basics, Aussprache-Coaching', path: '/madrasah#external-courses' },
-      { title: 'Tafsir Journey', desc: 'Ausgewählte Suren, Reflektionen & Anwendungen', path: '/madrasah#external-courses' },
-      { title: 'Aqida Foundations', desc: 'Grundlagen der Glaubenslehre', path: '/madrasah#external-courses' },
+      { title: "Qur'an Rezitation Essentials", desc: 'Tajwīd Basics, Aussprache-Coaching', path: '/kurse#courses' },
+      { title: 'Tafsir Journey', desc: 'Ausgewählte Suren, Reflektionen & Anwendungen', path: '/kurse#courses' },
+      { title: 'Aqida Foundations', desc: 'Grundlagen der Glaubenslehre', path: '/kurse#courses' },
     ];
 
     const fatawaItems = [
-      { title: 'Ist Bitcoin im Islam erlaubt?', path: '/fatawa/bitcoin', section: 'Fatāwā', desc: 'Kryptowährungen und Finanzinstrumente' },
-      { title: 'Gebet auf der Arbeit verrichten', path: '/fatawa/arbeit-gebet', section: 'Fatāwā', desc: 'Salah im Berufsalltag' },
-      { title: 'Heiraten ohne Wali?', path: '/fatawa/wali', section: 'Fatāwā', desc: 'Rolle des Vormunds in der Ehe' },
+      { title: 'Ist Bitcoin im Islam erlaubt?', path: '/dar-al-ifta#fatawa', section: 'Fatāwā', desc: 'Kryptowährungen und Finanzinstrumente' },
+      { title: 'Gebet auf der Arbeit verrichten', path: '/dar-al-ifta#fatawa', section: 'Fatāwā', desc: 'Salah im Berufsalltag' },
+      { title: 'Heiraten ohne Wali?', path: '/dar-al-ifta#fatawa', section: 'Fatāwā', desc: 'Rolle des Vormunds in der Ehe' },
     ];
 
     const enrollmentSteps = [
@@ -71,15 +71,6 @@ const Header = () => {
         description: 'Strukturierter Weg zu islamischem Wissen.',
         tags: ['madrasah', 'studium', 'kurse'],
         keywords: ['madrasah', 'kurse', 'studium'],
-      },
-      {
-        id: 'fatawa',
-        title: 'Fatāwā',
-        sectionTitle: 'Fatāwā',
-        path: '/fatawa#fatawa',
-        description: 'Fragen an das Gremium stellen.',
-        tags: ['fatwa', 'frage'],
-        keywords: ['fatwa', 'frage', 'antwort'],
       },
       {
         id: 'dar',
@@ -197,6 +188,18 @@ const Header = () => {
     if (!isMenuOpen && !isSearchOpen) return;
     setIsMenuOpen(false);
     setIsSearchOpen(false);
+  }, [location]);
+
+  useEffect(() => {
+    const hash = location.hash?.replace('#', '');
+    if (!hash) return;
+    const scrollToHash = () => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+    setTimeout(scrollToHash, 60);
   }, [location]);
   /* eslint-enable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 
@@ -334,7 +337,15 @@ const Header = () => {
 
   const handleSelect = (item) => {
     if (!item) return;
-    navigate(item.path);
+    const [path, hash] = item.path.split('#');
+    const targetPath = path || '/';
+    navigate(hash ? `${targetPath}#${hash}` : targetPath);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
     setIsSearchOpen(false);
     setQuery('');
   };
@@ -524,7 +535,7 @@ const Header = () => {
                 <div className="slider-window">
                   <AnimatePresence mode="wait">
                     <Link
-                      to={`/fatawa/${fatawaSlides[fatawaIndex].id}`}
+                      to="/dar-al-ifta#fatawa"
                       className="slider-card-link"
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -1186,11 +1197,11 @@ const Header = () => {
 
           .search-dropdown {
             position: fixed;
-            top: 82px;
-            left: 50vw;
+            top: calc(66px + 28px);
+            left: 50%;
             right: auto;
             transform: translateX(-50%);
-            width: min(88vw, 320px);
+            width: min(90vw, 340px);
             box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
             border-radius: 16px;
             margin-left: 0;

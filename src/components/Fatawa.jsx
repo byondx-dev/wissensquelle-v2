@@ -1,41 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Fatawa = () => {
     const [activeFilter, setActiveFilter] = useState('Alle');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const categories = ['Alle', 'Ehe & Familie', 'Wirtschaft & Finanzen', 'Glaube & Gottesdienste', 'Gesellschaft', 'Moderne Themen'];
+    const categories = [
+        'Alle',
+        "Glaubenslehre – 'Aqidah",
+        'Tasawwuf/Sufismus',
+        'Gebete',
+        'Fasten & Ramadhan',
+        'Arbeit',
+        'Finanzen',
+        'Familie',
+        'Gesundheit',
+        'Allgemein',
+        'Freizeit',
+        'Heirat/Ehe',
+        'Kleidung',
+        'Leasing und Miete',
+        'Lebensmittel',
+        'Medizin',
+        'Paid',
+        'Urheberrecht',
+        'Sonstiges',
+        'Unspezifisch',
+    ];
+    const toSlug = (str = '') => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
     const fatawaData = [
         {
-            id: 1,
+            id: "bitcoin",
             title: "Ist Bitcoin im Islam erlaubt?",
-            category: "Wirtschaft & Finanzen",
+            category: "Finanzen",
             summary: "Eine detaillierte Analyse der Kryptowährungen aus islamischer Sicht unter Berücksichtigung moderner Finanzinstrumente.",
             date: "01.12.2024"
         },
         {
-            id: 2,
+            id: "arbeit-gebet",
             title: "Das Gebet auf der Arbeit verrichten",
-            category: "Glaube & Gottesdienste",
+            category: "Gebete",
             summary: "Wie man das Gebet mit dem Berufsleben vereinbart und welche Erleichterungen es gibt.",
             date: "28.11.2024"
         },
         {
-            id: 3,
+            id: "nachbarn",
             title: "Umgang mit nicht-muslimischen Nachbarn",
-            category: "Gesellschaft",
+            category: "Allgemein",
             summary: "Die Rechte der Nachbarn im Islam und wie man ein gutes Zusammenleben fördert.",
             date: "25.11.2024"
         },
         {
-            id: 4,
+            id: "wali",
             title: "Heiraten ohne Wali?",
-            category: "Ehe & Familie",
+            category: "Heirat/Ehe",
             summary: "Die Voraussetzungen für eine gültige Eheschließung und die Rolle des Vormunds.",
             date: "20.11.2024"
         }
     ];
+
+    useEffect(() => {
+        const applyHashCategory = () => {
+            const hash = window.location.hash || '';
+            const match = hash.match(/cat=([^&]+)/i);
+            if (match) {
+                const slug = decodeURIComponent(match[1]);
+                const found = categories.find((cat) => toSlug(cat) === slug || cat.toLowerCase() === slug.toLowerCase());
+                if (found) setActiveFilter(found);
+            }
+        };
+        applyHashCategory();
+        window.addEventListener('hashchange', applyHashCategory);
+        return () => window.removeEventListener('hashchange', applyHashCategory);
+    }, [categories]);
 
     const filteredFatawa = fatawaData.filter(item => {
         const matchesFilter = activeFilter === 'Alle' || item.category === activeFilter;
@@ -85,7 +123,7 @@ const Fatawa = () => {
                                 <p className="card-summary">{item.summary}</p>
                                 <div className="card-footer">
                                     <span className="card-date">{item.date}</span>
-                                    <a href={`/fatawa/${item.id}`} className="read-more">Weiterlesen →</a>
+                        <Link to={`/fatawa/${item.id}`} className="read-more">Weiterlesen →</Link>
                                 </div>
                             </div>
                         </article>
