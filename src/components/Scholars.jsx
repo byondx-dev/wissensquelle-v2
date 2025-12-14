@@ -90,13 +90,7 @@ const Scholars = () => {
                                     <span className="chevron">{expanded === scholar.name ? '▾' : '▸'}</span>
                                     Kurzbiografie {expanded === scholar.name ? 'ausblenden' : 'anzeigen'}
                                 </button>
-                                <div
-                                    className="bio-wrapper"
-                                    style={{
-                                        maxHeight: expanded === scholar.name ? '460px' : '0px',
-                                        opacity: expanded === scholar.name ? 1 : 0,
-                                    }}
-                                >
+                                <div className={`bio-wrapper ${expanded === scholar.name ? 'open' : ''}`}>
                                     <p className="bio">{scholar.bio}</p>
                                 </div>
                             </div>
@@ -123,11 +117,11 @@ const Scholars = () => {
           gap: var(--spacing-lg);
         }
         .scholar-card {
-          background: #fff;
+          background: transparent;
           border-radius: 18px;
           padding: 0;
           box-shadow: 0 12px 28px rgba(8,24,36,0.08);
-          border: 1px solid rgba(12,60,78,0.06);
+          border: none;
           display: grid;
           grid-template-columns: 1.35fr 1fr;
           position: relative;
@@ -145,6 +139,12 @@ const Scholars = () => {
           display: flex;
           flex-direction: column;
           gap: 12px;
+          position: relative;
+          padding-bottom: 56px;
+          background: #fff;
+          border: 1px solid rgba(12,60,78,0.08);
+          border-right: none;
+          border-radius: 18px 0 0 18px;
         }
         .card-areas {
           background: linear-gradient(135deg, #0f2430 0%, #0a1a23 70%);
@@ -154,7 +154,7 @@ const Scholars = () => {
           padding: 0;
           position: relative;
           overflow: hidden;
-          clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+          clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
         }
         .card-areas::before {
           content: '';
@@ -230,6 +230,7 @@ const Scholars = () => {
         .meta-row {
           display: grid;
           gap: 10px;
+          padding-bottom: 12px;
         }
         .pill-set {
           display: grid;
@@ -270,9 +271,8 @@ const Scholars = () => {
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
-          position: absolute;
-          left: 14px;
-          bottom: 14px;
+          position: relative;
+          z-index: 2;
         }
         .toggle:hover {
           border-color: #0f8199;
@@ -280,10 +280,17 @@ const Scholars = () => {
         }
         .bio-wrapper {
           overflow: hidden;
-          transition: max-height 0.3s ease, opacity 0.3s ease;
+          max-height: 0;
+          opacity: 0;
+          transition: max-height 0.35s ease, opacity 0.35s ease, margin-top 0.35s ease;
+        }
+        .bio-wrapper.open {
+          max-height: 800px;
+          opacity: 1;
+          margin-top: 6px;
         }
         .bio {
-          margin: 8px 0 0;
+          margin: 0;
           color: #4f6b7a;
           line-height: 1.6;
         }

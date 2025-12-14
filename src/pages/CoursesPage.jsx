@@ -99,6 +99,9 @@ const CoursesPage = () => {
         .hero {
           background: linear-gradient(135deg, rgba(15,129,153,0.08), rgba(198,160,67,0.06));
           padding: 120px 16px 80px;
+          min-height: 420px;
+          display: flex;
+          align-items: center;
         }
         .hero-inner {
           max-width: 1180px;

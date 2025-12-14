@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ExternalCourses from '../components/ExternalCourses';
 import MadrasahEnrollment from '../components/MadrasahEnrollment';
 import PageHero from '../components/PageHero';
+import mosqueImg from '../assets/mosque.png';
 
 const MadrasahPage = () => {
     return (
@@ -12,6 +13,7 @@ const MadrasahPage = () => {
                 title="Online Madrasah"
                 subtitle="Strukturiertes islamisches Wissen für jeden"
                 tone="madrasah"
+                image={mosqueImg}
             />
 
             <MadrasahEnrollment />

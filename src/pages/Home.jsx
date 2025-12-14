@@ -189,7 +189,7 @@ const Home = () => {
         .hero {
           position: relative;
           overflow: hidden;
-          min-height: 100vh;
+          min-height: 100v;
           padding: 140px 0 var(--spacing-lg);
           display: flex;
           align-items: center;

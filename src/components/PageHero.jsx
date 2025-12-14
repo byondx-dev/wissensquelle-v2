@@ -1,16 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 
-const PageHero = ({ eyebrow, title, subtitle, tone }) => {
+const PageHero = ({ eyebrow, title, subtitle, tone, image }) => {
   const heroClass = tone ? `page-hero page-hero--${tone}` : 'page-hero';
+  const heroStyle = image ? { '--hero-image': `url(${image})` } : undefined;
 
   return (
     <motion.section
       className={heroClass}
+      style={heroStyle}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
     >
+      {image && <div className="page-hero-image" aria-hidden="true" />}
       <div className="page-hero-veil" />
       <div className="page-hero-orb orb-a" />
       <div className="page-hero-orb orb-b" />

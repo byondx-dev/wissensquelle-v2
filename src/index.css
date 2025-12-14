@@ -178,9 +178,24 @@ button {
               var(--color-text-primary);
   color: #fff;
   padding: clamp(120px, 16vh, 200px) 0 var(--spacing-lg);
+  min-height: 420px;
+  display: flex;
+  align-items: center;
   text-align: center;
   margin-bottom: var(--spacing-lg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  isolation: isolate;
+}
+
+.page-hero-image {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-image) center/cover no-repeat;
+  transform: none;
+  background-position: center 80%;
+  filter: saturate(1.05);
+  opacity: 0.85;
+  z-index: 0;
 }
 
 .page-hero--madrasah {
@@ -188,18 +203,19 @@ button {
     radial-gradient(circle at 20% 20%, rgba(15, 129, 153, 0.12), transparent 35%),
     radial-gradient(circle at 80% 10%, rgba(196, 160, 67, 0.12), transparent 40%),
     linear-gradient(135deg, #f4f6f9 0%, #ffffff 60%, #f4f6f9 100%);
-  color: #0a2533;
+  color: #e2eef3;
 }
 
-.page-hero--madrasah .page-hero-veil {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.15) 100%);
-  opacity: 0.4;
+.page-hero--madrasah .page-hero-image {
+  opacity: 0.95;
+  filter: saturate(1.05) brightness(1.02);
+  transform: none;
 }
 
 .page-hero--madrasah .page-title,
 .page-hero--madrasah .page-subtitle,
 .page-hero--madrasah .page-hero-eyebrow {
-  color: #0a2533;
+  color: #eaebec;
 }
 
 .page-hero-veil {
@@ -208,12 +224,20 @@ button {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.4) 100%);
   opacity: 0.6;
   pointer-events: none;
+  z-index: 1;
+}
+
+.page-hero--madrasah .page-hero-veil {
+  background: transparent;
+  opacity: 0;
+  mix-blend-mode: normal;
 }
 
 .page-hero-orb {
   position: absolute;
   filter: blur(80px);
   opacity: 0.5;
+  z-index: 2;
 }
 
 .page-hero-orb.orb-a {
@@ -242,7 +266,7 @@ button {
 
 .page-hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 780px;
   margin: 0 auto;
 }
