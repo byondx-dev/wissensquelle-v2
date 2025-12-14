@@ -1,31 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FatawaComponent from '../components/Fatawa';
-import PageHero from '../components/PageHero';
 import AskFatwaSection from '../components/AskFatwaSection';
+import gateHero from '../assets/gate-hero.png';
+import Particles from '../components/Particles';
 
 const DarAlIftaPage = () => {
-    const categories = [
-        { label: "Glaubenslehre – 'Aqidah", icon: '📜' },
-        { label: 'Tasawwuf/Sufismus', icon: '🕊️' },
-        { label: 'Gebete', icon: '🕌' },
-        { label: 'Fasten & Ramadhan', icon: '🌙' },
-        { label: 'Arbeit', icon: '💼' },
-        { label: 'Finanzen', icon: '💰' },
-        { label: 'Familie', icon: '👪' },
-        { label: 'Gesundheit', icon: '🩺' },
-        { label: 'Allgemein', icon: '🧭' },
-        { label: 'Freizeit', icon: '⏳' },
-        { label: 'Heirat/Ehe', icon: '💍' },
-        { label: 'Kleidung', icon: '🧥' },
-        { label: 'Leasing und Miete', icon: '🏠' },
-        { label: 'Lebensmittel', icon: '🍃' },
-        { label: 'Medizin', icon: '💊' },
-        { label: 'Paid', icon: '💳' },
-        { label: 'Urheberrecht', icon: '©️' },
-        { label: 'Sonstiges', icon: '✨' },
-        { label: 'Unspezifisch', icon: '❔' },
-    ];
-
     const toSlug = (str = '') =>
         str
             .toLowerCase()
@@ -36,41 +16,171 @@ const DarAlIftaPage = () => {
 
     return (
         <div className="page-dar">
-            <PageHero
-                eyebrow="Fatwā-Gremium"
-                title="Dār al-Iftā’"
-                subtitle="Das Fatwā-Gremium für Deutschland"
-            />
+            <section className="gate-hero">
+                <div className="gate-overlay" />
+                <div className="gate-overlay-soft" />
+                <div className="particles-wrap" aria-hidden="true">
+                    <Particles
+                        particleColors={['#d8bf71', '#d8bf71']}
+                        particleCount={200}
+                        particleSpread={24}
+                        speed={0.12}
+                        particleBaseSize={100}
+                        moveParticlesOnHover
+                        alphaParticles={false}
+                        disableRotation={false}
+                        pixelRatio={2}
+                    />
+                </div>
+                <div className="gate-content">
+                    <div className="gate-text">
+                        <span className="eyebrow fade-up">Fatwā-Gremium</span>
+                        <h1 className="fade-up delay-1">Dār al-Iftā’</h1>
+                        <p className="fade-up delay-2">Verlässliche Rechtsgutachten mit ruhigem Fokus – vertraulich, quellennah und klar erklärt.</p>
+                        <div className="hero-actions fade-up delay-3">
+                            <Link to="/dar-al-ifta#fatawa" className="btn btn-primary">Fatwā lesen</Link>
+                            <Link to="/dar-al-ifta#ask-fatwa" className="btn btn-secondary">Fatwā anfragen</Link>
+                        </div>
+                    </div>
+                </div>
+                <style>{`
+                  .gate-hero {
+                    position: relative;
+                    min-height: 420px;
+                    display: flex;
+                    align-items: center;
+                    padding: 140px 18px 80px;
+                    overflow: hidden;
+                    background: #0a1a23;
+                  }
+                  .gate-hero::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: url(${gateHero}) center/cover no-repeat;
+                    transform: scale(1.02);
+                    filter: saturate(1.05);
+                  }
+                  .gate-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: radial-gradient(circle at 50% 40%, rgba(255, 205, 120, 0.4), rgba(10, 26, 35, 0.3) 48%);
+                    mix-blend-mode: screen;
+                  }
+                  .gate-overlay-soft {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(180deg, rgba(6, 27, 38, 0.82) 0%, rgba(6, 27, 38, 0.35) 40%, rgba(6, 27, 38, 0.8) 100%);
+                  }
+                  .particles-wrap {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 0;
+                  }
+                  .particles-wrap canvas {
+                    width: 100% !important;
+                    height: 100% !important;
+                  }
+                  .particles-wrap .particles-container {
+                    position: absolute;
+                    inset: 0;
+                  }
+                  .gate-content {
+                    position: relative;
+                    z-index: 1;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1.05fr 0.95fr;
+                    gap: 24px;
+                    align-items: center;
+                  }
+                  .gate-text h1 {
+                    margin: 8px 0;
+                    font-size: clamp(2.1rem, 3vw, 2.8rem);
+                    color: #fdf8ee;
+                    text-shadow: 0 14px 34px rgba(0,0,0,0.35);
+                  }
+                  .fade-up {
+                    opacity: 0;
+                    animation: fadeUp 0.9s ease forwards;
+                  }
+                  .delay-1 { animation-delay: 0.15s; }
+                  .delay-2 { animation-delay: 0.3s; }
+                  .delay-3 { animation-delay: 0.45s; }
+                  .gate-text p {
+                    margin: 0 0 14px;
+                    max-width: 520px;
+                    color: #eae4d8;
+                    line-height: 1.6;
+                  }
+                  .gate-text .eyebrow {
+                    color: #f3d7a3;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    font-weight: 800;
+                  }
+                  .hero-actions {
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                  }
+                  .hero-actions .btn {
+                    border-radius: 12px;
+                    padding: 10px 14px;
+                    font-weight: 800;
+                    box-shadow: 0 12px 26px rgba(0,0,0,0.2);
+                  }
+                  .hero-actions .btn-primary {
+                    background: linear-gradient(135deg, #0f8199, #0a4f60);
+                    color: #fff;
+                    border: none;
+                  }
+                  .hero-actions .btn-secondary {
+                    background: rgba(255,255,255,0.14);
+                    color: #fdfaf3;
+                    border: 1px solid rgba(255,255,255,0.4);
+                    backdrop-filter: blur(4px);
+                  }
+                  @keyframes fadeUp {
+                    0% { opacity: 0; transform: translateY(18px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                  }
+                  @media (max-width: 960px) {
+                    .gate-content {
+                      grid-template-columns: 1fr;
+                      text-align: center;
+                    }
+                    .gate-text p {
+                      margin-left: auto;
+                      margin-right: auto;
+                    }
+                    .hero-actions {
+                      justify-content: center;
+                    }
+                    .gate-visual {
+                      height: 180px;
+                    }
+                  }
+                  @media (max-width: 640px) {
+                    .gate-hero {
+                      padding: 120px 14px 70px;
+                    }
+                  }
+                `}</style>
+            </section>
 
             <section className="section dar-intro" id="iftahub">
-                <div className="container intro-grid">
-                    <div className="intro-copy">
-                        <h3>Was ist die Dār al-Iftā’ DE?</h3>
+                <div className="container intro-single">
+                    <div className="intro-copy intro-anim">
+                        <span className="eyebrow">Was ist die Dār al-Iftā’ DE?</span>
+                        <h3>Geprüfte Fatāwā mit Ruhe und Klarheit</h3>
                         <p>
-                            Die Dār al-Iftā’ DE ist ein Institut, das sich auf die islamische Rechtswissenschaft
-                            (Fiqh) spezialisiert. Die Gelehrten veröffentlichen regelmäßig Fatāwā, die vor der
-                            Veröffentlichung mehrfach von Spezialisten geprüft werden. Sie können uns jederzeit
-                            kontaktieren, wenn Sie weitere Fragen haben oder Auskunft zu islamischen Angelegenheiten
-                            benötigen.
+                            Die Dār al-Iftā’ ist ein Institut für islamische Rechtswissenschaft (Fiqh). Unsere Gelehrten
+                            veröffentlichen regelmäßig Gutachten, die vorab von Spezialisten geprüft werden. Jede Anfrage
+                            wird vertraulich behandelt und transparent mit Quellen beantwortet.
                         </p>
-                    </div>
-                    <div className="intro-cats">
-                        <div className="cat-header">
-                            <h4>Kategorien</h4>
-                            <p>Tippen Sie eine Kategorie an, um direkt passende Fatāwā zu sehen.</p>
-                        </div>
-                        <div className="cat-grid">
-                            {categories.map((cat) => (
-                                <a
-                                    key={cat.label}
-                                    className="cat-card"
-                                    href={`/dar-al-ifta#fatawa?cat=${toSlug(cat.label)}`}
-                                >
-                                    <span className="cat-icon" aria-hidden="true">{cat.icon}</span>
-                                    <span className="cat-label">{cat.label}</span>
-                                </a>
-                            ))}
-                        </div>
                     </div>
                 </div>
 
@@ -78,69 +188,38 @@ const DarAlIftaPage = () => {
                   .dar-intro {
                     background: #f7f8fb;
                     border-bottom: 1px solid rgba(12,60,78,0.06);
+                    padding: 70px 0;
                   }
-                  .intro-grid {
+                  .intro-single {
                     display: grid;
-                    grid-template-columns: 1fr 1.1fr;
-                    gap: var(--spacing-xl);
-                    align-items: start;
+                    place-items: center;
+                    text-align: center;
+                  }
+                  .intro-copy {
+                    max-width: 820px;
+                    background: #ffffff;
+                    padding: 24px 26px;
+                    border-radius: 16px;
+                    box-shadow: 0 18px 40px rgba(8,24,36,0.08);
+                    border: 1px solid rgba(12,60,78,0.06);
                   }
                   .intro-copy h3 {
-                    font-size: 1.9rem;
+                    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
                     color: #0a2d3c;
-                    margin-bottom: var(--spacing-sm);
+                    margin: 8px 0 10px;
                   }
                   .intro-copy p {
                     color: #4f6b7a;
-                    line-height: 1.6;
+                    line-height: 1.7;
+                    margin: 0;
                   }
-                  .cat-header h4 {
-                    margin: 0 0 4px;
-                    color: #0a4f60;
+                  .intro-anim {
+                    opacity: 0;
+                    animation: fadeCenter 0.9s ease forwards;
                   }
-                  .cat-header p {
-                    margin: 0 0 12px;
-                    color: #4f6b7a;
-                  }
-                  .cat-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                    gap: 10px;
-                  }
-                  .cat-card {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    padding: 12px 14px;
-                    border-radius: 12px;
-                    background: #ffffff;
-                    border: 1px solid rgba(12,60,78,0.08);
-                    box-shadow: 0 10px 20px rgba(8,24,36,0.06);
-                    color: #0b3141;
-                    font-weight: 700;
-                    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-                  }
-                  .cat-card:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 14px 28px rgba(8,24,36,0.12);
-                    border-color: #0f8199;
-                  }
-                  .cat-icon {
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 10px;
-                    display: grid;
-                    place-items: center;
-                    background: linear-gradient(135deg, #f0f6f8, #e7f1f5);
-                    font-size: 1.1rem;
-                  }
-                  .cat-label {
-                    line-height: 1.2;
-                  }
-                  @media (max-width: 900px) {
-                    .intro-grid {
-                      grid-template-columns: 1fr;
-                    }
+                  @keyframes fadeCenter {
+                    0% { opacity: 0; transform: translateY(18px); }
+                    100% { opacity: 1; transform: translateY(0); }
                   }
                 `}</style>
             </section>

@@ -740,16 +740,18 @@ const Header = () => {
         }
 
         .search-dropdown {
-          position: absolute;
-          top: 46px;
-          right: 0;
-          width: 320px;
+          position: fixed;
+          top: 92px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(96vw, 1260px);
           background: #fff;
-          border-radius: 14px;
-          box-shadow: 0 12px 32px rgba(12, 60, 78, 0.18);
+          border-radius: 18px;
+          box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
           border: 1px solid rgba(12, 60, 78, 0.08);
-          padding: 10px;
+          padding: 14px;
           z-index: 2000;
+          overflow: hidden;
         }
 
         .search-dropdown input {
@@ -1197,11 +1199,12 @@ const Header = () => {
 
           .search-dropdown {
             position: fixed;
-            top: calc(66px + 28px);
+            top: 88px;
             left: 50%;
             right: auto;
             transform: translateX(-50%);
-            width: min(90vw, 340px);
+            width: calc(100% - 40px);
+            max-width: 640px;
             box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
             border-radius: 16px;
             margin-left: 0;
