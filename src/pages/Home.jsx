@@ -50,29 +50,10 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <div className="logo-stack">
-              <div className="logo-card madrasah-card">
-                <div className="logo-img">
-                  <img src={madrasahLogo} alt="Madrasah As-Sunnah Logo" />
-                </div>
-                <div>
-                  <span className="logo-kicker">Madrasah As-Sunnah</span>
-                  <h4>Studienpfad</h4>
-                  <p>Live-Unterricht, Prüfungen, Zertifikat</p>
-                </div>
-              </div>
-
-              <div className="logo-card dar-card">
-                <div className="logo-img">
-                  <img src={darLogo} alt="Dār al-Iftā’ Logo" />
-                </div>
-                <div>
-                  <span className="logo-kicker">Dār al-Iftā’ DE</span>
-                  <h4>Fatwā-Gremium</h4>
-                  <p>Antworten mit Quellen & Klarheit</p>
-                </div>
-              </div>
-            </div>
+            <div className="visual-layer ring ring-one"></div>
+            <div className="visual-layer ring ring-two"></div>
+            <div className="visual-layer ring ring-three"></div>
+            <div className="visual-layer pulse-dot"></div>
           </motion.div>
         </div>
 
