@@ -50,11 +50,35 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            <div className="visual-layer ring ring-one"></div>
-            <div className="visual-layer ring ring-two"></div>
-            <div className="visual-layer ring ring-three"></div>
-            <div className="visual-layer pulse-dot"></div>
+            <div className="logo-stack">
+              <div className="logo-card madrasah-card">
+                <div className="logo-img">
+                  <img src={madrasahLogo} alt="Madrasah As-Sunnah Logo" />
+                </div>
+                <div>
+                  <span className="logo-kicker">Madrasah As-Sunnah</span>
+                  <h4>Studienpfad</h4>
+                  <p>Live-Unterricht, Prüfungen, Zertifikat</p>
+                </div>
+              </div>
+
+              <div className="logo-card dar-card">
+                <div className="logo-img">
+                  <img src={darLogo} alt="Dār al-Iftā’ Logo" />
+                </div>
+                <div>
+                  <span className="logo-kicker">Dār al-Iftā’ DE</span>
+                  <h4>Fatwā-Gremium</h4>
+                  <p>Antworten mit Quellen & Klarheit</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
+        </div>
+
+        <div className="scroll-hint" aria-hidden="true">
+          <span className="hint-label">Scroll</span>
+          <span className="hint-icon"></span>
         </div>
       </section>
 
@@ -189,7 +213,8 @@ const Home = () => {
         .hero {
           position: relative;
           overflow: hidden;
-          min-height: 100v;
+          min-height: 100vh;
+          min-height: 100svh;
           padding: 140px 0 var(--spacing-lg);
           display: flex;
           align-items: center;
@@ -249,6 +274,51 @@ const Home = () => {
           align-items: center;
           position: relative;
           z-index: 1;
+        }
+
+        .scroll-hint {
+          position: absolute;
+          bottom: 26px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.25rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          color: var(--color-text-light);
+          opacity: 0.85;
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        .hint-icon {
+          position: relative;
+          width: 18px;
+          height: 18px;
+        }
+
+        .hint-icon::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 50%;
+          width: 12px;
+          height: 12px;
+          border-left: 2px solid rgba(26, 21, 16, 0.55);
+          border-bottom: 2px solid rgba(26, 21, 16, 0.55);
+          transform: translateX(-50%) rotate(-45deg);
+          animation: hintBounce 1.6s ease-in-out infinite;
+          opacity: 0.9;
+        }
+
+        @keyframes hintBounce {
+          0% { transform: translate(-50%, 0) rotate(-45deg); opacity: 0.7; }
+          50% { transform: translate(-50%, 8px) rotate(-45deg); opacity: 1; }
+          100% { transform: translate(-50%, 0) rotate(-45deg); opacity: 0.7; }
         }
 
         .hero-copy {
