@@ -58,7 +58,7 @@ const MadrasahEnrollment = () => {
 
       <style>{`
         .enrollment.classic {
-          background: linear-gradient(180deg, #fdfaf3 0%, #ffffff 50%, #f9f7f2 100%);
+          background: var(--color-bg-main);
           border-top: 1px solid var(--color-border-light);
           border-bottom: 1px solid var(--color-border-light);
         }
@@ -135,7 +135,7 @@ const MadrasahEnrollment = () => {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: #fff;
+          background: var(--color-surface);
           border: 2px solid #0f8199;
           color: #0f8199;
           font-weight: 800;
@@ -143,7 +143,7 @@ const MadrasahEnrollment = () => {
         }
 
         .card {
-          background: #fff;
+          background: var(--color-surface);
           border: 1px solid var(--color-border);
           border-radius: var(--radius-lg);
           padding: var(--spacing-sm);
@@ -152,7 +152,7 @@ const MadrasahEnrollment = () => {
 
         .card h3 {
           margin: 0 0 6px;
-          color: #0a2533;
+          color: var(--color-text-primary);
         }
 
         .card .desc {

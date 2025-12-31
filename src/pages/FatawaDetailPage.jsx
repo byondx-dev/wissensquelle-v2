@@ -205,7 +205,7 @@ const FatawaDetailPage = () => {
       <style>{`
         .fatawa-detail {
           padding: 100px 18px 80px;
-          background: #f7f9fb;
+          background: var(--color-bg-alt);
         }
 
         .detail-grid {
@@ -217,7 +217,7 @@ const FatawaDetailPage = () => {
         }
 
         .pdf-pane {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 18px;
           padding: 18px;
           box-shadow: 0 12px 30px rgba(12, 60, 78, 0.1);
@@ -230,20 +230,20 @@ const FatawaDetailPage = () => {
         .pdf-header h1 {
           margin: 0 0 6px;
           font-size: clamp(1.6rem, 2.5vw, 2rem);
-          color: #0a2533;
+          color: var(--color-text-primary);
         }
 
         .pdf-subtitle {
           margin: 0;
-          color: #4f6b7a;
+          color: var(--color-text-secondary);
         }
 
         .pdf-viewer {
           flex: 1;
-          border: 1px solid #e0e7ec;
+          border: 1px solid var(--color-border);
           border-radius: 14px;
           overflow: hidden;
-          background: #f3f6f8;
+          background: var(--color-bg-alt);
         }
 
         .pdf-placeholder {
@@ -254,7 +254,7 @@ const FatawaDetailPage = () => {
 
         .pdf-placeholder p {
           margin: 0;
-          color: #4f6b7a;
+          color: var(--color-text-secondary);
         }
 
         .pdf-lines {
@@ -285,11 +285,11 @@ const FatawaDetailPage = () => {
         }
 
         .meta-card {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 16px;
           padding: 16px;
           box-shadow: 0 10px 24px rgba(12, 60, 78, 0.08);
-          border: 1px solid #e0e7ec;
+          border: 1px solid var(--color-border);
         }
 
         .meta-head {
@@ -315,11 +315,11 @@ const FatawaDetailPage = () => {
 
         .nav-btn {
           border: 1px solid #d9e2e8;
-          background: #fff;
+          background: var(--color-surface);
           padding: 8px 10px;
           border-radius: 10px;
           font-weight: 700;
-          color: #0a2533;
+          color: var(--color-text-primary);
         }
 
         .nav-btn:hover {
@@ -334,16 +334,16 @@ const FatawaDetailPage = () => {
 
         .label {
           display: block;
-          color: #4f6b7a;
+          color: var(--color-text-secondary);
           font-size: 0.9rem;
         }
 
         .comment-card {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 16px;
           padding: 18px;
           box-shadow: 0 10px 24px rgba(12, 60, 78, 0.08);
-          border: 1px solid #e0e7ec;
+          border: 1px solid var(--color-border);
         }
 
         .comment-card h3 {
@@ -352,7 +352,7 @@ const FatawaDetailPage = () => {
 
         .comment-hint {
           margin: 0 0 12px;
-          color: #4f6b7a;
+          color: var(--color-text-secondary);
         }
 
         .comment-form {
@@ -362,7 +362,7 @@ const FatawaDetailPage = () => {
 
         .comment-form label {
           font-weight: 700;
-          color: #0a2533;
+          color: var(--color-text-primary);
         }
 
         .comment-form input,
@@ -371,7 +371,7 @@ const FatawaDetailPage = () => {
           padding: 0.8rem 0.9rem;
           border-radius: 10px;
           border: 1px solid #d9e2e8;
-          background: #fff;
+          background: var(--color-surface);
           font-family: inherit;
           font-size: 0.98rem;
         }
@@ -403,11 +403,11 @@ const FatawaDetailPage = () => {
         }
 
         .more-card {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 16px;
           padding: 16px;
           box-shadow: 0 10px 24px rgba(12, 60, 78, 0.08);
-          border: 1px solid #e0e7ec;
+          border: 1px solid var(--color-border);
         }
 
         .more-head {
@@ -427,9 +427,9 @@ const FatawaDetailPage = () => {
           justify-content: space-between;
           align-items: center;
           padding: 10px 12px;
-          border: 1px solid #e0e7ec;
+          border: 1px solid var(--color-border);
           border-radius: 12px;
-          background: #f8fbfc;
+          background: var(--color-bg-alt);
         }
 
         .more-item:hover {
@@ -438,12 +438,12 @@ const FatawaDetailPage = () => {
 
         .more-title {
           font-weight: 700;
-          color: #0a2533;
+          color: var(--color-text-primary);
         }
 
         .more-meta {
           font-size: 0.9rem;
-          color: #4f6b7a;
+          color: var(--color-text-secondary);
         }
 
         .arrow {

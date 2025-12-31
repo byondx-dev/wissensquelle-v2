@@ -343,7 +343,7 @@ const AskFatwaSection = () => {
 const styles = (primary, accent) => `
   .askfatwa-shell {
     padding: 80px 16px;
-    background: #f6f8fb;
+    background: var(--color-bg-alt);
   }
   .askfatwa-container {
     max-width: 1180px;
@@ -355,11 +355,11 @@ const styles = (primary, accent) => `
     align-items: start;
   }
   .guidelines-card {
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 16px;
     padding: 22px;
     box-shadow: 0 18px 40px rgba(8,24,36,0.08);
-    border: 1px solid rgba(12,60,78,0.06);
+    border: 1px solid var(--color-border);
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 14px;
@@ -382,7 +382,7 @@ const styles = (primary, accent) => `
     position: absolute;
     inset: 0;
     border-radius: 10px;
-    background: #fff;
+    background: var(--color-surface);
     border: 2px solid ${primary};
     box-shadow: 0 8px 16px rgba(12,60,78,0.1);
   }
@@ -403,16 +403,16 @@ const styles = (primary, accent) => `
   }
   .guidelines-text h3 {
     margin: 0 0 6px;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
   }
   .guidelines-text p {
     margin: 0 0 10px;
-    color: #4f6b7a;
+    color: var(--color-text-secondary);
   }
   .guidelines-text ul {
     margin: 0;
     padding-left: 18px;
-    color: #0b3141;
+    color: var(--color-text-primary);
     display: grid;
     gap: 6px;
   }
@@ -423,11 +423,11 @@ const styles = (primary, accent) => `
     min-height: 520px;
   }
   .form-card {
-    background: #fff;
+    background: var(--color-surface);
     border-radius: 16px;
     padding: 26px;
     box-shadow: 0 18px 40px rgba(8,24,36,0.08);
-    border: 1px solid rgba(12,60,78,0.06);
+    border: 1px solid var(--color-border);
     position: relative;
     overflow: hidden;
   }
@@ -440,11 +440,11 @@ const styles = (primary, accent) => `
   }
   .form-head h3 {
     margin: 4px 0 6px;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
     font-size: 1.6rem;
   }
   .prior-hint {
-    color: #4f6b7a;
+    color: var(--color-text-secondary);
     line-height: 1.6;
   }
   .form-grid {
@@ -465,20 +465,20 @@ const styles = (primary, accent) => `
   }
   .field label {
     font-weight: 700;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
     font-size: 0.92rem;
   }
   .field input,
   .field select,
   .field textarea {
     width: 100%;
-    border: 1px solid #d9e2e8;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     padding: 10px 12px;
-    background: #f8fbfd;
+    background: var(--color-bg-alt);
     transition: border 0.2s ease, box-shadow 0.2s ease;
     font-size: 1rem;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
   }
   .field textarea {
     resize: vertical;
@@ -491,21 +491,21 @@ const styles = (primary, accent) => `
     box-shadow: 0 0 0 3px rgba(15,129,153,0.15);
   }
   .field small {
-    color: #4f6b7a;
+    color: var(--color-text-secondary);
   }
   .pill {
     border-radius: 999px;
-    border: 1px solid #d9e2e8;
-    background: #f8fbfd;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
     padding: 10px 14px;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
     font-weight: 700;
     transition: all 0.2s ease;
   }
   .pill.active {
     border-color: ${primary};
     background: rgba(15,129,153,0.12);
-    color: #0a2d3c;
+    color: var(--color-text-primary);
   }
   .pay-toggle {
     display: flex;
@@ -516,7 +516,7 @@ const styles = (primary, accent) => `
     text-align: center;
   }
   .info-text {
-    color: #4f6b7a;
+    color: var(--color-text-secondary);
     margin-top: 8px;
   }
   .actions {
@@ -556,8 +556,8 @@ const styles = (primary, accent) => `
     width: 100%;
     height: 54px;
     border-radius: 999px;
-    background: #f1f5f8;
-    border: 1px solid #d9e2e8;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
     overflow: hidden;
   }
   .slider-knob {
@@ -580,19 +580,19 @@ const styles = (primary, accent) => `
     inset: 0;
     display: grid;
     place-items: center;
-    color: #0a2d3c;
+    color: var(--color-text-primary);
     font-weight: 700;
     opacity: 0.8;
   }
   .success-card {
     max-width: 520px;
     margin: 0 auto;
-    background: #fff;
+    background: var(--color-surface);
     border-radius: 18px;
     padding: 32px;
     box-shadow: 0 18px 40px rgba(8,24,36,0.08);
     text-align: center;
-    border: 1px solid rgba(12,60,78,0.06);
+    border: 1px solid var(--color-border);
     animation: pop 0.38s ease;
   }
   .success-icon {

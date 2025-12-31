@@ -1,302 +1,275 @@
 import React, { useState } from 'react';
 
 const Scholars = () => {
-    const scholars = [
-        {
-            name: "Muftī Muhammed Zubair Butt",
-            languages: ["Arabisch", "Englisch", "Urdu"],
-            areas: ["Dār al-Iftāʾ Deutschland"],
-            location: "UK",
-            bio: "Muftī Muhammed Zubair Butt ist gebürtiger Brite und hat den Heiligen Qur’an im Alter von 16 Jahren memoriert. Er absolvierte sein Alim-Studium 1988–1995 in Dewsbury/UK und Darul Uloom Karachi. 1997 spezialisierte er sich auf Fatāwā unter Muftī Muhammad Taqi Usmani. Er ist leitender Berater für islamisches Recht in Bradford und lehrt u.a. Ethik der Transplantation und Autopsie an der University of Leeds.",
-        },
-        {
-            name: "Dr. Mufti Asif Naveed",
-            languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
-            areas: ["Dār al-Iftāʾ Deutschland"],
-            location: "Mannheim",
-            bio: "Muftī Asif Naveed absolvierte ‘Ālim-Studium und Takhassus-fil-Ifta an der Jāmi’ah Dār al-ʿUlūm Karachi und promovierte an der University of Karachi. Er verfasste rund 2.000 Fatāwā und veröffentlichte „Fatāwā Muftī Aʿẓam“. Seit 2015 ist er Muftī und Lehrer in Mannheim und publiziert regelmäßig auf Urdu und Arabisch.",
-        },
-        {
-            name: "Sheikh Nadar",
-            languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
-            areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
-            location: "Bradford/München",
-            bio: "Shaykh Nadar absolvierte 2008–2016 die ‘Ālimiyyah in Dewsbury, UK, und spezialisierte sich unter Mufti Yusuf Sacha. 2017 gründete er die Online-Madrasah As-Sunnah und 2019 die Dar al-Iftā’ Deutschland. Er lehrt verschiedene islamische Wissenschaften, u.a. Nahw, Sarf, Kalam und Hadith, und unterrichtet Qur’an und Tajweed.",
-        },
-        {
-            name: "Sheikh Mashal",
-            languages: ["Arabisch", "Deutsch", "Englisch", "Persisch", "Französisch", "Urdu"],
-            areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
-            location: "Hannover",
-            bio: "Shaykh Mashall Hakim studierte 2001–2007 ‘Ālim in Darul Ulūm Zakariyya (Südafrika) und absolvierte mehrere Da’wa-Kurse. Er war Imam und Lehrer in Hannover, ist Vorsitzender von Talimul Islam e.V. und unterrichtet seit 2018 in der Online Madrasah As-Sunnah.",
-        },
-        {
-            name: "Sheikh Waqar",
-            languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
-            areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
-            location: "Österreich",
-            bio: "Sheikh Waqar studierte ab 2009 ‘Ālim in der Madrassah Arabia Raiwind (Pakistan) und schloss 2018 ab. Seit 2019 unterrichtet er in Masjid Ibrahim (Wien) Kinder und Jugendliche und lehrt in der Online Madrassah As-Sunnah.",
-        },
-        {
-            name: "Sheikh Mustafa",
-            languages: ["Deutsch", "Persisch", "Arabisch"],
-            areas: ["Madrasah as-Sunnah"],
-            location: "Kassel",
-            bio: "Shaykh Mustafa Zeidi studierte Arabisch in Kairo (2011–2012) und schloss 2013–2019 die ‘Ālim-Ausbildung an der Darul Uloom In’amiyah (Südafrika) ab. Seit 2019 ist er Imam in Kassel (Masjid Tauheed) und unterrichtet dort sowie in der Madrasah As-Sunnah und im Ilm-Forum.",
-        },
-    ];
+  const scholars = [
+    {
+      name: "Muftī Muhammed Zubair Butt",
+      languages: ["Arabisch", "Englisch", "Urdu"],
+      areas: ["Dār al-Iftāʾ Deutschland"],
+      location: "UK",
+      bio: "Muftī Muhammed Zubair Butt ist gebürtiger Brite und hat den Heiligen Qur’an im Alter von 16 Jahren memoriert. Er absolvierte sein Alim-Studium 1988–1995 in Dewsbury/UK und Darul Uloom Karachi. 1997 spezialisierte er sich auf Fatāwā unter Muftī Muhammad Taqi Usmani. Er ist leitender Berater für islamisches Recht in Bradford und lehrt u.a. Ethik der Transplantation und Autopsie an der University of Leeds.",
+    },
+    {
+      name: "Dr. Mufti Asif Naveed",
+      languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
+      areas: ["Dār al-Iftāʾ Deutschland"],
+      location: "Mannheim",
+      bio: "Muftī Asif Naveed absolvierte ‘Ālim-Studium und Takhassus-fil-Ifta an der Jāmi’ah Dār al-ʿUlūm Karachi und promovierte an der University of Karachi. Er verfasste rund 2.000 Fatāwā und veröffentlichte „Fatāwā Muftī Aʿẓam“. Seit 2015 ist er Muftī und Lehrer in Mannheim und publiziert regelmäßig auf Urdu und Arabisch.",
+    },
+    {
+      name: "Sheikh Nadar",
+      languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
+      areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
+      location: "Bradford/München",
+      bio: "Shaykh Nadar absolvierte 2008–2016 die ‘Ālimiyyah in Dewsbury, UK, und spezialisierte sich unter Mufti Yusuf Sacha. 2017 gründete er die Online-Madrasah As-Sunnah und 2019 die Dar al-Iftā’ Deutschland. Er lehrt verschiedene islamische Wissenschaften, u.a. Nahw, Sarf, Kalam und Hadith, und unterrichtet Qur’an und Tajweed.",
+    },
+    {
+      name: "Sheikh Mashall Hakim",
+      languages: ["Arabisch", "Deutsch", "Englisch", "Persisch", "Französisch", "Urdu"],
+      areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
+      location: "Hannover",
+      bio: "Shaykh Mashall Hakim studierte 2001–2007 ‘Ālim in Darul Ulūm Zakariyya (Südafrika) und absolvierte mehrere Da’wa-Kurse. Er war Imam und Lehrer in Hannover, ist Vorsitzender von Talimul Islam e.V. und unterrichtet seit 2018 in der Online Madrasah As-Sunnah.",
+    },
+    {
+      name: "Sheikh Waqar",
+      languages: ["Arabisch", "Deutsch", "Englisch", "Urdu"],
+      areas: ["Madrasah as-Sunnah", "Dār al-Iftāʾ Deutschland"],
+      location: "Österreich",
+      bio: "Sheikh Waqar studierte ab 2009 ‘Ālim in der Madrassah Arabia Raiwind (Pakistan) und schloss 2018 ab. Seit 2019 unterrichtet er in Masjid Ibrahim (Wien) Kinder und Jugendliche und lehrt in der Online Madrassah As-Sunnah.",
+    },
+    {
+      name: "Sheikh Mustafa",
+      languages: ["Deutsch", "Persisch", "Arabisch"],
+      areas: ["Madrasah as-Sunnah"],
+      location: "Kassel",
+      bio: "Shaykh Mustafa Zeidi studierte Arabisch in Kairo (2011–2012) und schloss 2013–2019 die ‘Ālim-Ausbildung an der Darul Uloom In’amiyah (Südafrika) ab. Seit 2019 ist er Imam in Kassel (Masjid Tauheed) und unterrichtet dort sowie in der Madrasah As-Sunnah und im Ilm-Forum.",
+    },
+  ];
 
-    const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState(null);
 
-    const toggle = (name) => {
-        setExpanded((prev) => (prev === name ? null : name));
-    };
+  const toggle = (name) => {
+    setExpanded((prev) => (prev === name ? null : name));
+  };
 
-    return (
-        <section id="scholars" className="section scholars">
-            <div className="container">
-                <div className="section-header">
-                    <h2 className="section-title">Unsere Gelehrten</h2>
-                    <p className="section-desc">Team aus Muftīs und Lehrenden – klar vorgestellt, transparent begleitet.</p>
+  return (
+    <section id="scholars" className="section scholars">
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Unsere Gelehrten</h2>
+          <p className="section-desc">Team aus Muftīs und Lehrenden – klar vorgestellt, transparent begleitet.</p>
+        </div>
+
+        <div className="scholars-grid">
+          {scholars.map((scholar) => (
+            <article key={scholar.name} className="scholar-card">
+              <div className="card-header">
+                <h3>{scholar.name}</h3>
+                <span className="location-badge">
+                  <span aria-hidden="true">📍</span> {scholar.location}
+                </span>
+              </div>
+
+              <div className="card-body">
+                <div className="tags-row">
+                  <div className="tag-group">
+                    <span className="label">Sprachen:</span>
+                    <div className="tag-list">
+                      {scholar.languages.map(l => <span key={l} className="tag">{l}</span>)}
+                    </div>
+                  </div>
+                  <div className="tag-group">
+                    <span className="label">Bereiche:</span>
+                    <div className="tag-list">
+                      {scholar.areas.map(a => <span key={a} className="tag highlight">{a}</span>)}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="scholars-stack">
-                    {scholars.map((scholar) => (
-                        <article key={scholar.name} className="scholar-card">
-                            <div className="card-body">
-                                <div className="scholar-head">
-                                    <h3>{scholar.name}</h3>
-                                    <div className="info-row">
-                                        <span className="icon pin" aria-hidden="true">📍</span>
-                                        <span className="location-text">{scholar.location}</span>
-                                    </div>
-                                </div>
-                                <div className="meta-row">
-                                    <div className="pill-set">
-                                        <span className="pill-label"><span aria-hidden="true">🌐</span> Sprachen</span>
-                                        <div className="pill-wrap">
-                                            {scholar.languages.map((lang) => (
-                                                <span key={lang} className="pill">{lang}</span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    type="button"
-                                    className="toggle"
-                                    onClick={() => toggle(scholar.name)}
-                                    aria-expanded={expanded === scholar.name}
-                                >
-                                    <span className="chevron">{expanded === scholar.name ? '▾' : '▸'}</span>
-                                    Kurzbiografie {expanded === scholar.name ? 'ausblenden' : 'anzeigen'}
-                                </button>
-                                <div className={`bio-wrapper ${expanded === scholar.name ? 'open' : ''}`}>
-                                    <p className="bio">{scholar.bio}</p>
-                                </div>
-                            </div>
-                            <div className="card-areas">
-                                {scholar.areas.map((area) => (
-                                    <div key={area} className="parallelogram">
-                                        <div className="para-content">
-                                            <span>{area}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </article>
-                    ))}
+                <div className={`bio-container ${expanded === scholar.name ? 'expanded' : ''}`}>
+                  <p>{scholar.bio}</p>
                 </div>
-            </div>
 
-            <style>{`
+                <button
+                  className="read-more-btn"
+                  onClick={() => toggle(scholar.name)}
+                >
+                  {expanded === scholar.name ? 'Weniger anzeigen' : 'Mehr erfahren'}
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
         .scholars {
-          background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 100%);
+          background: var(--color-bg-main);
+          padding: 80px 0;
         }
-        .scholars-stack {
-          display: grid;
-          gap: var(--spacing-lg);
-        }
-        .scholar-card {
-          background: transparent;
-          border-radius: 18px;
-          padding: 0;
-          box-shadow: 0 12px 28px rgba(8,24,36,0.08);
-          border: none;
-          display: grid;
-          grid-template-columns: 1.35fr 1fr;
-          position: relative;
-          overflow: hidden;
-        }
-        .scholar-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at 12% 18%, rgba(15,129,153,0.06), transparent 32%);
-          pointer-events: none;
-        }
-        .card-body {
-          padding: var(--spacing-md);
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          position: relative;
-          padding-bottom: 56px;
-          background: #fff;
-          border: 1px solid rgba(12,60,78,0.08);
-          border-right: none;
-          border-radius: 18px 0 0 18px;
-        }
-        .card-areas {
-          background: linear-gradient(135deg, #0f2430 0%, #0a1a23 70%);
-          display: flex;
-          align-items: stretch;
-          gap: 0;
-          padding: 0;
-          position: relative;
-          overflow: hidden;
-          clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-        }
-        .card-areas::before {
-          content: '';
-          position: absolute;
-          left: -26px;
-          top: -20px;
-          bottom: -20px;
-          width: 52px;
-          background: #0f2430;
-          transform: skewX(-16deg);
-          filter: drop-shadow(-4px 0 10px rgba(0,0,0,0.2));
-          z-index: 1;
-        }
-        .parallelogram {
-          position: relative;
-          flex: 1;
-          margin: -12px 0;
-          background: linear-gradient(135deg, rgba(15,129,153,0.24), rgba(198,160,67,0.25));
-          transform: skewX(-12deg);
-          overflow: hidden;
-          border-right: 1px solid rgba(255,255,255,0.18);
-          display: grid;
-          place-items: center;
-          height: calc(100% + 24px);
-          top: -12px;
-        }
-        .parallelogram:last-child {
-          border-right: none;
-        }
-        .parallelogram::after {
-          content: '';
-          position: absolute;
-          inset: -12px;
-          background: linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0));
-          mix-blend-mode: screen;
-        }
-        .para-content {
-          position: relative;
-          z-index: 2;
-          transform: skewX(12deg);
-          color: #fdfaf3;
-          font-weight: 800;
-          letter-spacing: 0.02em;
+        .section-header {
           text-align: center;
-          padding: 0 10px;
-          white-space: nowrap;
+          margin-bottom: 60px;
         }
-        .scholar-head {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 4px;
+        .section-title {
+          font-size: 2.5rem;
+          color: var(--color-gold-start);
+          margin-bottom: 16px;
         }
-        .scholar-head h3 {
-          margin: 0;
-          color: #0a2d3c;
-          font-size: 1.2rem;
+        .section-desc {
+          font-size: 1.1rem;
+          color: var(--color-text-secondary);
+          max-width: 600px;
+          margin: 0 auto;
         }
-        .role {
-          margin: 0;
-          color: #4f6b7a;
-          font-weight: 600;
-          letter-spacing: 0.01em;
-        }
-        .location {
-          background: rgba(198,160,67,0.14);
-          color: #8b6a20;
-          border-radius: 12px;
-          padding: 6px 10px;
-          font-weight: 700;
-          font-size: 0.9rem;
-        }
-        .meta-row {
+
+        .scholars-grid {
           display: grid;
-          gap: 10px;
-          padding-bottom: 12px;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          gap: 24px;
         }
-        .pill-set {
-          display: grid;
-          gap: 6px;
-          align-items: start;
+
+        .scholar-card {
+           background: var(--color-surface);
+           border-radius: 24px;
+           overflow: hidden;
+           border: 1px solid var(--color-border);
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+           display: flex;
+           flex-direction: column;
         }
-        .pill-label {
-          font-weight: 700;
-          color: #0a2d3c;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
+
+        .scholar-card:hover {
+           transform: translateY(-5px);
+           box-shadow: var(--shadow-md);
+           border-color: var(--color-gold-start);
         }
-        .pill-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
+
+        .card-header {
+           padding: 24px;
+           border-bottom: 1px solid var(--color-border);
+           background: var(--color-bg-alt);
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           gap: 12px;
         }
-        .pill {
-          padding: 6px 10px;
-          border-radius: 10px;
-          background: #e9f2f5;
-          color: #0a3b4f;
-          font-weight: 700;
-          font-size: 0.9rem;
+
+        .card-header h3 {
+           margin: 0;
+           font-size: 1.25rem;
+           color: var(--color-text-primary);
+           font-family: var(--font-heading);
         }
-        .pill.soft {
-          background: rgba(198,160,67,0.16);
-          color: #8b6a20;
+
+        .location-badge {
+           font-size: 0.85rem;
+           background: var(--color-surface);
+           border: 1px solid var(--color-border);
+           padding: 6px 12px;
+           border-radius: 99px;
+           color: var(--color-text-secondary);
+           white-space: nowrap;
         }
-        .toggle {
-          align-self: flex-start;
-          padding: 8px 12px;
-          border-radius: 10px;
-          border: 1px solid #d9e2e8;
-          background: #f8fbfc;
-          color: #0a2d3c;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          position: relative;
-          z-index: 2;
+
+        .card-body {
+           padding: 24px;
+           display: flex;
+           flex-direction: column;
+           gap: 20px;
+           flex-grow: 1;
         }
-        .toggle:hover {
-          border-color: #0f8199;
-          color: #0f8199;
+
+        .tag-group {
+           display: flex;
+           flex-direction: column;
+           gap: 8px;
         }
-        .bio-wrapper {
-          overflow: hidden;
-          max-height: 0;
-          opacity: 0;
-          transition: max-height 0.35s ease, opacity 0.35s ease, margin-top 0.35s ease;
+
+        .label {
+           font-size: 0.8rem;
+           text-transform: uppercase;
+           letter-spacing: 0.05em;
+           font-weight: 700;
+           color: var(--color-text-secondary);
         }
-        .bio-wrapper.open {
-          max-height: 800px;
-          opacity: 1;
-          margin-top: 6px;
+
+        .tag-list {
+           display: flex;
+           flex-wrap: wrap;
+           gap: 8px;
         }
-        .bio {
-          margin: 0;
-          color: #4f6b7a;
-          line-height: 1.6;
+
+        .tag {
+           font-size: 0.85rem;
+           padding: 4px 10px;
+           background: var(--color-bg-alt);
+           border-radius: 6px;
+           color: var(--color-text-primary);
+           border: 1px solid var(--color-border);
+        }
+
+        .tag.highlight {
+           background: rgba(198, 160, 67, 0.1);
+           color: var(--color-gold-end);
+           border-color: rgba(198, 160, 67, 0.2);
+        }
+        
+        .tags-row {
+           display: flex;
+           flex-direction: column;
+           gap: 16px;
+        }
+
+        .bio-container {
+           margin-top: auto;
+           position: relative;
+        }
+        
+        .bio-container p {
+           margin: 0;
+           line-height: 1.6;
+           color: var(--color-text-secondary);
+           display: -webkit-box;
+           -webkit-line-clamp: 3;
+           -webkit-box-orient: vertical;
+           overflow: hidden;
+           transition: all 0.3s ease;
+        }
+
+        .bio-container.expanded p {
+           -webkit-line-clamp: unset;
+        }
+
+        .read-more-btn {
+           align-self: flex-start;
+           background: none;
+           border: none;
+           padding: 0;
+           color: var(--color-gold-start);
+           font-weight: 700;
+           font-size: 0.9rem;
+           cursor: pointer;
+           margin-top: 8px;
+        }
+        
+        .read-more-btn:hover {
+           text-decoration: underline;
+           color: var(--color-gold-end);
+        }
+
+        @media (max-width: 768px) {
+           .scholars-grid {
+              grid-template-columns: 1fr;
+           }
+           .card-header {
+              flex-direction: column;
+              align-items: flex-start;
+           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 };
 
 export default Scholars;

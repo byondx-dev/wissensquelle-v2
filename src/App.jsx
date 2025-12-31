@@ -12,6 +12,8 @@ import FAQ from './components/FAQ';
 import RegistrationPage from './pages/RegistrationPage';
 import FatawaDetailPage from './pages/FatawaDetailPage';
 import CoursesPage from './pages/CoursesPage';
+import ArticlesPage from './pages/ArticlesPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -57,6 +59,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/:id" element={<ArticleDetailPage />} />
         </Routes>
       </main>
 
@@ -87,6 +91,8 @@ function App() {
                   <li><a href="/">Startseite</a></li>
                   <li><a href="/kurse">Kurse</a></li>
                   <li><a href="/madrasah">Madrasah</a></li>
+                  <li><a href="/about">Über uns</a></li>
+                  <li><a href="/articles">Artikel</a></li>
                   <li><a href="/contact">Kontakt</a></li>
                 </ul>
               </div>
@@ -128,10 +134,10 @@ function App() {
             }
 
             .footer {
-              background-color: var(--color-text-primary);
+              background-color: var(--color-bg-dark);
               color: #FFFFFF;
               padding: var(--spacing-lg) 0 var(--spacing-md);
-              margin-top: var(--spacing-xl);
+              margin-top: 0;
             }
             
             .footer-content {

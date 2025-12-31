@@ -60,7 +60,7 @@ const FAQ = () => {
       <style>{`
         .faq-section {
           padding: var(--spacing-lg) 0 var(--spacing-xl);
-          background: #f7f8fa;
+          background: var(--color-bg-alt);
         }
 
         .faq-shell {
@@ -92,7 +92,7 @@ const FAQ = () => {
         }
 
         .faq-item {
-          background: #fff;
+          background: var(--color-surface);
           border: 1px solid var(--color-border);
           border-radius: 12px;
           box-shadow: var(--shadow-sm);

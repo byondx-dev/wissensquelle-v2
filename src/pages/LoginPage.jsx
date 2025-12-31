@@ -1,6 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import heroImg from '../assets/madrasah.png';
 import mosqueImg from '../assets/mosque.png';
+import slideLibrary1 from '../assets/slide-library-1.jpg';
+import slideMosque1 from '../assets/slide-mosque-1.png';
+import slideLibrary2 from '../assets/slide-library-2.jpg';
+import slideDome from '../assets/slide-dome.jpg';
+import slideDoors from '../assets/slide-doors.jpg';
 import logoImg from '../assets/logo.png';
 
 const LoginPage = () => {
@@ -11,107 +18,122 @@ const LoginPage = () => {
     if (document?.title && document.title !== 'Vite + React') return document.title;
     return 'Wissensquelle';
   }, []);
-  const heroSlides = [heroImg, mosqueImg];
+
+  const heroSlides = [slideLibrary1, slideMosque1, slideLibrary2, slideDome, slideDoors, heroImg, mosqueImg];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prev) => (prev + 1) % heroSlides.length);
-    }, 4200);
+    }, 10000);
     return () => clearInterval(interval);
   }, [heroSlides.length]);
 
   return (
-    <main className="login-shell">
-      <section className="login-frame">
-        <div className="login-hero">
-            <div className="hero-card">
-            <div className="hero-slides" aria-hidden="true">
-              {heroSlides.map((src, idx) => (
-                <div
-                  key={src}
-                  className={`hero-slide ${idx === slideIndex ? 'active' : ''}`}
-                  style={{ backgroundImage: `url(${src})` }}
-                />
-              ))}
-            </div>
-            <div className="hero-card-overlay" />
-            <div className="hero-dots" role="tablist" aria-label="Hintergrundbilder">
-              {heroSlides.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={`dot ${idx === slideIndex ? 'active' : ''}`}
-                  onClick={() => setSlideIndex(idx)}
-                  aria-label={`Bild ${idx + 1}`}
-                />
-              ))}
-            </div>
+    <main className="login-page">
+      {/* Background Layer */}
+      <div className="bg-layer" aria-hidden="true">
+        {heroSlides.map((src, idx) => (
+          <div
+            key={src}
+            className={`bg-slide ${idx === slideIndex ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${src})` }}
+          />
+        ))}
+        <div className="bg-overlay" />
+      </div>
+
+      {/* Content Layer */}
+      <div className="content-container">
+
+        <a className="home-link" href="/">
+          ← Zurück zur Webseite
+        </a>
+
+        {/* Left Column: Branding */}
+        <div className="branding-col">
+          <div className="logo-card">
+            <img src={logoImg} alt="Wissensquelle Logo" />
+          </div>
+          <div className="quote-block">
+            <p className="quote-text">~ Mein Rab, mehre mich an Wissen</p>
+            <p className="quote-source">Surah Taha 20:114</p>
           </div>
         </div>
 
-        <div className="login-panel">
-          <div className="login-inner">
-            <a className="home-link" href="/">← Zur Startseite</a>
-            <div className="hero-logo centered top-logo">
-              <img src={logoImg} alt={`${appTitle} Logo`} />
-            </div>
-            <header className="form-head">
-              <h2>Ahlan wa sahlan,</h2>
-              <p>Login, um Zugang zu erhalten, oder registriere dich neu.</p>
+        {/* Right Column: Login Card */}
+        <div className="form-col">
+          <motion.div
+            className="glass-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <header className="form-header">
+              <motion.h2
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              >
+                Willkommen zurück
+              </motion.h2>
+              <p>Bitte logge dich ein, um fortzufahren.</p>
             </header>
 
-            <form className="login-form" aria-label="Login">
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                autoComplete="email"
-                required
-              />
-
-              <label htmlFor="password" className="label-row">
-                <span>Password</span>
-                <a className="link subtle" href="/reset-password">Forgot password?</a>
-              </label>
-              <div className="input-wrap">
+            <form className="login-form">
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
                 <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  placeholder="Password"
-                  autoComplete="current-password"
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
                   required
                 />
-                <button
-                  type="button"
-                  className="eye"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  aria-label={showPassword ? 'Passwort ausblenden' : 'Passwort anzeigen'}
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Z"
-                      fill="none"
-                      strokeWidth="1.6"
-                    />
-                    <circle cx="12" cy="12" r="3" fill="none" strokeWidth="1.6" />
-                    {showPassword && (
-                      <line x1="4" y1="20" x2="20" y2="4" strokeWidth="1.6" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Passwort</label>
+                <div className="input-with-icon">
+                  <input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-pw"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? (
+                      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
                     )}
-                  </svg>
-                </button>
+                  </button>
+                </div>
               </div>
 
-              <div className="form-actions">
-                <a className="btn ghost" href="/signup">Sign up</a>
-                <button type="submit" className="btn solid">Log in</button>
+              <div className="forgot-row">
+                <a href="/reset-password">Passwort vergessen?</a>
               </div>
 
-              <div className="social-actions" aria-label="Social Login">
-                <button type="button" className="btn social">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+              <button type="submit" className="btn-submit">
+                Einloggen
+              </button>
+
+              <div className="divider">
+                <span>oder</span>
+              </div>
+
+              <div className="social-login">
+                <button type="button" className="btn-social google">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.5 12.273c0-.851-.076-1.475-.24-2.12H12.24v3.845h5.87c-.12.958-.77 2.405-2.216 3.374l-.02.127 3.217 2.493.223.022c2.04-1.878 3.186-4.644 3.186-7.741" />
                     <path fill="#34A853" d="M12.24 23c2.887 0 5.314-.95 7.086-2.583l-3.373-2.613c-.904.63-2.12 1.07-3.713 1.07-2.84 0-5.248-1.878-6.107-4.474l-.126.01-3.3 2.56-.043.12C3.454 20.64 7.52 23 12.24 23" />
                     <path fill="#FBBC05" d="M6.133 14.4c-.227-.67-.357-1.385-.357-2.12 0-.736.13-1.45.343-2.12l-.006-.142-3.34-2.6-.11.053C1.994 8.97 1.5 10.643 1.5 12.28c0 1.638.494 3.31 1.164 4.81l3.47-2.69" />
@@ -119,8 +141,8 @@ const LoginPage = () => {
                   </svg>
                   Google
                 </button>
-                <button type="button" className="btn social">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+                <button type="button" className="btn-social microsoft">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
                     <path fill="#0078D4" d="M1.5 4.5 11 2.75v8.84H1.5z" />
                     <path fill="#0078D4" d="M1.5 19.5 11 21.25v-8.84H1.5z" />
                     <path fill="#0078D4" d="M22.5 12.41 12 2.75v8.84h10.5z" />
@@ -129,394 +151,369 @@ const LoginPage = () => {
                   Microsoft
                 </button>
               </div>
+
+              <p className="signup-link">
+                Neu hier? <a href="/contact">Konto erstellen lassen</a>
+              </p>
             </form>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </div>
 
       <style>{`
-        .login-shell {
-          min-height: 100vh;
-          background: #ffffff;
-          display: flex;
-          align-items: stretch;
-          justify-content: center;
-          padding: 0;
-        }
-
-        .login-frame {
-          width: 100%;
-          background: #fff;
-          border-radius: 0;
-          overflow: hidden;
-          display: grid;
-          grid-template-columns: 1.8fr 1fr;
-          column-gap: 0;
-          min-height: 100vh;
-          box-shadow: none;
-          position: relative;
-        }
-
-        .login-hero {
-          position: relative;
-          overflow: hidden;
-          min-height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 38px;
-          background: #ffffff;
-        }
-
-        .hero-card {
+        /* Reset & Base */
+        .login-page {
           position: relative;
           width: 100%;
-          height: calc(100% - 76px);
-          max-width: 100%;
-          min-height: 520px;
-          border-radius: 32px;
+          min-height: 100vh;
+          min-height: 100dvh;
           overflow: hidden;
-          box-shadow: none;
-          background: #0a2d3c;
+          font-family: 'Inter', sans-serif;
+          color: #fff;
         }
 
-        .hero-slides, .hero-slide {
+        /* Background Layer */
+        .bg-layer {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background-color: #050709;
+        }
+
+        .bg-slide {
           position: absolute;
           inset: 0;
-        }
-
-        .hero-slide {
           background-size: cover;
           background-position: center;
           opacity: 0;
-          transition: opacity 0.9s ease;
+          transition: opacity 1.5s ease-in-out;
+          filter: saturate(1.1);
         }
 
-        .hero-slide.active {
+        .bg-slide.active {
           opacity: 1;
         }
 
-        .hero-card-overlay {
+        .bg-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(0,0,0,0.08), rgba(0,0,0,0.12));
+          /* Strong gradient for readability */
+          background: linear-gradient(
+            to right,
+            rgba(5, 7, 9, 0.85) 0%,
+            rgba(5, 7, 9, 0.6) 40%,
+            rgba(5, 7, 9, 0.4) 100%
+          );
+          z-index: 1;
         }
 
-        .hero-content {
+        /* Content Layer */
+        .content-container {
           position: relative;
-          z-index: 1;
-          color: #fff;
+          z-index: 10;
+          max-width: 1400px;
+          margin: 0 auto;
+          min-height: 100vh;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          padding: 2rem;
+          gap: 4rem;
+          align-items: center;
+        }
+
+        /* Branding Column */
+        .branding-col {
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          padding: 48px;
-          height: 100%;
           justify-content: center;
-          align-items: flex-start;
-          text-shadow: 0 8px 24px rgba(0,0,0,0.35);
-        }
-
-        .hero-logo {
-          width: 74px;
-          height: 74px;
-          border-radius: 18px;
-          background: rgba(255,255,255,0.14);
-          display: grid;
-          place-items: center;
-          backdrop-filter: blur(4px);
-          border: 1px solid rgba(255,255,255,0.28);
-          box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-        }
-
-        .hero-logo img {
-          width: 100%;
           height: 100%;
+          padding-left: 2rem;
+        }
+
+        .logo-card {
+           background: rgba(255, 255, 255, 0.95);
+           padding: 24px;
+           border-radius: 20px;
+           width: fit-content;
+           box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+           backdrop-filter: blur(10px);
+           display: flex;
+           align-items: center;
+           justify-content: center;
+        }
+
+        .logo-card img {
+          width: 80px;
+          height: 80px;
           object-fit: contain;
-          filter: brightness(1.05);
         }
 
-        .hero-text h1 {
-          font-size: clamp(2.2rem, 3vw, 3rem);
-          margin: 0;
-          font-weight: 800;
-          letter-spacing: 0.01em;
+        .quote-block {
+          margin-top: 2rem;
+          color: #fff;
         }
 
-        .hero-text p {
-          font-size: 1.1rem;
-          margin: 0;
-          opacity: 0.92;
-          letter-spacing: 0.04em;
+        .quote-text {
+          font-family: 'Amiri', serif;
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+          font-weight: 700;
+          text-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        .hero-dots {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: 18px;
+        .quote-source {
+          font-family: 'Inter', sans-serif;
+          font-size: 1rem;
+          opacity: 0.85;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Form Column */
+        .form-col {
           display: flex;
-          gap: 8px;
-          z-index: 2;
-          background: rgba(0,0,0,0.2);
-          padding: 6px 10px;
-          border-radius: 999px;
-          backdrop-filter: blur(6px);
+          justify-content: center;
+          align-items: center;
         }
 
-        .hero-dots .dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 999px;
-          background: rgba(255,255,255,0.7);
-          border: 1px solid rgba(255,255,255,0.8);
+        /* Glass Card */
+        .glass-card {
+          width: 100%;
+          max-width: 440px;
+          padding: 3rem 2.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 24px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Light Mode Glass override if desired, 
+           but referencing the user image which is dark/moody, 
+           focusing on dark glassmorphism for contrast against photos.
+           If User wants light mode support, we can add media query. 
+           For now assuming dark mood as per image. */
+        
+        .form-header {
+          margin-bottom: 2rem;
+          text-align: center;
+        }
+
+        .form-header h2 {
+          font-family: 'Amiri', serif;
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+          color: #fff;
+        }
+
+        .form-header p {
+          font-size: 0.95rem;
+          opacity: 0.7;
+        }
+
+        .form-group {
+          margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+          display: block;
+          font-size: 0.9rem;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+          opacity: 0.9;
+        }
+
+        .form-group input {
+          width: 100%;
+          padding: 0.85rem 1rem;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.08); /* Dark input base */
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #fff;
+          font-size: 1rem;
           transition: all 0.2s ease;
         }
 
-        .hero-dots .dot.active {
-          width: 18px;
-          background: #fff;
-          border-color: #fff;
+        /* Input styling for light mode compatibility if needed, 
+           but enforcing white text for now on glass */
+        
+        .form-group input:focus {
+          outline: none;
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.4);
         }
 
-        .login-panel {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 48px 38px;
-          background: #fff;
+        .form-group input::placeholder {
+          color: rgba(255, 255, 255, 0.4);
         }
 
-        .login-inner {
-          width: min(420px, 100%);
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
+        .input-with-icon {
           position: relative;
         }
 
-        .home-link {
-          align-self: flex-end;
-          font-weight: 700;
-          color: #0f8199;
-          text-decoration: none;
-          font-size: 0.95rem;
-        }
-
-        .top-logo {
-          margin: 6px auto 14px;
+        .toggle-pw {
+          position: absolute;
+          right: 0.75rem;
+          top: 50%;
+          transform: translateY(-50%);
           background: none;
           border: none;
-          box-shadow: none;
+          color: rgba(255, 255, 255, 0.6);
+          cursor: pointer;
+          padding: 4px;
         }
 
-        .home-link:hover {
-          color: #0a4f60;
+        .toggle-pw:hover {
+          color: #fff;
+        }
+
+        .forgot-row {
+          text-align: right;
+          margin-bottom: 1.5rem;
+        }
+
+        .forgot-row a {
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .forgot-row a:hover {
+          color: #fff;
           text-decoration: underline;
         }
 
-        .form-head h2 {
-          margin: 0 0 6px;
-          font-size: 1.8rem;
-          font-weight: 800;
-          color: #0a2533;
-        }
-
-        .form-head p {
-          margin: 0;
-          color: #5c6b76;
-          font-size: 0.98rem;
-        }
-
-        .login-form {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-
-        .login-form label {
-          font-weight: 700;
-          color: #0a2533;
-          display: inline-flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 0.95rem;
-          letter-spacing: 0.01em;
-        }
-
-        .label-row {
-          gap: 8px;
-        }
-
-        .login-form input {
+        .btn-submit {
           width: 100%;
-          padding: 0.9rem 1rem;
-          border-radius: 10px;
-          border: 1px solid #d9e2e8;
-          font-size: 1rem;
-          transition: border-color 0.24s ease, box-shadow 0.24s ease;
-          background: #fff;
-        }
-
-        .login-form input:focus {
-          outline: none;
-          border-color: #0f8199;
-          box-shadow: 0 0 0 4px rgba(15, 129, 153, 0.12);
-        }
-
-        .input-wrap {
-          position: relative;
-        }
-
-        .input-wrap input {
-          padding-right: 3rem;
-        }
-
-        .eye {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 36px;
-          height: 36px;
-          border-radius: 10px;
-          border: 1px solid transparent;
-          background: #f3f6f8;
-          display: grid;
-          place-items: center;
-          color: #0a4f60;
-          transition: all 0.2s ease;
-        }
-
-        .eye:hover {
-          border-color: #d9e2e8;
-          background: #e9f4f6;
-        }
-
-        .eye svg {
-          width: 18px;
-          height: 18px;
-          stroke: currentColor;
-          fill: none;
-        }
-
-        .form-actions {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-          margin-top: 6px;
-        }
-
-        .social-actions {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-          margin-top: 10px;
-        }
-
-        .btn.social {
-          border: 1px solid #d9e2e8;
-          background: #fff;
-          color: #0a2533;
-          gap: 8px;
-        }
-
-        .btn.social:hover {
-          background: #f4f7f9;
-          transform: translateY(-1px);
-          box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-        }
-
-        .btn {
-          height: 48px;
-          border-radius: 10px;
+          padding: 0.9rem;
+          border-radius: 12px;
+          border: none;
+          background: #fff; /* High contrast button */
+          color: #050709;
           font-weight: 700;
           font-size: 1rem;
-          display: inline-flex;
+          cursor: pointer;
+          transition: transform 0.1s ease, background 0.2s;
+          margin-bottom: 1.5rem;
+        }
+
+        .btn-submit:hover {
+          background: #e2e2e2;
+          transform: translateY(-1px);
+        }
+
+        .divider {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          color: rgba(255, 255, 255, 0.4);
+          font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span {
+          padding: 0 1rem;
+        }
+
+        .social-login {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .btn-social {
+          display: flex;
           align-items: center;
           justify-content: center;
-          transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-        }
-
-        .btn.ghost {
-          border: 1px solid #0f8199;
-          color: #0f8199;
-          background: #fff;
-        }
-
-        .btn.ghost:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 10px 20px rgba(15, 129, 153, 0.18);
-          background: #f0f8fa;
-        }
-
-        .btn.solid {
-          border: 1px solid #0a2533;
-          background: #0a2533;
+          gap: 8px;
+          padding: 0.75rem;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.05);
           color: #fff;
-          box-shadow: 0 10px 22px rgba(10, 37, 51, 0.22);
-        }
-
-        .btn.solid:hover {
-          transform: translateY(-1px);
-          background: #081c28;
-        }
-
-        .link.subtle {
-          color: #5c6b76;
           font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .btn-social:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .signup-link {
+          text-align: center;
           font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
         }
 
-        .link.subtle:hover {
-          color: #0f8199;
+        .signup-link a {
+          color: #fff;
+          font-weight: 600;
+          margin-left: 4px;
         }
 
-        @media (max-width: 1024px) {
-          .login-frame {
-            grid-template-columns: 1.4fr 1fr;
-          }
+        .home-link {
+          position: absolute;
+          top: 2rem;
+          left: 2rem;
+          color: rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 0.95rem;
+          z-index: 20;
+          transition: color 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 6px;
         }
 
-        @media (max-width: 900px) {
-          .login-frame {
+        .home-link:hover {
+          color: #fff;
+          text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 960px) {
+          .content-container {
             grid-template-columns: 1fr;
-            border-radius: 0;
+            padding: 1.5rem;
+            gap: 2rem;
+            text-align: center;
           }
-          .login-hero {
-            height: 45vh;
-            padding: 20px;
-            border-radius: 0 0 12px 12px;
-          }
-          .hero-card {
-            height: 100%;
-            min-height: 100%;
-            border-radius: 18px;
-          }
-          .login-panel {
-            padding: 32px 26px 38px;
-          }
-        }
 
-        @media (max-width: 640px) {
-          .login-shell {
-            padding: 0;
+          .home-link {
+            top: 1.5rem;
+            left: 1.5rem;
           }
-          .login-frame {
-            min-height: 0;
+
+          .branding-col {
+            padding-left: 0;
+            align-items: center;
+            height: auto;
+            margin-top: 2rem;
           }
-          .hero-content {
-            padding: 28px 22px;
-            align-items: flex-start;
+
+          .brand-header {
+            margin-bottom: 1.5rem;
           }
-          .hero-logo {
-            width: 64px;
-            height: 64px;
+
+          .brand-hero h1 {
+            font-size: 3rem;
           }
-          .login-panel {
-            padding: 28px 20px 34px;
-          }
-          .form-actions {
-            grid-template-columns: 1fr;
+          
+          .form-col {
+            padding-bottom: 2rem;
           }
         }
       `}</style>

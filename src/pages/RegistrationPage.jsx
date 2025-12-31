@@ -205,7 +205,7 @@ const RegistrationPage = () => {
       <style>{`
         .reg-shell {
           min-height: 100vh;
-          background: #f4f6f9;
+          background: var(--color-bg-alt);
           padding: 120px 16px 48px;
           position: relative;
         }
@@ -230,19 +230,19 @@ const RegistrationPage = () => {
           gap: 16px;
         }
         .reg-sidebar {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 20px;
           padding: 18px;
           box-shadow: 0 12px 30px rgba(12, 60, 78, 0.08);
-          border: 1px solid #e0e4ec;
+          border: 1px solid var(--color-border);
         }
         .reg-title {
           font-size: 1.4rem;
           font-weight: 800;
-          color: #d88b2c;
+          color: var(--color-gold-start);
         }
         .reg-sub {
-          color: #6b7380;
+          color: var(--color-text-secondary);
           margin: 4px 0;
         }
         .reg-steps {
@@ -257,18 +257,18 @@ const RegistrationPage = () => {
           grid-template-columns: auto 1fr;
           gap: 10px;
           align-items: center;
-          color: #6b7380;
+          color: var(--color-text-secondary);
           font-weight: 700;
         }
         .reg-step .step-circle {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          border: 2px solid #cfd5e2;
+          border: 2px solid var(--color-border);
           display: grid;
           place-items: center;
           font-size: 0.85rem;
-          background: #f7f8fb;
+          background: var(--color-bg-alt);
         }
         .reg-step.active .step-circle {
           border-color: #1f4f8b;
@@ -283,11 +283,11 @@ const RegistrationPage = () => {
           font-weight: 800;
         }
         .reg-card {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: 20px;
           padding: 22px;
           box-shadow: 0 12px 30px rgba(12, 60, 78, 0.08);
-          border: 1px solid #e0e4ec;
+          border: 1px solid var(--color-border);
         }
         .section-block {
           padding-bottom: 12px;
@@ -300,7 +300,7 @@ const RegistrationPage = () => {
         }
         .section-title {
           margin: 0 0 12px;
-          color: #1f4f8b;
+          color: var(--color-primary);
           font-size: 1.2rem;
           font-weight: 800;
         }
@@ -325,7 +325,7 @@ const RegistrationPage = () => {
           flex-direction: column;
           gap: 6px;
           font-weight: 700;
-          color: #303842;
+          color: var(--color-text-primary);
           font-size: 0.95rem;
           letter-spacing: 0.2px;
         }
@@ -333,8 +333,9 @@ const RegistrationPage = () => {
           height: 44px;
           padding: 0 12px;
           border-radius: 8px;
-          border: 1px solid #e0e3eb;
-          background: #f5f7fb;
+          border: 1px solid var(--color-border);
+          background: var(--color-bg-alt);
+          color: var(--color-text-primary);
           font-size: 0.98rem;
           font-family: inherit;
         }
@@ -348,7 +349,7 @@ const RegistrationPage = () => {
           border-radius: 8px;
           border: 1px solid #e0e3eb;
           min-height: 40px;
-          background: #f5f7fb;
+          background: var(--color-bg-alt);
         }
         .actions {
           display: flex;
@@ -359,7 +360,7 @@ const RegistrationPage = () => {
         .tip-list {
           margin: 8px 0 0;
           padding-left: 16px;
-          color: #6b7380;
+          color: var(--color-text-secondary);
           line-height: 1.5;
           font-size: 0.92rem;
         }
@@ -374,15 +375,15 @@ const RegistrationPage = () => {
           transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
         }
         .btn.ghost {
-          background: #eaf3ff;
-          color: #1f4f8b;
-          border-color: #d4e5ff;
+          background: var(--color-bg-subtle);
+          color: var(--color-primary);
+          border-color: var(--color-border);
         }
         .btn.ghost:hover {
           background: #d8e9ff;
         }
         .btn.solid {
-          background: #1f4f8b;
+          background: var(--color-primary);
           color: #fff;
           box-shadow: 0 10px 22px rgba(31, 79, 139, 0.25);
         }
@@ -395,11 +396,23 @@ const RegistrationPage = () => {
           }
         }
         @media (max-width: 640px) {
+          .reg-shell {
+            padding-top: 100px;
+          }
           .reg-card, .reg-sidebar {
             padding: 16px;
           }
           .reg-layout {
             gap: 12px;
+          }
+          .form-grid.two, .form-grid.three {
+            grid-template-columns: 1fr;
+          }
+          .actions {
+            flex-direction: column-reverse;
+          }
+          .btn {
+            width: 100%;
           }
         }
       `}</style>

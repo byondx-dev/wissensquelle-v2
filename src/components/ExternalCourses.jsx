@@ -99,7 +99,7 @@ const ExternalCourses = () => {
 
       <style>{`
         .external-courses {
-          background: linear-gradient(145deg, #fdfaf3 0%, #f1eadc 45%, #ffffff 100%);
+          background: var(--color-bg-main);
           border-top: 1px solid var(--color-border-light);
           border-bottom: 1px solid var(--color-border-light);
           position: relative;
@@ -132,7 +132,7 @@ const ExternalCourses = () => {
           gap: 8px;
           padding: 0.5rem 1rem;
           border-radius: var(--radius-full);
-          background: rgba(26, 21, 16, 0.08);
+          background: var(--color-bg-alt);
           border: 1px solid var(--color-border);
           font-weight: 600;
           letter-spacing: 0.8px;
@@ -157,7 +157,7 @@ const ExternalCourses = () => {
         .benefit-tag {
           padding: 0.6rem 0.9rem;
           border-radius: var(--radius-full);
-          background: #fff;
+          background: var(--color-surface);
           border: 1px solid var(--color-border);
           color: var(--color-text-secondary);
           box-shadow: var(--shadow-sm);
@@ -165,7 +165,7 @@ const ExternalCourses = () => {
         }
 
         .external-meta {
-          background: #fff;
+          background: var(--color-surface);
           border: 1px solid var(--color-border);
           border-radius: var(--radius-lg);
           padding: var(--spacing-md);
@@ -204,7 +204,7 @@ const ExternalCourses = () => {
         }
 
         .external-card {
-          background: #fff;
+          background: var(--color-surface);
           border-radius: var(--radius-lg);
           padding: var(--spacing-md);
           border: 1px solid var(--color-border);
@@ -252,14 +252,14 @@ const ExternalCourses = () => {
         .chip {
           padding: 0.5rem 0.9rem;
           border-radius: var(--radius-full);
-          background: var(--color-text-primary);
-          color: #fff;
+          background: var(--color-surface);
+          color: var(--color-text-primary);
           font-weight: 600;
           font-size: 0.9rem;
         }
 
         .chip.muted {
-          background: #f5f1e7;
+          background: var(--color-bg-alt);
           color: var(--color-text-secondary);
           border: 1px solid var(--color-border);
         }

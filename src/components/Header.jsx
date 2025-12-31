@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import logoImg from '../assets/logo.png';
@@ -7,9 +8,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [fatawaIndex, setFatawaIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const { theme, toggleTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const searchBoxRef = useRef(null);
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
@@ -22,7 +25,7 @@ const Header = () => {
     { name: 'Madrasah', href: '/madrasah' },
     { name: 'Kurse', href: '/kurse' },
     { name: 'Gelehrte', href: '/scholars' },
-    { name: 'Über uns', href: '/about' },
+    { name: 'Artikel', href: '/articles' },
   ], []);
 
   const searchIndex = useMemo(() => {
@@ -162,6 +165,11 @@ const Header = () => {
     return [...base, ...courseEntries, ...extCourseEntries, ...fatawaEntries, ...enrollmentEntries];
   }, []);
 
+  const isSolidHeader = useMemo(() => {
+    const solidPaths = ['/dar-al-ifta', '/madrasah', '/kurse', '/scholars'];
+    return solidPaths.some((path) => location.pathname.startsWith(path));
+  }, [location.pathname]);
+
   const fatawaSlides = [
     {
       id: 'bitcoin',
@@ -182,6 +190,14 @@ const Header = () => {
       summary: 'Voraussetzungen einer gültigen Ehe und die Rolle des Vormunds im Detail.',
     },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -366,18 +382,27 @@ const Header = () => {
   };
 
   return (
-    <header className="top-shell">
+    <header className={`top-shell ${isScrolled || isSolidHeader ? 'scrolled' : ''}`}>
       <div className="header-surface">
         <button
-          className={`burger anchor ${isMenuOpen ? 'is-open' : ''}`}
+          className="burger icon-btn"
           type="button"
-          aria-label="Menü öffnen"
+          aria-label={isMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           aria-expanded={isMenuOpen}
           onClick={toggleMenu}
         >
-          <span />
-          <span />
-          <span />
+          {isMenuOpen ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          )}
         </button>
 
         <div className="brand-area">
@@ -423,45 +448,79 @@ const Header = () => {
             </button>
             <AnimatePresence>
               {isSearchOpen && (
-                <motion.div
-                  className="search-dropdown"
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18 }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Suchen..."
-                    value={query}
-                    onChange={(e) => {
-                      setQuery(e.target.value);
-                      setHighlightIndex(0);
-                    }}
-                    onKeyDown={(e) => handleKeyNav(e)}
+                <>
+                  <motion.div
+                    className="search-backdrop"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => setIsSearchOpen(false)}
                   />
-                  <div className="search-results">
-                    {searchResults.length === 0 && (
-                      <div className="search-empty">Keine Treffer</div>
-                    )}
-                    {searchResults.map((item, idx) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        className={`search-row ${idx === highlightIndex ? 'active' : ''}`}
-                        onMouseEnter={() => setHighlightIndex(idx)}
-                        onClick={() => handleSelect(item)}
-                      >
-                        <div className="row-title">{item.title}</div>
-                        <div className="row-section">{item.sectionTitle}</div>
-                        <div className="row-desc">{item.description}</div>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
+                  <motion.div
+                    className="search-dropdown"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="Suchen..."
+                      value={query}
+                      onChange={(e) => {
+                        setQuery(e.target.value);
+                        setHighlightIndex(0);
+                      }}
+                      onKeyDown={(e) => handleKeyNav(e)}
+                    />
+                    <div className="search-results">
+                      {searchResults.length === 0 && (
+                        <div className="search-empty">Keine Treffer</div>
+                      )}
+                      {searchResults.map((item, idx) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          className={`search-row ${idx === highlightIndex ? 'active' : ''}`}
+                          onMouseEnter={() => setHighlightIndex(idx)}
+                          onClick={() => handleSelect(item)}
+                        >
+                          <div className="row-title">{item.title}</div>
+                          <div className="row-section">{item.sectionTitle}</div>
+                          <div className="row-desc">{item.description}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
           </div>
+          <button
+            className="icon-btn theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Design wechseln"
+          >
+            {theme === 'light' ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+            )}
+          </button>
           <Link className="icon-btn" to="/login" aria-label="Zum Login">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="8" r="4.2" strokeWidth="1.8" fill="none" />
@@ -526,6 +585,14 @@ const Header = () => {
                     {link.name}
                   </NavLink>
                 ))}
+                <div style={{ height: '8px' }} />
+                <Link
+                  to="/register"
+                  className="mobile-register-btn"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Madrasah Anmeldung
+                </Link>
               </nav>
 
               <div className="drawer-slider" aria-label="Aktuelle Fatāwā">
@@ -568,53 +635,221 @@ const Header = () => {
       <style>{`
         .top-shell {
           position: fixed;
-          inset: 0 0 auto 0;
-          padding: 10px 18px 0;
+          top: 0;
+          left: 0;
+          width: 100%;
           z-index: 1000;
-          display: flex;
-          justify-content: center;
-          pointer-events: auto;
+          transition: background 0.3s ease, box-shadow 0.3s ease;
           background: transparent;
         }
 
+        .top-shell.scrolled {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        [data-theme="dark"] .top-shell.scrolled {
+          background: rgba(11, 14, 17, 0.95);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
         .header-surface {
-          width: min(96vw, 1260px);
-          height: 70px;
-          background: #ffffff;
-          border-radius: 18px 18px 16px 16px;
-          box-shadow: 0 12px 32px rgba(20, 46, 75, 0.12), inset 0 -1px 0 rgba(15, 92, 110, 0.04);
-          border: 1px solid rgba(9, 59, 82, 0.07);
+          max-width: 1400px;
+          margin: 0 auto;
+          height: 80px;
           display: grid;
           grid-template-columns: auto 1fr auto;
           align-items: center;
-          padding: 0 16px;
-          gap: 12px;
-          pointer-events: auto;
-          position: relative;
-          overflow: visible;
+          padding: 0 24px;
+          gap: 24px;
         }
 
-        .header-surface::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(255, 255, 255, 0)),
-                      linear-gradient(90deg, rgba(196, 155, 44, 0.07), rgba(255, 255, 255, 0));
-          opacity: 0.9;
-          pointer-events: none;
-        }
-
-        .brand-area {
-          display: flex;
-          align-items: center;
-        }
+        /* Adjust colors based on scroll state if needed, 
+           currently keeping dark text everywhere per design implication 
+           or user might want white text on transparent. 
+           Assuming dark text is fine as heroes are dark but header is on top. 
+           actually heroes are dark, so transparent header needs white text?
+           User said "transparent then white". Usually implies white text on transparent, dark on white.
+           However, user didn't explicitly ask for text color change.
+           For now, I will keep text dark as per previous design, 
+           BUT if hero is dark (which it is), dark text on transparent is invisible.
+           I will implement text color switching logic in CSS.
+        */
 
         .brand-link {
           display: inline-flex;
           align-items: center;
           gap: 10px;
           color: #0b3141;
+          transition: color 0.3s ease;
         }
+
+        [data-theme="dark"] .brand-link {
+          color: #fff;
+        }
+
+        .top-shell.scrolled .brand-link {
+          color: #0b3141;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .brand-link {
+          color: #ededed;
+        }
+
+        .brand-title {
+          font-weight: 800;
+          font-size: 1.2rem;
+          color: inherit;
+        }
+
+        .brand-sub {
+          font-size: 0.75rem;
+          color: #4f6b7a;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          transition: color 0.3s ease;
+        }
+
+        [data-theme="dark"] .brand-sub {
+          color: rgba(255,255,255,0.8);
+        }
+
+        .top-shell.scrolled .brand-sub {
+          color: #4f6b7a;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .brand-sub {
+          color: #a0a0a0;
+        }
+
+        .nav-link {
+          position: relative;
+          color: #50616d;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          font-size: 0.97rem;
+          padding: 0.35rem 0.45rem;
+          transition: color 0.3s ease;
+        }
+
+        [data-theme="dark"] .nav-link {
+          color: rgba(255,255,255,0.85);
+        }
+
+        .top-shell.scrolled .nav-link {
+          color: #50616d;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .nav-link {
+          color: #a0a0a0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+          color: #0d6a7d;
+        }
+
+        [data-theme="dark"] .nav-link:hover, 
+        [data-theme="dark"] .nav-link.active {
+          color: #fff;
+        }
+        
+        .top-shell.scrolled .nav-link:hover, 
+        .top-shell.scrolled .nav-link.active {
+          color: #0d6a7d;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .nav-link:hover, 
+        [data-theme="dark"] .top-shell.scrolled .nav-link.active {
+          color: #fff;
+        }
+        
+        .icon-btn {
+          color: #50616d;
+          transition: all 0.22s ease;
+          display: grid;
+          place-items: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1px solid transparent;
+          background: transparent;
+        }
+
+        .icon-btn:hover {
+          color: #0d6a7d;
+          background: rgba(15, 129, 153, 0.08);
+          transform: translateY(-1px);
+        }
+
+        [data-theme="dark"] .icon-btn {
+          color: rgba(255,255,255,0.85);
+        }
+
+        [data-theme="dark"] .icon-btn:hover {
+          color: #fff;
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .icon-btn svg {
+          width: 20px;
+          height: 20px;
+          stroke: currentColor;
+          fill: none;
+        }
+
+        .top-shell.scrolled .icon-btn {
+          color: #50616d;
+        }
+        
+        .top-shell.scrolled .icon-btn:hover {
+           background: rgba(11, 49, 65, 0.08);
+           color: #0f8199;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .icon-btn {
+          color: #a0a0a0;
+        }
+
+        [data-theme="dark"] .top-shell.scrolled .icon-btn:hover {
+          color: #fff;
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Hide "old" burger styles */
+        .burger {
+          display: none;
+        }
+        @media (max-width: 960px) {
+          .burger {
+            display: grid;
+            padding: 0;
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            color: #0b3141;
+          }
+           [data-theme="dark"] .burger {
+             color: #fff;
+           }
+          .top-shell.scrolled .burger {
+            color: #0b3141;
+          }
+          [data-theme="dark"] .top-shell.scrolled .burger {
+            color: #ededed;
+          }
+        }
+
+
+        .brand-area {
+          display: flex;
+          align-items: center;
+        }
+
+
 
         .logo-badge {
           width: 48px;
@@ -650,20 +885,7 @@ const Header = () => {
           gap: 2px;
         }
 
-        .brand-title {
-          font-weight: 800;
-          font-size: 1.05rem;
-          letter-spacing: 0.02em;
-          color: #0a2d3c;
-        }
 
-        .brand-sub {
-          font-size: 0.75rem;
-          color: #4f6b7a;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
 
         .desktop-nav {
           display: flex;
@@ -678,19 +900,7 @@ const Header = () => {
           white-space: nowrap;
         }
 
-        .nav-link {
-          position: relative;
-          color: #50616d;
-          font-weight: 600;
-          letter-spacing: 0.04em;
-          font-size: 0.97rem;
-          padding: 0.35rem 0.45rem;
-          transition: color 0.22s ease;
-        }
 
-        .nav-link:hover {
-          color: #0d6a7d;
-        }
 
         .nav-link::after {
           content: '';
@@ -705,10 +915,7 @@ const Header = () => {
           transition: width 0.22s ease;
         }
 
-        .nav-link.active {
-          color: #0a4f60;
-          font-weight: 700;
-        }
+
 
         .nav-link.active::after {
           width: 72%;
@@ -816,31 +1023,7 @@ const Header = () => {
           font-size: 0.95rem;
         }
 
-        .icon-btn {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          border: 1px solid rgba(8, 70, 92, 0.12);
-          background: linear-gradient(145deg, #f8fbfc, #eef3f7);
-          color: #0c3c4e;
-          display: grid;
-          place-items: center;
-          transition: all 0.22s ease;
-          box-shadow: 0 4px 12px rgba(12, 60, 78, 0.14);
-        }
 
-        .icon-btn:hover {
-          transform: translateY(-1px) scale(1.02);
-          color: #0f8199;
-          box-shadow: 0 10px 20px rgba(12, 80, 110, 0.16);
-        }
-
-        .icon-btn svg {
-          width: 18px;
-          height: 18px;
-          stroke: currentColor;
-          fill: none;
-        }
 
         .avatar-shell {
           width: 40px;
@@ -924,6 +1107,12 @@ const Header = () => {
           pointer-events: auto;
         }
 
+        [data-theme="dark"] .mobile-drawer {
+          background: linear-gradient(180deg, #151A20 0%, #0B0E11 100%);
+          box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
         .mobile-drawer::before {
           content: '';
           position: absolute;
@@ -947,6 +1136,10 @@ const Header = () => {
           gap: 10px;
           color: #0a2d3c;
           font-weight: 800;
+        }
+
+        [data-theme="dark"] .drawer-brand {
+          color: #ededed;
         }
 
         .close-btn {
@@ -997,6 +1190,13 @@ const Header = () => {
           position: relative;
         }
 
+        [data-theme="dark"] .mobile-link {
+          background: #1F252D;
+          border-color: rgba(255, 255, 255, 0.08);
+          color: #ededed;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
         .mobile-link:hover {
           transform: translateX(4px);
           border-color: #0f8199;
@@ -1020,6 +1220,25 @@ const Header = () => {
           height: 70%;
           border-radius: 0 4px 4px 0;
           background: linear-gradient(180deg, #0f8199, #c6a043);
+        }
+
+        .mobile-register-btn {
+          display: block;
+          text-align: center;
+          padding: 14px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #0f8199 0%, #0a4f60 100%);
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 0.03em;
+          text-decoration: none;
+          box-shadow: 0 8px 16px rgba(15, 129, 153, 0.2);
+          transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .mobile-register-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 24px rgba(15, 129, 153, 0.3);
         }
 
         .drawer-slider {
@@ -1060,6 +1279,12 @@ const Header = () => {
           box-shadow: 0 8px 18px rgba(8, 24, 36, 0.08);
         }
 
+        [data-theme="dark"] .slider-card {
+          background: #1F252D;
+          border-color: rgba(255, 255, 255, 0.08);
+          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        }
+
         .slider-card-link {
           text-decoration: none;
           color: inherit;
@@ -1081,6 +1306,10 @@ const Header = () => {
           font-size: 1rem;
           margin: 0 0 4px;
           color: #0a2d3c;
+        }
+
+        [data-theme="dark"] .slider-title {
+          color: #ededed;
         }
 
         .slider-summary {
@@ -1114,6 +1343,10 @@ const Header = () => {
           z-index: 1;
         }
 
+        [data-theme="dark"] .drawer-footnote {
+          color: #888888;
+        }
+
         @media (max-width: 1100px) {
           .desktop-nav {
             display: none;
@@ -1121,6 +1354,10 @@ const Header = () => {
 
           .burger {
             display: grid;
+            position: relative;
+            z-index: 20;
+            cursor: pointer;
+            pointer-events: auto;
           }
 
           .header-surface {
@@ -1197,22 +1434,42 @@ const Header = () => {
             border-radius: 10px;
           }
 
+          .search-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 24, 36, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1050;
+          }
+
           .search-dropdown {
             position: fixed;
-            top: 88px;
+            top: 50%;
             left: 50%;
-            right: auto;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%) !important; 
             width: calc(100% - 40px);
-            max-width: 640px;
-            box-shadow: 0 18px 40px rgba(12, 60, 78, 0.18);
-            border-radius: 16px;
-            margin-left: 0;
-            margin-right: 0;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            margin: 0;
+            z-index: 2000;
+          }
+
+          .search-dropdown input {
+            padding: 14px 16px;
+            font-size: 1.1rem;
           }
         }
+
+        @media (max-width: 960px) {
+          .header-surface {
+             padding: 0 16px;
+             height: 70px;
+          }
+           .nav-list { display: none; } /* Mobile drawer handles this */
+        }
       `}</style>
-    </header>
+    </header >
   );
 };
 

@@ -58,6 +58,13 @@ const ContactPage = () => {
             padding: var(--spacing-lg);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        [data-theme="dark"] .contact-info,
+        [data-theme="dark"] .contact-form {
+            background: #1F252D;
+            color: #ededed;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .form-group {
             margin-bottom: var(--spacing-md);
@@ -66,6 +73,7 @@ const ContactPage = () => {
             display: block;
             margin-bottom: var(--spacing-xs);
             font-weight: 500;
+            color: inherit;
         }
         .form-control {
             width: 100%;
@@ -73,10 +81,22 @@ const ContactPage = () => {
             border: 1px solid var(--color-border);
             border-radius: var(--radius-sm);
             font-family: inherit;
+            background: #fff;
+            color: #0b3141;
+            transition: all 0.3s ease;
+        }
+        [data-theme="dark"] .form-control {
+             background: #0B0E11;
+             border-color: rgba(255, 255, 255, 0.1);
+             color: #fff;
         }
         .form-control:focus {
             outline: none;
             border-color: var(--color-gold-start);
+        }
+        [data-theme="dark"] .form-control:focus {
+            border-color: #0f8199;
+            background: #151a20;
         }
         @media (max-width: 768px) {
             .contact-grid {

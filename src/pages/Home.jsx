@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import heroBg from '../assets/hero-bg.png';
+import heroDarkBg from '../assets/hero-dark-desert.png';
 import darLogo from '../assets/daralifta-logo.jpg';
 import madrasahLogo from '../assets/madrasah-logo.jpg';
-import aboutVisual from '../assets/about-visual.png';
-import DarAlIftaComponent from '../components/DarAlIfta';
+
 
 const Home = () => {
 
@@ -58,127 +58,142 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About / Departments */}
-      <section className="about" id="about">
-        <div className="container about-shell">
-          <div className="about-intro">
-            <span className="about-pill">Über uns</span>
-            <h2>Authentisches Wissen, kuratiert und begleitet.</h2>
-            <p className="about-desc">
-              Manba&apos; al-&apos;Ilm vereint Fatwā-Expertise und strukturiertes Studium. Unser Team arbeitet
-              kuratiert, transparent und digital geführt – damit Erkenntnis zur gelebten Praxis wird.
-            </p>
-            <div className="about-tags">
-              <span>Fatwā-Gremium</span>
-              <span>Studienpfad</span>
-              <span>Mentoring</span>
-            </div>
-            <div className="about-chip-row">
-              <div className="about-chip">
-                <span className="chip-kicker">Antwortzeit</span>
-                <strong>Ø 48h</strong>
-                <small>Fatwā-Bearbeitung</small>
-              </div>
-              <div className="about-chip">
-                <span className="chip-kicker">Curriculum</span>
-                <strong>4 Stufen</strong>
-                <small>bis Ijazah</small>
-              </div>
-              <div className="about-chip">
-                <span className="chip-kicker">Community</span>
-                <strong>1000+</strong>
-                <small>Lernende & Fragesteller</small>
-              </div>
-            </div>
-            <div className="about-actions">
-              <Link to="/dar-al-ifta" className="text-link">Zu Dār al-Iftā’ →</Link>
-              <Link to="/madrasah" className="btn btn-primary btn-sm">Madrasah starten</Link>
-            </div>
-          </div>
 
-          <div className="about-visual-stack">
-            <div className="about-plate">
-              <div className="plate-gradient"></div>
-              <div className="plate-frame">
-                <img src={aboutVisual} alt="Studierende und Gelehrte" />
+
+      {/* Core Areas */}
+      {/* 1. Dar al-Ifta Section */}
+      <section className="section-ifta" id="departments">
+        <div className="section-content">
+          <div className="split-layout">
+            <div className="text-col">
+              <span className="eyebrow-pill">Recht & Beratung</span>
+              <h2>Dar al-Ifta</h2>
+              <p className="lead">
+                Authentische fatwas und islamische Rechtsberatung für Ihr tägliches Leben.
+                Basierend auf dem Koran und der Sunnah, kontextbezogen für die heutige Zeit.
+              </p>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="check-icon">✓</span> Qualifizierte Muftis
+                </div>
+                <div className="feature-item">
+                  <span className="check-icon">✓</span> Zeitgemäße Antworten
+                </div>
+                <div className="feature-item">
+                  <span className="check-icon">✓</span> Vertrauliche Beratung
+                </div>
               </div>
-              <div className="plate-badge">Manba&apos; al-&apos;Ilm</div>
+              <Link to="/dar-al-ifta" className="btn-modern btn-gold">
+                <span>Fatwa anfragen</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
             </div>
-            <div className="floating-grid">
-              <div className="float-card gold">
-                <span className="chip-kicker">Fatwā</span>
-                <strong>Verlässlich</strong>
-                <small>Transparente Quellen</small>
-              </div>
-              <div className="float-card light">
-                <span className="chip-kicker">Madrasah</span>
-                <strong>Live & Prüfungen</strong>
-                <small>Digitale Lernplattform</small>
-              </div>
-              <div className="float-card outline">
-                <span className="chip-kicker">Begleitung</span>
-                <strong>Mentoren</strong>
-                <small>Persönliche Betreuung</small>
+            <div className="visual-col">
+              <div className="visual-card ifta-visual">
+                <div className="visual-glow"></div>
+                <img src={darLogo} alt="Dar al-Ifta" className="visual-img" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Dar al-Iftā' highlight (moved) */}
-      <section className="home-dar-block">
-        <DarAlIftaComponent />
+      {/* 2. Madrasah Section */}
+      <section className="section-madrasah">
+        <div className="section-content">
+          <div className="split-layout reverse">
+            <div className="text-col">
+              <span className="eyebrow-pill">Online Studium</span>
+              <h2>Wissensquelle Madrasah</h2>
+              <p className="lead">
+                Ihr Weg zu fundiertem islamischen Wissen. Strukturierte Online-Kurse von den Grundlagen bis zur Ijazah.
+              </p>
+              <div className="stats-row">
+                <div className="stat-mini">
+                  <strong>10+</strong>
+                  <span>Fächer</span>
+                </div>
+                <div className="stat-mini">
+                  <strong>Online</strong>
+                  <span>Live &amp; Recorded</span>
+                </div>
+              </div>
+              <Link to="/madrasah" className="btn-modern btn-blue">
+                <span>Zum Studium</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+            </div>
+            <div className="visual-col">
+              <div className="visual-card madrasah-visual">
+                <div className="visual-glow blue-glow"></div>
+                <img src={madrasahLogo} alt="Madrasah" className="visual-img" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Departments */}
-      <section className="departments" id="departments">
-        <div className="container dept-shell">
-          <div className="dept-header">
-            <span className="about-pill">Bereiche</span>
-            <h2>Zwei Abteilungen, ein Weg: Orientierung & Bildung.</h2>
-            <p className="about-desc">
-              Dār al-Iftā’ liefert geprüfte Antworten, die Madrasah As-Sunnah baut Ihr Wissen systematisch auf.
-              Beide greifen ineinander, damit Sie glauben, verstehen und handeln können.
-            </p>
+      {/* 3. External Courses Section */}
+      <section className="section-courses">
+        <div className="section-content text-center">
+          <span className="eyebrow-pill">Weiterbildung</span>
+          <h2>Externe Kurse &amp; Seminare</h2>
+          <p className="subtitle-center">
+            Flexible Lernangebote unserer Partner und Gastdozenten. <br />Perfekt für die berufliche und persönliche Weiterentwicklung.
+          </p>
+
+          <div className="courses-preview-grid">
+            <div className="preview-card">
+              <div className="card-icon course-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 6.253v13m0-13C8.12 4.164 4 4.164 4 4.164M12 6.253c3.88 0 8-2.09 8-2.09M4 4.164c0 7.12 4.764 11.196 8 11.196M16 4.164v10.5M12 17.449c3.236 0 8-4.076 8-11.196M4 22h16" /></svg>
+              </div>
+              <h4>Themendossiers</h4>
+              <p>Vertiefende Einblicke in spezielle Themengebiete.</p>
+            </div>
+            <div className="preview-card">
+              <div className="card-icon course-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              </div>
+              <h4>Webinare</h4>
+              <p>Interaktive Live-Sessions zu aktuellen Fragen.</p>
+            </div>
+            <div className="preview-card">
+              <div className="card-icon course-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+              </div>
+              <h4>Workshops</h4>
+              <p>Praxisnahe Übungen und Skill-Building.</p>
+            </div>
           </div>
-          <div className="dept-lane">
-            <div className="dept-card">
-              <div className="dept-logo">
-                <img src={darLogo} alt="Logo Dar al-Iftā’" />
-              </div>
-              <div className="dept-meta">
-                <div className="kicker">Fatwā-Gremium</div>
-                <h3>Dār al-Iftā’ Deutschland</h3>
-                <p>Verlässliche Rechtsgutachten mit klaren Quellen und praxisnahen Empfehlungen.</p>
-                <ul className="dept-list">
-                  <li>Digitale Anfrage & vertrauliche Begleitung</li>
-                  <li>Fiqh al-Aqalliyāt als Schwerpunkt</li>
-                  <li>Transparente Quellenangaben</li>
-                </ul>
-                <Link to="/dar-al-ifta" className="pill-link">Mehr erfahren →</Link>
-              </div>
-            </div>
 
-            <div className="dept-connector">
-              <span className="dot"></span>
-              <span className="line"></span>
-              <span className="dot"></span>
-            </div>
+          <Link to="/kurse" className="btn-modern btn-outline">
+            <span>Alle Kurse ansehen</span>
+          </Link>
+        </div>
+      </section>
 
-            <div className="dept-card alt">
-              <div className="dept-logo">
-                <img src={madrasahLogo} alt="Logo Madrasah As-Sunnah" />
-              </div>
-              <div className="dept-meta">
-                <div className="kicker">Online-Studium</div>
-                <h3>Madrasah As-Sunnah</h3>
-                <p>Stufenweiser Lehrplan von den Grundlagen bis zur Ijazah – begleitet und geprüft.</p>
-                <ul className="dept-list">
-                  <li>Vier Lernstufen mit Outcomes</li>
-                  <li>Live-Unterricht & Lernplattform</li>
-                  <li>Prüfungen, Zertifikat, Ijazah</li>
-                </ul>
-                <Link to="/madrasah" className="pill-link">Studium ansehen →</Link>
+      {/* 4. Scholars Section */}
+      <section className="section-scholars">
+        <div className="section-content">
+          <div className="split-layout with-overlap">
+            <div className="text-col">
+              <span className="eyebrow-pill">Gemeinschaft</span>
+              <h2>Unsere Gelehrten</h2>
+              <p className="lead">
+                Authentisches Wissen erfordert authentische Lehrer.
+                Lernen Sie die Menschen hinter Wissensquelle kennen.
+              </p>
+              <Link to="/scholars" className="btn-modern btn-dark">
+                <span>Zum Team</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </Link>
+            </div>
+            <div className="visual-col">
+              <div className="scholars-grid-preview">
+                <div className="scholar-avatar s1"></div>
+                <div className="scholar-avatar s2"></div>
+                <div className="scholar-avatar s3"></div>
+                <div className="scholar-text">&&<br />Many More</div>
               </div>
             </div>
           </div>
@@ -189,7 +204,7 @@ const Home = () => {
         .hero {
           position: relative;
           overflow: hidden;
-          min-height: 100v;
+          min-height: 100vh;
           padding: 140px 0 var(--spacing-lg);
           display: flex;
           align-items: center;
@@ -197,14 +212,351 @@ const Home = () => {
           color: var(--color-text-primary);
         }
 
+        /* REBUILT SECTIONS CSS */
+        section {
+          position: relative;
+          padding: 100px 0;
+          overflow: hidden;
+        }
+
+        .section-content {
+           max-width: 1200px;
+           margin: 0 auto;
+           padding: 0 24px;
+           position: relative;
+           z-index: 2;
+        }
+
+        .split-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: center;
+        }
+
+        .split-layout.reverse {
+           direction: rtl; /* Trick to swap columns visually */
+        }
+        
+        .split-layout.reverse > * {
+           direction: ltr; /* Reset text direction */
+        }
+
+        @media (max-width: 900px) {
+          .split-layout, .split-layout.reverse {
+            grid-template-columns: 1fr;
+            direction: ltr;
+            text-align: center;
+            gap: 40px;
+          }
+        }
+
+        .eyebrow-pill {
+          display: inline-block;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          font-weight: 700;
+          color: var(--color-gold-end);
+          padding: 8px 16px;
+          border-radius: 999px;
+          background: rgba(212, 175, 55, 0.1);
+          margin-bottom: 20px;
+          border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        h2 {
+          font-size: clamp(2rem, 4vw, 3rem);
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 24px;
+          color: var(--color-text-primary);
+        }
+        
+        .lead {
+          font-size: 1.15rem;
+          color: var(--color-text-secondary);
+          line-height: 1.7;
+          margin-bottom: 32px;
+          max-width: 500px;
+        }
+
+        @media (max-width: 900px) {
+           .lead { margin: 0 auto 32px; }
+        }
+
+        /* Buttons */
+        .btn-modern {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+        }
+        
+        .btn-modern svg {
+           width: 20px;
+           height: 20px;
+           transition: transform 0.3s ease;
+        }
+        .btn-modern:hover svg {
+           transform: translateX(4px);
+        }
+
+        .btn-gold {
+          background: linear-gradient(135deg, var(--color-gold-start), var(--color-gold-end));
+          color: #fff;
+          box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        .btn-gold:hover {
+          box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+          transform: translateY(-2px);
+        }
+
+        .btn-blue {
+          background: linear-gradient(135deg, #0F8199, #085566);
+          color: #fff;
+          box-shadow: 0 10px 20px rgba(15, 129, 153, 0.2);
+        }
+        .btn-blue:hover {
+           box-shadow: 0 15px 30px rgba(15, 129, 153, 0.3);
+           transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+           background: transparent;
+           border: 2px solid var(--color-border);
+           color: var(--color-text-primary);
+        }
+        .btn-outline:hover {
+           border-color: var(--color-gold-start);
+           color: var(--color-gold-start);
+        }
+        
+        .btn-dark {
+           background: var(--color-text-primary);
+           color: var(--color-bg-main);
+        }
+        .btn-dark:hover {
+           background: var(--color-gold-start);
+           color: #fff;
+           transform: translateY(-2px);
+        }
+
+        /* Feature Lists */
+        .feature-list {
+          margin-bottom: 32px;
+        }
+        
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+          font-weight: 500;
+          color: var(--color-text-primary);
+        }
+        
+        .check-icon {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: rgba(46, 204, 113, 0.15);
+          color: #27ae60;
+          display: grid;
+          place-items: center;
+          font-size: 0.8rem;
+          font-weight: 800;
+        }
+
+        /* Stats */
+        .stats-row {
+          display: flex;
+          gap: 32px;
+          margin-bottom: 32px;
+        }
+        
+        @media (max-width: 900px) {
+           .stats-row { justify-content: center; }
+        }
+
+        .stat-mini strong {
+           display: block;
+           font-size: 1.8rem;
+           font-weight: 800;
+           color: var(--color-text-primary);
+        }
+        .stat-mini span {
+           font-size: 0.85rem;
+           color: var(--color-text-secondary);
+           text-transform: uppercase;
+           letter-spacing: 1px;
+        }
+
+        /* Visuals */
+        .visual-card {
+           position: relative;
+           background: var(--color-surface);
+           border-radius: 30px;
+           padding: 60px;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           box-shadow: var(--shadow-xl);
+           border: 1px solid var(--color-border);
+           height: 400px;
+        }
+        
+        .visual-img {
+           max-width: 80%;
+           max-height: 80%;
+           object-fit: contain;
+           z-index: 2;
+        }
+        
+        .visual-glow {
+           position: absolute;
+           inset: 0;
+           background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15), transparent 70%);
+           z-index: 1;
+        }
+        .visual-glow.blue-glow {
+           background: radial-gradient(circle at 50% 50%, rgba(15, 129, 153, 0.15), transparent 70%);
+        }
+
+
+
+        /* Specific Sections */
+        .section-ifta { background: var(--color-bg-main); }
+        .section-madrasah { background: var(--color-bg-alt); }
+        
+        /* Courses Section */
+        .section-courses {
+           background: var(--color-bg-main);
+           text-align: center;
+        }
+        
+        .subtitle-center {
+           max-width: 600px;
+           margin: 0 auto 60px;
+           color: var(--color-text-secondary);
+           font-size: 1.1rem;
+           line-height: 1.6;
+        }
+        
+        .courses-preview-grid {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 24px;
+           margin-bottom: 50px;
+           text-align: left;
+        }
+        
+        @media (max-width: 800px) {
+           .courses-preview-grid { grid-template-columns: 1fr; }
+        }
+        
+        .preview-card {
+           background: var(--color-surface);
+           padding: 32px;
+           border-radius: 20px;
+           border: 1px solid var(--color-border);
+           transition: transform 0.3s ease;
+        }
+        .preview-card:hover { 
+           transform: translateY(-5px);
+           border-color: var(--color-gold-start);
+        }
+        
+        .card-icon.course-icon {
+           width: 50px;
+           height: 50px;
+           background: rgba(10, 79, 96, 0.1);
+           color: #0A4F60;
+           border-radius: 12px;
+           display: grid;
+           place-items: center;
+           margin-bottom: 20px;
+        }
+        
+        .preview-card h4 {
+           font-size: 1.2rem;
+           margin-bottom: 8px;
+           color: var(--color-text-primary);
+        }
+        .preview-card p {
+           font-size: 0.95rem;
+           color: var(--color-text-secondary);
+           line-height: 1.5;
+        }
+
+        /* Scholars Section */
+        .section-scholars {
+           background: var(--color-bg-alt);
+        }
+        
+        .scholars-grid-preview {
+           display: grid;
+           grid-template-columns: repeat(2, 1fr);
+           gap: 16px;
+           position: relative;
+        }
+        
+        .scholar-avatar {
+           width: 100%;
+           aspect-ratio: 1;
+           background-color: #ddd;
+           border-radius: 20px;
+           background-size: cover;
+           background-position: center;
+        }
+        .s1 { background-image: linear-gradient(135deg, #eee, #ccc); } /* Placeholders */
+        .s2 { background-image: linear-gradient(135deg, #e0e0e0, #bdbdbd); }
+        .s3 { background-image: linear-gradient(135deg, #f5f5f5, #d6d6d6); }
+        
+        .scholar-text {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           background: var(--color-gold-start);
+           color: #fff;
+           border-radius: 20px;
+           font-weight: 700;
+           text-align: center;
+           line-height: 1.2;
+           font-size: 1.2rem;
+        }
+
+
+        [data-theme="dark"] .hero {
+           background: linear-gradient(120deg, #111111 0%, #050709 100%);
+        }
+
         .hero::before {
           content: '';
           position: absolute;
-          inset: -10%;
-          background: url(${heroBg}) center center / 90% no-repeat;
+          inset: -20%;
+          background: url(${heroBg}) center center / cover no-repeat;
           opacity: 0.6;
           mix-blend-mode: multiply;
           filter: saturate(1.05);
+        }
+
+        @keyframes heroSpin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        [data-theme="dark"] .hero::before {
+          background: url(${heroDarkBg}) center bottom / cover no-repeat;
+          opacity: 0.6;
+          mix-blend-mode: normal;
+          filter: none;
+          animation: none;
         }
 
         .hero::after {
@@ -216,6 +568,12 @@ const Home = () => {
             radial-gradient(circle at 80% 18%, rgba(44, 36, 27, 0.12), transparent 35%),
             linear-gradient(90deg, rgba(249, 247, 242, 0.88) 0%, rgba(249, 247, 242, 0.38) 45%, rgba(249, 247, 242, 0.9) 100%);
           z-index: 0;
+        }
+
+        [data-theme="dark"] .hero::after {
+          background:
+            radial-gradient(circle at 18% 25%, rgba(212, 175, 55, 0.08), transparent 35%),
+            linear-gradient(90deg, rgba(11, 14, 17, 0.95) 0%, rgba(11, 14, 17, 0.6) 45%, rgba(11, 14, 17, 0.95) 100%);
         }
 
         .hero-orb {
@@ -293,7 +651,7 @@ const Home = () => {
         }
 
         .stat {
-          background: rgba(255,255,255,0.9);
+          background: var(--color-surface);
           padding: var(--spacing-sm);
           border-radius: var(--radius-lg);
           border: 1px solid var(--color-border);
@@ -365,7 +723,7 @@ const Home = () => {
           position: absolute;
           padding: 0.8rem 1rem;
           border-radius: 18px;
-          background: rgba(255,255,255,0.9);
+          background: var(--color-surface);
           border: 1px solid var(--color-border);
           backdrop-filter: blur(12px);
           color: var(--color-text-primary);
@@ -447,595 +805,6 @@ const Home = () => {
           border-radius: 999px;
           background: rgba(255,255,255,0.08);
           border: 1px solid rgba(255,255,255,0.12);
-        }
-
-        .card-link {
-          color: var(--color-gold-end);
-          font-weight: 700;
-        }
-
-        .card-footer {
-          margin-top: var(--spacing-md);
-          padding-top: var(--spacing-sm);
-          border-top: 1px solid var(--color-border);
-          color: var(--color-text-secondary);
-          font-size: 0.9rem;
-        }
-
-        /* About */
-        .about {
-          position: relative;
-          overflow: hidden;
-          background: linear-gradient(135deg, #f9f7f2 0%, #ffffff 100%);
-          color: var(--color-text-primary);
-        }
-
-        .about::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(circle at 18% 20%, rgba(212, 175, 55, 0.12), transparent 38%),
-            radial-gradient(circle at 82% 70%, rgba(26, 21, 16, 0.08), transparent 50%);
-          opacity: 0.9;
-        }
-
-        .about-shell {
-          display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
-          gap: var(--spacing-xl);
-          align-items: center;
-          position: relative;
-          z-index: 1;
-          padding: var(--spacing-xl) 0;
-        }
-
-        .about-cards {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: var(--spacing-sm);
-        }
-
-        .about-card {
-          position: relative;
-          border-radius: 22px;
-          overflow: hidden;
-          min-height: 320px;
-          box-shadow: var(--shadow-lg);
-        }
-
-        .card-fatwa {
-          background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.35)), url(${heroBg}) center/cover no-repeat;
-        }
-
-        .card-madrasah {
-          background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.32)), url(${aboutVisual}) center/cover no-repeat;
-        }
-
-        .card-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: var(--spacing-md);
-          color: #fff;
-          background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.45) 100%);
-        }
-
-        .card-kicker {
-          font-family: 'Amiri', serif;
-          letter-spacing: 0.5px;
-          font-size: 1rem;
-          opacity: 0.85;
-        }
-
-        .card-overlay h3 {
-          font-size: 1.6rem;
-          margin: 0.2rem 0;
-        }
-
-        .card-sub {
-          font-size: 1rem;
-          line-height: 1.5;
-          opacity: 0.9;
-          margin-bottom: var(--spacing-xs);
-        }
-
-        .card-learn {
-          font-weight: 700;
-          color: #fff;
-          font-size: 0.95rem;
-        }
-
-        .about-info {
-          background: linear-gradient(140deg, rgba(255, 255, 255, 0.96) 0%, rgba(249, 247, 242, 0.9) 100%);
-          border: 1px solid var(--color-border);
-          border-radius: 28px;
-          padding: calc(var(--spacing-lg) / 1.25);
-          box-shadow: var(--shadow-xl);
-          backdrop-filter: blur(var(--glass-blur));
-          position: relative;
-          overflow: hidden;
-        }
-
-        .about-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.4rem;
-          padding: 0.35rem 0.85rem;
-          border-radius: var(--radius-full);
-          background: rgba(26, 21, 16, 0.05);
-          border: 1px solid var(--color-border);
-          font-weight: 700;
-          letter-spacing: 0.8px;
-          text-transform: uppercase;
-          font-size: 0.85rem;
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .about-info h2 {
-          font-size: clamp(2.2rem, 4vw, 2.8rem);
-          line-height: 1.1;
-          margin-bottom: var(--spacing-sm);
-          color: var(--color-text-primary);
-        }
-
-        .about-desc {
-          color: var(--color-text-secondary);
-          line-height: 1.75;
-          margin-bottom: var(--spacing-md);
-          max-width: 90%;
-        }
-
-        .about-tags {
-          display: flex;
-          gap: 0.6rem;
-          flex-wrap: wrap;
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .about-tags span {
-          padding: 0.45rem 0.9rem;
-          border-radius: var(--radius-full);
-          border: 1px solid var(--color-border);
-          background: rgba(255,255,255,0.85);
-          font-weight: 600;
-          color: var(--color-text-primary);
-          box-shadow: var(--shadow-sm);
-        }
-
-        .about-stats {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-          gap: var(--spacing-sm);
-          margin: var(--spacing-sm) 0;
-        }
-
-        .about-stats .stat-number {
-          font-size: 2.2rem;
-        }
-
-        .about-actions {
-          display: flex;
-          gap: var(--spacing-sm);
-          align-items: center;
-          flex-wrap: wrap;
-          margin-top: var(--spacing-sm);
-        }
-
-        .text-link {
-          color: var(--color-gold-end);
-          font-weight: 700;
-        }
-
-        .about-chip-row {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-          gap: var(--spacing-sm);
-          margin: var(--spacing-md) 0;
-        }
-
-        .about-chip {
-          background: rgba(255,255,255,0.9);
-          border: 1px solid var(--color-border);
-          border-radius: 16px;
-          padding: var(--spacing-sm);
-          box-shadow: var(--shadow-sm);
-        }
-
-        .chip-kicker {
-          display: block;
-          font-size: 0.8rem;
-          letter-spacing: 0.6px;
-          text-transform: uppercase;
-          color: var(--color-text-light);
-          margin-bottom: 0.2rem;
-        }
-
-        .about-chip strong {
-          display: block;
-          font-size: 1.2rem;
-          color: var(--color-text-primary);
-        }
-
-        .about-chip small {
-          color: var(--color-text-secondary);
-        }
-
-        .about-visual-stack {
-          position: relative;
-          display: grid;
-          gap: var(--spacing-md);
-          justify-items: end;
-        }
-
-        .about-plate {
-          position: relative;
-          width: min(520px, 100%);
-          aspect-ratio: 4 / 3;
-          border-radius: 28px;
-          overflow: hidden;
-          box-shadow: var(--shadow-xl);
-        }
-
-        .plate-gradient {
-          position: absolute;
-          inset: -10%;
-          background:
-            radial-gradient(circle at 30% 30%, rgba(212,175,55,0.22), transparent 40%),
-            radial-gradient(circle at 80% 80%, rgba(26,21,16,0.12), transparent 40%),
-            linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(249,247,242,0.9) 100%);
-          z-index: 0;
-        }
-
-        .plate-frame {
-          position: absolute;
-          inset: 10%;
-          border-radius: 20px;
-          overflow: hidden;
-          border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-lg);
-          transform: rotate(-2deg);
-          transition: transform 0.4s ease, box-shadow 0.4s ease;
-          z-index: 1;
-        }
-
-        .plate-frame img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-
-        .about-plate:hover .plate-frame {
-          transform: rotate(-0.5deg) scale(1.02);
-          box-shadow: var(--shadow-hover);
-        }
-
-        .plate-badge {
-          position: absolute;
-          bottom: 10%;
-          left: 6%;
-          background: var(--color-gold-gradient);
-          color: #fff;
-          padding: 0.55rem 1.1rem;
-          border-radius: var(--radius-full);
-          font-weight: 700;
-          letter-spacing: 0.8px;
-          box-shadow: var(--shadow-md);
-          z-index: 2;
-        }
-
-        .floating-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-          gap: var(--spacing-sm);
-          width: 100%;
-        }
-
-        .float-card {
-          background: rgba(255,255,255,0.92);
-          border: 1px solid var(--color-border);
-          border-radius: 16px;
-          padding: var(--spacing-sm);
-          box-shadow: var(--shadow-sm);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .float-card.gold {
-          border-color: rgba(212,175,55,0.35);
-          background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(249,247,242,0.92));
-        }
-
-        .float-card.light {
-          background: rgba(255,255,255,0.9);
-        }
-
-        .float-card.outline {
-          background: rgba(255,255,255,0.85);
-        }
-
-        .float-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
-        }
-
-        .departments {
-          position: relative;
-          background: linear-gradient(135deg, #ffffff 0%, #f9f7f2 100%);
-          padding: var(--spacing-xl) 0 var(--spacing-xl);
-          color: var(--color-text-primary);
-        }
-
-        .dept-shell {
-          display: grid;
-          gap: var(--spacing-lg);
-        }
-
-        .dept-header {
-          max-width: 840px;
-        }
-
-        .dept-header h2 {
-          font-size: clamp(2.2rem, 4vw, 2.9rem);
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .dept-lane {
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          gap: var(--spacing-md);
-          align-items: center;
-        }
-
-        .dept-card {
-          background: rgba(255,255,255,0.92);
-          border: 1px solid var(--color-border);
-          border-radius: 22px;
-          padding: var(--spacing-md);
-          box-shadow: var(--shadow-lg);
-          display: grid;
-          grid-template-columns: auto 1fr;
-          gap: var(--spacing-sm);
-          align-items: center;
-        }
-
-        .dept-card.alt {
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(249, 247, 242, 0.92));
-          border: 1px solid rgba(212, 175, 55, 0.32);
-        }
-
-        .dept-logo,
-        .dept-logo-circle {
-          width: 78px;
-          height: 78px;
-          border-radius: 18px;
-          background: #fff;
-          border: 1px solid var(--color-border);
-          box-shadow: var(--shadow-sm);
-          display: grid;
-          place-items: center;
-          padding: 8px;
-        }
-
-        .dept-logo img,
-        .dept-logo-circle img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
-
-        .dept-meta h3 {
-          margin: 0 0 var(--spacing-xs) 0;
-        }
-
-        .dept-meta p {
-          color: var(--color-text-secondary);
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .dept-list {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 var(--spacing-sm);
-          display: grid;
-          gap: 0.35rem;
-        }
-
-        .dept-list li {
-          position: relative;
-          padding-left: 1rem;
-          color: var(--color-text-primary);
-          font-weight: 600;
-        }
-
-        .dept-list li::before {
-          content: '•';
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: var(--color-gold-end);
-        }
-
-        .dept-connector {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.4rem;
-        }
-
-        .dept-connector .dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: var(--color-gold-end);
-        }
-
-        .dept-connector .line {
-          width: 2px;
-          height: 120px;
-          background: linear-gradient(180deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.35) 50%, rgba(212,175,55,0) 100%);
-        }
-
-        .tile {
-          background: rgba(255, 255, 255, 0.92);
-          border-radius: 24px;
-          border: 1px solid var(--color-border);
-          padding: var(--spacing-md);
-          box-shadow: var(--shadow-lg);
-          backdrop-filter: blur(var(--glass-blur));
-        }
-
-        .tile.primary {
-          border: 1px solid rgba(212, 175, 55, 0.35);
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(249, 247, 242, 0.92));
-        }
-
-        .tile.outline {
-          background: rgba(255, 255, 255, 0.88);
-        }
-
-        .tile-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .tile-logo {
-          width: 68px;
-          height: 68px;
-          object-fit: contain;
-          border-radius: 12px;
-          background: #fff;
-          padding: 0.4rem;
-          border: 1px solid var(--color-border);
-        }
-
-        .tile-logo.round {
-          border-radius: 50%;
-        }
-
-        .tile-meta .kicker {
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          font-size: 0.78rem;
-          color: var(--color-text-light);
-          margin-bottom: 0.15rem;
-        }
-
-        .tile-title {
-          font-weight: 700;
-          color: var(--color-text-primary);
-          font-size: 1.25rem;
-        }
-
-        .tile-desc {
-          color: var(--color-text-secondary);
-          line-height: 1.6;
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .tile-list {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 var(--spacing-sm);
-          display: grid;
-          gap: 0.35rem;
-        }
-
-        .tile-list li {
-          position: relative;
-          padding-left: 1.2rem;
-          color: var(--color-text-primary);
-          font-weight: 600;
-          font-size: 0.95rem;
-        }
-
-        .tile-list li::before {
-          content: '•';
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: var(--color-gold-end);
-        }
-
-        .tile-actions .pill-link {
-          font-weight: 700;
-        }
-
-        @media (max-width: 1024px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .hero-card {
-            order: -1;
-          }
-
-          .about-shell {
-            grid-template-columns: 1fr;
-          }
-
-          .dept-lane {
-            grid-template-columns: 1fr;
-          }
-
-          .dept-connector {
-            flex-direction: row;
-            justify-content: center;
-          }
-
-          .dept-connector .line {
-            width: 120px;
-            height: 2px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .hero {
-            padding: 120px 0 var(--spacing-lg);
-          }
-
-          .hero::before {
-            background-size: 100%;
-            opacity: 0.28;
-          }
-
-          .hero-card {
-            padding: var(--spacing-md);
-          }
-
-          .hero-visual {
-            min-height: 380px;
-          }
-
-          .ring-one { width: 260px; height: 260px; }
-          .ring-two { width: 320px; height: 320px; }
-          .ring-three { display: none; }
-
-          .hero-chip {
-            position: static;
-            width: 100%;
-            margin-top: var(--spacing-xs);
-          }
-
-          .hero-shortcuts {
-            display: grid;
-          }
-
-          .about-shell {
-            grid-template-columns: 1fr;
-          }
-
-          .about-cards {
-            grid-template-columns: 1fr;
-          }
-
-          .about-plate {
-            width: 100%;
-          }
         }
       `}</style>
     </div>
