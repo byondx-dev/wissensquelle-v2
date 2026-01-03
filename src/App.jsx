@@ -12,6 +12,7 @@ import FAQ from './components/FAQ';
 import RegistrationPage from './pages/RegistrationPage';
 import FatawaDetailPage from './pages/FatawaDetailPage';
 import CoursesPage from './pages/CoursesPage';
+import MadrasahAsSunnahPage from './pages/MadrasahAsSunnahPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -50,6 +51,7 @@ function App() {
           <Route path="/fatawa" element={<DarAlIftaPage />} />
           <Route path="/fatawa/:id" element={<FatawaDetailPage />} />
           <Route path="/madrasah" element={<MadrasahPage />} />
+          <Route path="/madrasah-as-sunnah" element={<MadrasahAsSunnahPage />} />
           <Route path="/kurse" element={<CoursesPage />} />
           <Route path="/dar-al-ifta" element={<DarAlIftaPage />} />
           <Route path="/scholars" element={<ScholarsPage />} />
@@ -87,6 +89,7 @@ function App() {
                   <li><a href="/">Startseite</a></li>
                   <li><a href="/kurse">Kurse</a></li>
                   <li><a href="/madrasah">Madrasah</a></li>
+                  <li><a href="/madrasah-as-sunnah">Madrasah As-Sunnah</a></li>
                   <li><a href="/contact">Kontakt</a></li>
                 </ul>
               </div>

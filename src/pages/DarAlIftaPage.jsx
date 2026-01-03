@@ -42,14 +42,23 @@ const DarAlIftaPage = () => {
                             <Link to="/dar-al-ifta#ask-fatwa" className="btn btn-secondary">Fatwā anfragen</Link>
                         </div>
                     </div>
+                    <div className="gate-panel fade-up delay-2">
+                        <span className="eyebrow soft">Was ist die Dār al-Iftā’ DE?</span>
+                        <h3>Geprüfte Fatāwā mit Ruhe und Klarheit</h3>
+                        <p>
+                            Die Dār al-Iftā’ ist ein Institut für islamische Rechtswissenschaft (Fiqh). Unsere Gelehrten
+                            veröffentlichen regelmäßig Gutachten, die vorab von Spezialisten geprüft werden. Jede Anfrage
+                            wird vertraulich behandelt und transparent mit Quellen beantwortet.
+                        </p>
+                    </div>
                 </div>
                 <style>{`
                   .gate-hero {
                     position: relative;
-                    min-height: 420px;
+                    min-height: 900px;
                     display: flex;
                     align-items: center;
-                    padding: 140px 18px 80px;
+                    padding: 220px 18px 180px;
                     overflow: hidden;
                     background: #0a1a23;
                   }
@@ -93,8 +102,8 @@ const DarAlIftaPage = () => {
                     width: 100%;
                     display: grid;
                     grid-template-columns: 1.05fr 0.95fr;
-                    gap: 24px;
-                    align-items: center;
+                    gap: 28px;
+                    align-items: stretch;
                   }
                   .gate-text h1 {
                     margin: 8px 0;
@@ -143,6 +152,32 @@ const DarAlIftaPage = () => {
                     border: 1px solid rgba(255,255,255,0.4);
                     backdrop-filter: blur(4px);
                   }
+                  .gate-panel {
+                    background: rgba(255,255,255,0.08);
+                    border: 1px solid rgba(255,255,255,0.25);
+                    box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+                    border-radius: 18px;
+                    padding: 20px 24px;
+                    color: #fdf8ee;
+                    display: grid;
+                    gap: 10px;
+                    align-content: center;
+                    backdrop-filter: blur(10px);
+                  }
+                  .gate-panel .eyebrow.soft {
+                    color: #f8e5bc;
+                    letter-spacing: 0.04em;
+                  }
+                  .gate-panel h3 {
+                    margin: 0;
+                    font-size: clamp(1.4rem, 2vw, 1.7rem);
+                    color: #fff7ea;
+                  }
+                  .gate-panel p {
+                    margin: 0;
+                    line-height: 1.65;
+                    color: #f0e8db;
+                  }
                   @keyframes fadeUp {
                     0% { opacity: 0; transform: translateY(18px); }
                     100% { opacity: 1; transform: translateY(0); }
@@ -159,67 +194,22 @@ const DarAlIftaPage = () => {
                     .hero-actions {
                       justify-content: center;
                     }
-                    .gate-visual {
-                      height: 180px;
+                    .gate-panel {
+                      text-align: left;
+                      max-width: 540px;
+                      margin: 0 auto;
                     }
                   }
                   @media (max-width: 640px) {
                     .gate-hero {
-                      padding: 120px 14px 70px;
+                      padding: 130px 14px 90px;
                     }
-                  }
-                `}</style>
-            </section>
-
-            <section className="section dar-intro" id="iftahub">
-                <div className="container intro-single">
-                    <div className="intro-copy intro-anim">
-                        <span className="eyebrow">Was ist die Dār al-Iftā’ DE?</span>
-                        <h3>Geprüfte Fatāwā mit Ruhe und Klarheit</h3>
-                        <p>
-                            Die Dār al-Iftā’ ist ein Institut für islamische Rechtswissenschaft (Fiqh). Unsere Gelehrten
-                            veröffentlichen regelmäßig Gutachten, die vorab von Spezialisten geprüft werden. Jede Anfrage
-                            wird vertraulich behandelt und transparent mit Quellen beantwortet.
-                        </p>
-                    </div>
-                </div>
-
-                <style>{`
-                  .dar-intro {
-                    background: #f7f8fb;
-                    border-bottom: 1px solid rgba(12,60,78,0.06);
-                    padding: 70px 0;
-                  }
-                  .intro-single {
-                    display: grid;
-                    place-items: center;
-                    text-align: center;
-                  }
-                  .intro-copy {
-                    max-width: 820px;
-                    background: #ffffff;
-                    padding: 24px 26px;
-                    border-radius: 16px;
-                    box-shadow: 0 18px 40px rgba(8,24,36,0.08);
-                    border: 1px solid rgba(12,60,78,0.06);
-                  }
-                  .intro-copy h3 {
-                    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
-                    color: #0a2d3c;
-                    margin: 8px 0 10px;
-                  }
-                  .intro-copy p {
-                    color: #4f6b7a;
-                    line-height: 1.7;
-                    margin: 0;
-                  }
-                  .intro-anim {
-                    opacity: 0;
-                    animation: fadeCenter 0.9s ease forwards;
-                  }
-                  @keyframes fadeCenter {
-                    0% { opacity: 0; transform: translateY(18px); }
-                    100% { opacity: 1; transform: translateY(0); }
+                    .gate-content {
+                      gap: 18px;
+                    }
+                    .gate-panel {
+                      padding: 18px 16px;
+                    }
                   }
                 `}</style>
             </section>

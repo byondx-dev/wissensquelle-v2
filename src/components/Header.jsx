@@ -25,6 +25,7 @@ const Header = () => {
     { name: 'Startseite', href: '/' },
     { name: 'Dār al-Iftā’', href: '/dar-al-ifta' },
     { name: 'Madrasah', href: '/madrasah', highlight: true },
+    { name: 'As-Sunnah', href: '/madrasah-as-sunnah' },
     { name: 'Kurse', href: '/kurse' },
     { name: 'Gelehrte', href: '/scholars' },
     { name: 'Kontakt', href: '/contact' },

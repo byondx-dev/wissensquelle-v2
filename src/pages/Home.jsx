@@ -109,23 +109,6 @@ const Home = () => {
               </div>
               <div className="plate-badge">Manba&apos; al-&apos;Ilm</div>
             </div>
-            <div className="floating-grid">
-              <div className="float-card gold">
-                <span className="chip-kicker">Fatwā</span>
-                <strong>Verlässlich</strong>
-                <small>Transparente Quellen</small>
-              </div>
-              <div className="float-card light">
-                <span className="chip-kicker">Madrasah</span>
-                <strong>Live & Prüfungen</strong>
-                <small>Digitale Lernplattform</small>
-              </div>
-              <div className="float-card outline">
-                <span className="chip-kicker">Begleitung</span>
-                <strong>Mentoren</strong>
-                <small>Persönliche Betreuung</small>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -724,7 +707,7 @@ const Home = () => {
         .about-plate {
           position: relative;
           width: min(520px, 100%);
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 4 / 5;
           border-radius: 28px;
           overflow: hidden;
           box-shadow: var(--shadow-xl);
@@ -776,40 +759,6 @@ const Home = () => {
           letter-spacing: 0.8px;
           box-shadow: var(--shadow-md);
           z-index: 2;
-        }
-
-        .floating-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-          gap: var(--spacing-sm);
-          width: 100%;
-        }
-
-        .float-card {
-          background: rgba(255,255,255,0.92);
-          border: 1px solid var(--color-border);
-          border-radius: 16px;
-          padding: var(--spacing-sm);
-          box-shadow: var(--shadow-sm);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .float-card.gold {
-          border-color: rgba(212,175,55,0.35);
-          background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(249,247,242,0.92));
-        }
-
-        .float-card.light {
-          background: rgba(255,255,255,0.9);
-        }
-
-        .float-card.outline {
-          background: rgba(255,255,255,0.85);
-        }
-
-        .float-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
         }
 
         .departments {
